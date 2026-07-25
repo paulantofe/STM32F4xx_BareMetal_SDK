@@ -18,4 +18,18 @@
 #define AHB3PERIPH_BASEADDR    0xA0000000UL
 //-------------------------------------------
 
+// AHB1 peripherals base addresses
+#define GPIOA_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0000)
+#define GPIOB_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0400)
+#define GPIOC_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0800)
+#define GPIOD_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0C00)
+#define GPIOE_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1000)
+#define GPIOF_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1400)
+#define GPIOG_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1800)
+#define GPIOH_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1C00)
+#define GPIOI_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2000)
+#define GPIOJ_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2400)
+#define GPIOK_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2800)
+//-------------------------------------------
+
 #endif
