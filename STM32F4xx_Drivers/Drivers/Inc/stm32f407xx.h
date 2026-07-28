@@ -6,6 +6,7 @@
 #define __vo                   volatile
 
 /* ------------------- MEMORY MAPPING ------------------- */
+
 // Memory base addresses
 #define FLASH_BASEADDR         0x08000000UL
 #define SRAM1_BASEADDR         0x20000000UL
@@ -35,6 +36,7 @@
 #define GPIOI_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2000UL)
 #define GPIOJ_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2400UL)
 #define GPIOK_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2800UL)
+#define RCC_BASEADDR           (AHB1PERIPH_BASEADDR + 0x3800UL)
 //-------------------------------------------
 
 // APB1 peripherals base addresses
@@ -64,6 +66,7 @@
 
 
 /* ------------------- PERIPHERAL REGISTER DEFINITION STRUCTURES ------------------- */
+
 //GPIO register definition
 typedef struct {
 	__vo uint32_t MODER;
@@ -76,10 +79,45 @@ typedef struct {
 	__vo uint32_t LCKR;
 	__vo uint32_t AFR[2];
 } GPIO_RegDef_t;
+
+//RCC register definition
+typedef struct {
+	__vo uint32_t CR;
+	__vo uint32_t PLLCFGR;
+	__vo uint32_t CFGR;
+	__vo uint32_t CIR;
+	__vo uint32_t AHB1RSTR;
+	__vo uint32_t AHB2RSTR;
+	__vo uint32_t AHB3RSTR;
+	uint32_t      RESERVED0;
+	__vo uint32_t APB1RSTR;
+	__vo uint32_t APB2RSTR;
+	uint32_t      RESERVED1[2];
+	__vo uint32_t AHB1ENR;
+	__vo uint32_t AHB2ENR;
+	__vo uint32_t AHB3ENR;
+	uint32_t      RESERVED2;
+	__vo uint32_t APB1ENR;
+	__vo uint32_t APB2ENR;
+	uint32_t      RESERVED3[2];
+	__vo uint32_t AHB1LPENR;
+	__vo uint32_t AHB2LPENR;
+	__vo uint32_t AHB3LPENR;
+	uint32_t      RESERVED4;
+	__vo uint32_t APB1LPENR;
+	__vo uint32_t APB2LPENR;
+	uint32_t      RESERVED5[2];
+	__vo uint32_t BDCR;
+	__vo uint32_t CSR;
+	uint32_t      RESERVED6[2];
+	__vo uint32_t SSCGR;
+	__vo uint32_t PLLI2SCFGR;
+} RCC_RegDef_t;
 //-------------------------------------------
 
 
 /* ------------------- PERIPHERAL DEFINITION ------------------- */
+
 //GPIO
 #define GPIOA                  ((GPIO_RegDef_t*) GPIOA_BASEADDR)
 #define GPIOB                  ((GPIO_RegDef_t*) GPIOB_BASEADDR)
@@ -92,6 +130,9 @@ typedef struct {
 #define GPIOI                  ((GPIO_RegDef_t*) GPIOI_BASEADDR)
 #define GPIOJ                  ((GPIO_RegDef_t*) GPIOJ_BASEADDR)
 #define GPIOK                  ((GPIO_RegDef_t*) GPIOK_BASEADDR)
+
+//RCC
+#define RCC                    ((RCC_RegDef_t*) RCC_BASEADDR)
 //-------------------------------------------
 
 #endif
