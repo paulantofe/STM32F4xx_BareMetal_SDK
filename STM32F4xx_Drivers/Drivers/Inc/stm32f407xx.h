@@ -1,7 +1,7 @@
 #ifndef INC_STM32F407XX_H_
 #define INC_STM32F407XX_H_
 
-// addresses of base memory
+// Memory base addresses
 #define FLASH_BASEADDR         0x08000000UL
 #define SRAM1_BASEADDR         0x20000000UL
 #define SRAM2_BASEADDR         0x2001C000UL
@@ -9,7 +9,7 @@
 #define SRAM                   SRAM1_BASEADDR
 //-------------------------------------------
 
-// AHBx and APBx bus peripheral base addresses
+// AHBx and APBx bus base addresses
 #define PERIPH_BASEADDR        0x40000000UL
 #define APB1PERIPH_BASEADDR    PERIPH_BASEADDR
 #define APB2PERIPH_BASEADDR    0x40010000UL
@@ -19,17 +19,42 @@
 //-------------------------------------------
 
 // AHB1 peripherals base addresses
-#define GPIOA_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0000)
-#define GPIOB_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0400)
-#define GPIOC_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0800)
-#define GPIOD_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0C00)
-#define GPIOE_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1000)
-#define GPIOF_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1400)
-#define GPIOG_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1800)
-#define GPIOH_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1C00)
-#define GPIOI_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2000)
-#define GPIOJ_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2400)
-#define GPIOK_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2800)
+#define GPIOA_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0000UL)
+#define GPIOB_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0400UL)
+#define GPIOC_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0800UL)
+#define GPIOD_BASEADDR         (AHB1PERIPH_BASEADDR + 0x0C00UL)
+#define GPIOE_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1000UL)
+#define GPIOF_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1400UL)
+#define GPIOG_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1800UL)
+#define GPIOH_BASEADDR         (AHB1PERIPH_BASEADDR + 0x1C00UL)
+#define GPIOI_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2000UL)
+#define GPIOJ_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2400UL)
+#define GPIOK_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2800UL)
+//-------------------------------------------
+
+// APB1 peripherals base addresses
+#define I2C1_BASEADDR          (APB1PERIPH_BASEADDR + 0x5400UL)
+#define I2C2_BASEADDR          (APB1PERIPH_BASEADDR + 0x5800UL)
+#define I2C3_BASEADDR          (APB1PERIPH_BASEADDR + 0x5C00UL)
+#define SPI2_BASEADDR          (APB1PERIPH_BASEADDR + 0x3800UL)
+#define SPI3_BASEADDR          (APB1PERIPH_BASEADDR + 0x3C00UL)
+#define USART2_BASEADDR        (APB1PERIPH_BASEADDR + 0x4400UL)
+#define USART3_BASEADDR        (APB1PERIPH_BASEADDR + 0x4800UL)
+#define UART4_BASEADDR         (APB1PERIPH_BASEADDR + 0x4C00UL)
+#define UART5_BASEADDR         (APB1PERIPH_BASEADDR + 0x5000UL)
+#define UART7_BASEADDR         (APB1PERIPH_BASEADDR + 0x7800UL)
+#define UART8_BASEADDR         (APB1PERIPH_BASEADDR + 0x7C00UL)
+//-------------------------------------------
+
+// APB2 peripherals base addresses
+#define SPI1_BASEADDR          (APB2PERIPH_BASEADDR + 0x3000UL)
+#define SPI4_BASEADDR          (APB2PERIPH_BASEADDR + 0x3400UL)
+#define SPI5_BASEADDR          (APB2PERIPH_BASEADDR + 0x5000UL)
+#define SPI6_BASEADDR          (APB2PERIPH_BASEADDR + 0x5400UL)
+#define USART1_BASEADDR        (APB2PERIPH_BASEADDR + 0x1000UL)
+#define USART6_BASEADDR        (APB2PERIPH_BASEADDR + 0x1400UL)
+#define EXTI_BASEADDR          (APB2PERIPH_BASEADDR + 0x3C00UL)
+#define SYSCFGR_BASEADDR       (APB2PERIPH_BASEADDR + 0x3800UL)
 //-------------------------------------------
 
 #endif
