@@ -1,6 +1,9 @@
 #ifndef INC_STM32F407XX_H_
 #define INC_STM32F407XX_H_
 
+#define __vo                   volatile
+
+/* ------------------- MEMORY MAPPING ------------------- */
 // Memory base addresses
 #define FLASH_BASEADDR         0x08000000UL
 #define SRAM1_BASEADDR         0x20000000UL
@@ -30,6 +33,18 @@
 #define GPIOI_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2000UL)
 #define GPIOJ_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2400UL)
 #define GPIOK_BASEADDR         (AHB1PERIPH_BASEADDR + 0x2800UL)
+
+#define GPIOA                  (GPIO_RegDef_t*) GPIOA_BASEADDR
+#define GPIOB                  (GPIO_RegDef_t*) GPIOB_BASEADDR
+#define GPIOC                  (GPIO_RegDef_t*) GPIOC_BASEADDR
+#define GPIOD                  (GPIO_RegDef_t*) GPIOD_BASEADDR
+#define GPIOE                  (GPIO_RegDef_t*) GPIOE_BASEADDR
+#define GPIOF                  (GPIO_RegDef_t*) GPIOF_BASEADDR
+#define GPIOG                  (GPIO_RegDef_t*) GPIOG_BASEADDR
+#define GPIOH                  (GPIO_RegDef_t*) GPIOH_BASEADDR
+#define GPIOI                  (GPIO_RegDef_t*) GPIOI_BASEADDR
+#define GPIOJ                  (GPIO_RegDef_t*) GPIOJ_BASEADDR
+#define GPIOK                  (GPIO_RegDef_t*) GPIOK_BASEADDR
 //-------------------------------------------
 
 // APB1 peripherals base addresses
@@ -55,6 +70,22 @@
 #define USART6_BASEADDR        (APB2PERIPH_BASEADDR + 0x1400UL)
 #define EXTI_BASEADDR          (APB2PERIPH_BASEADDR + 0x3C00UL)
 #define SYSCFGR_BASEADDR       (APB2PERIPH_BASEADDR + 0x3800UL)
+//-------------------------------------------
+
+
+/* ------------------- PERIPHERAL REGISTER DEFINITION STRUCTURES ------------------- */
+//GPIO register definition
+typedef struct {
+	__vo uint32_t MODER;
+	__vo uint32_t OTYPER;
+	__vo uint32_t OSPEEDR;
+	__vo uint32_t PUPDR;
+	__vo uint32_t IDR;
+	__vo uint32_t ODR;
+	__vo uint32_t BSRR;
+	__vo uint32_t LCKR;
+	__vo uint32_t AFR[2];
+} GPIO_RegDef_t;
 //-------------------------------------------
 
 #endif
