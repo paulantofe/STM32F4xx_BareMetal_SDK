@@ -137,6 +137,7 @@ typedef struct {
 
 //-------------------------------------------
 
+
 /* ------------------- CLOCK ENABLE MACROS ------------------- */
 
 #define GPIOA_PCLK_EN()        (RCC->AHB1ENR |= (1 << 0))
