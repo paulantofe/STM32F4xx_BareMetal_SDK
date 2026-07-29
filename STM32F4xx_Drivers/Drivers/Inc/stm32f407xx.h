@@ -1,10 +1,18 @@
 #ifndef INC_STM32F407XX_H_
 #define INC_STM32F407XX_H_
 
-
 #include <stdint.h>
 
+/* ------------------- GENERIC MACROS ------------------- */
+
 #define __vo                   volatile
+#define ENABLE                 1
+#define DISABLE                0
+#define SET                    ENABLE
+#define RESET                  DISABLE
+
+//-------------------------------------------
+
 
 
 /* ------------------- MEMORY MAPPING ------------------- */
