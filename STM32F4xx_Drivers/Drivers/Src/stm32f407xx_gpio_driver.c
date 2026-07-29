@@ -1,4 +1,80 @@
-#include "stm32f407xx.h"
+#include "stm32f407xx_gpio_driver.h"
+
+// ------------------- DOCUMENTATION -------------------
+
+/*
+ * function:               GPIO_PCLKControl
+ * brief:                  This function enables/disables peripheral clock for the given GPIO port
+ * parameter[in]:          Base address of the GPIO peripheral
+ * parameter[in]:          ENABLE or DISABLE macros
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_Init
+ * brief:                  This function initializes a GPIO pin with the given settings
+ * parameter[in]:          GPIO handle structure with the desired settings
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_DeInit
+ * brief:                  This function resets a GPIO pin
+ * parameter[in]:          Base address of the GPIO peripheral
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_ReadFromInputPin
+ * brief:
+ * parameter[in]:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_ReadFromInputPort
+ * brief:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_WriteToOutputPin
+ * brief:
+ * parameter[in]:
+ * parameter[in]:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_WriteToOutputPort
+ * brief:
+ * parameter[in]:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_ToggleOutputPin
+ * brief:
+ * parameter[in]:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_IRQConfig
+ * brief:
+ * parameter[in]:
+ * parameter[in]:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+ * function:               GPIO_IRQHandling
+ * brief:
+ * parameter[in]:
+ * return:                 None
+ * note:                   None
+ * ------------------------------------------
+*/
+
+//-------------------------------------------
+
 
 /* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
 
