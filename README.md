@@ -12,6 +12,7 @@ Implemented Peripherals:
 * 
 
 Project Structure:
+```text
 STM32F4xx_BareMetal_SDK/
 ├── .gitignore
 ├── LICENSE
