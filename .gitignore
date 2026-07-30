@@ -57,7 +57,5 @@ dkms.conf
 # STM32CubeIDE specific
 .metadata/
 .settings/
-.cproject
-.project
 Debug/
 Release/
