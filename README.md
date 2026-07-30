@@ -16,39 +16,35 @@ Implemented Peripherals:
 
 Project Structure:
 
-STM32F4xx\_Drivers/
+STM32F4xx\_BareMetal\_SDK/
 
-├── Drivers/
+├── STM32F4xx\_Drivers/       
 
-│   ├── Inc/
+│   ├── Drivers/             
 
-│   │   ├── stm32f407xx.h
+│   │   ├── Inc/
 
-│   │   └── stm32f407xx\_gpio\_driver.h
+│   │   └── Src/
 
-│   └── Src/
+│   ├── Src/                 
 
-│       └── stm32f407xx\_gpio\_driver.c
+│   │   ├── main.c
 
-├── Src/
+│   │   ├── syscalls.c
 
-│   ├── main.c
+│   │   └── sysmem.c
 
-│   ├── syscalls.c
+│   ├── Startup/     
 
-│   └── sysmem.c
+│   │   └── startup\_stm32f407vgtx.s
 
-├── Startup/
+│   ├── STM32F407VGTX\_FLASH.ld
 
-│   └── startup\_stm32f407vgtx.s
+│   └── STM32F407VGTX\_RAM.ld
 
 ├── .gitignore
 
 ├── LICENSE
 
-├── README.md
-
-├── STM32F407VGTX\_FLASH.ld
-
-└── STM32F407VGTX\_RAM.ld
+└── README.md
 
