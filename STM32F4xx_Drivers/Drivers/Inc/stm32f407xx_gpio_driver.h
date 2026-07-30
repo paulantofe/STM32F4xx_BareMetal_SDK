@@ -3,6 +3,31 @@
 
 #include "stm32f407xx.h"
 
+/* ------------------- GENERIC GPIO MACROS ------------------- */
+
+#define GPIO_MODE_INPUT        0
+#define GPIO_MODE_OUTPUT       1
+#define GPIO_MODE_ALTFN        2
+#define GPIO_MODE_ANALOG       3
+#define GPIO_MODE_IT_FT        4
+#define GPIO_MODE_IT_RT        5
+#define GPIO_MODE_IT_RFT       6
+
+#define GPIO_OP_TYPE_PP        0
+#define GPIO_OP_TYPE_OD        1
+
+#define GPIO_SPEED_LOW         0
+#define GPIO_SPEED_MEDIUM      1
+#define GPIO_SPEED_FAST        2
+#define GPIO_SPEED_HIGH        3
+
+#define GPIO_NO_PUPD           0
+#define GPIO_PU                1
+#define GPIO_PD                2
+
+//-------------------------------------------
+
+
 /* ------------------- PIN CONFIGURATION STRUCTURES ------------------- */
 
 // Configuration structure for a GPIO pin
