@@ -144,7 +144,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
  * @retval Value of the input pin
  */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-	return 0;
+	return (pGPIOx->IDR & (1 << PinNumber)) != 0;
 }
 
 /**
