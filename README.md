@@ -4,7 +4,6 @@ This project is a library of drivers for the STM32F407xx microcontroller, writte
 
 Project Goal:  
 
-
 I created this SDK to master the ARM Cortex-M4 architecture and understand how software interacts directly with hardware. I believe that to become a capable engineer, one must understand the fundamentals of technology rather than just relying on high-level libraries.
 
 Implemented Peripherals:
