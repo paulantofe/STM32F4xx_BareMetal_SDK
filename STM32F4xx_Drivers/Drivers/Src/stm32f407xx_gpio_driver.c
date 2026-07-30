@@ -153,7 +153,7 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @retval Values of the pins in the input port
  */
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
-	return 0;
+	return (uint16_t) pGPIOx->IDR;
 }
 
 /**
