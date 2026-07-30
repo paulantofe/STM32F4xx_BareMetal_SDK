@@ -6,45 +6,30 @@ Project Goal:
 I created this SDK to master the ARM Cortex-M4 architecture and understand how software interacts directly with hardware. I believe that to become a capable engineer, one must understand the fundamentals of technology rather than just relying on high-level libraries.
 
 Implemented Peripherals:
-
 * GPIO
 * 
 * 
 * 
 
-
-
 Project Structure:
-
-STM32F4xx\_BareMetal\_SDK/
-
-├── STM32F4xx\_Drivers/       
-
-│   ├── Drivers/             
-
-│   │   ├── Inc/
-
-│   │   └── Src/
-
-│   ├── Src/                 
-
-│   │   ├── main.c
-
-│   │   ├── syscalls.c
-
-│   │   └── sysmem.c
-
-│   ├── Startup/     
-
-│   │   └── startup\_stm32f407vgtx.s
-
-│   ├── STM32F407VGTX\_FLASH.ld
-
-│   └── STM32F407VGTX\_RAM.ld
-
+STM32F4xx_BareMetal_SDK/
 ├── .gitignore
-
 ├── LICENSE
-
-└── README.md
-
+├── README.md
+└── STM32F4xx_Drivers/
+    ├── .cproject
+    ├── .project
+    ├── STM32F407VGTX_FLASH.ld
+    ├── STM32F407VGTX_RAM.ld
+    ├── Drivers/
+    │   ├── Inc/
+    │   │   ├── stm32f407xx.h
+    │   │   └── stm32f407xx_gpio_driver.h
+    │   └── Src/
+    │       └── stm32f407xx_gpio_driver.c
+    ├── Src/
+    │   ├── main.c
+    │   ├── syscalls.c
+    │   └── sysmem.c
+    └── Startup/
+        └── startup_stm32f407vgtx.s
