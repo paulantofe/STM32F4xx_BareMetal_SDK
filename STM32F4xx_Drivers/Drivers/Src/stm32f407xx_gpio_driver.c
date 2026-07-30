@@ -65,6 +65,46 @@ void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
  * @retval None
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+
+	// Mode configuration
+	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG) {
+		// non-interrupt mode
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode  << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOHandle->pGPIOx->MODER |= temp;
+	}
+	else {
+		// interrupt mode for later...
+	}
+
+	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_OUTPUT ||
+	    pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN) {
+		// OType configuration
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinOType << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+		pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		pGPIOHandle->pGPIOx->OTYPER |= temp;
+
+		// Speed configuration
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+	}
+
+	// PuPd configuration
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+	pGPIOHandle->pGPIOx->PUPDR |= temp;
+
+	// AF configuration
+	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN) {
+		uint32_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
+		uint32_t temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 8;
+
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinAFMode << (4 * temp2);
+		pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2));
+		pGPIOHandle->pGPIOx->AFR[temp1] |= temp;
+	}
 }
 
 /**
@@ -83,7 +123,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
  * @retval Value of the input pin
  */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-
+	return 0;
 }
 
 /**
@@ -92,7 +132,7 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @retval Values of the pins in the input port
  */
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
-
+	return 0;
 }
 
 /**
