@@ -123,6 +123,7 @@ typedef struct {
 	__vo uint32_t PLLI2SCFGR;
 } RCC_RegDef_t;
 
+// EXTI register definition
 typedef struct {
 	__vo uint32_t IMR;
 	__vo uint32_t EMR;
