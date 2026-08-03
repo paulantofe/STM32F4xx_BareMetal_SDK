@@ -156,6 +156,7 @@ typedef struct {
 
 // APB2 peripherals
 #define EXTI                   ((EXTI_RegDef_t*) EXTI_BASEADDR)
+#define SYSCFG                 ((SYSCFG_RegDef_t*) SYSCFGR_BASEADDR)
 
 //-------------------------------------------
 
