@@ -133,6 +133,15 @@ typedef struct {
 	__vo uint32_t PR;
 } EXTI_RegDef_t;
 
+// SYSCFG register definition
+typedef struct {
+	__vo uint32_t MEMRMP;
+	__vo uint32_t PMC;
+	__vo uint32_t EXTICR[4];
+	uint32_t RESERVED0[2];
+	__vo uint32_t CMPCR;
+} SYSCFG_RegDef_t;
+
 //-------------------------------------------
 
 
