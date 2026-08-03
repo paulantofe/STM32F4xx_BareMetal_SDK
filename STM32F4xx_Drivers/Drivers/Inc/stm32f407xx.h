@@ -155,7 +155,7 @@ typedef struct {
 // APB1 peripherals
 
 // APB2 peripherals
-#define EXTI                   ((RCC_RegDef_t*) EXTI_BASEADDR)
+#define EXTI                   ((EXTI_RegDef_t*) EXTI_BASEADDR)
 
 //-------------------------------------------
 
