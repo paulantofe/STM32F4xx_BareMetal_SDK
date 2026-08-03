@@ -12,6 +12,7 @@
 #define RESET                  DISABLE
 #define GPIO_PIN_SET           SET
 #define GPIO_PIN_RESET         RESET
+#define NULL                   ((void*) 0)
 
 //-------------------------------------------
 
