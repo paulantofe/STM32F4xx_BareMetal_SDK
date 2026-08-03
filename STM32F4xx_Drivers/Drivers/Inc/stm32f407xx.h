@@ -123,6 +123,15 @@ typedef struct {
 	__vo uint32_t PLLI2SCFGR;
 } RCC_RegDef_t;
 
+typedef struct {
+	__vo uint32_t IMR;
+	__vo uint32_t EMR;
+	__vo uint32_t RTSR;
+	__vo uint32_t FTSR;
+	__vo uint32_t SWIER;
+	__vo uint32_t PR;
+} EXTI_RegDef_t;
+
 //-------------------------------------------
 
 
@@ -143,7 +152,9 @@ typedef struct {
 #define RCC                    ((RCC_RegDef_t*) RCC_BASEADDR)
 
 // APB1 peripherals
+
 // APB2 peripherals
+#define EXTI                   ((RCC_RegDef_t*) EXTI_BASEADDR)
 
 //-------------------------------------------
 
