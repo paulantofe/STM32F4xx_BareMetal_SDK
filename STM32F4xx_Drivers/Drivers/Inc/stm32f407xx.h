@@ -205,7 +205,7 @@ typedef struct {
 #define USART3_PCLK_EN()       (RCC->APB1ENR |= (1 << 18))
 #define USART6_PCLK_EN()       (RCC->APB2ENR |= (1 << 5))
 
-#define SYSCFGR_PCLK_EN()      (RCC->APB2ENR |= (1 << 14))
+#define SYSCFG_PCLK_EN()       (RCC->APB2ENR |= (1 << 14))
 
 //-------------------------------------------
 
