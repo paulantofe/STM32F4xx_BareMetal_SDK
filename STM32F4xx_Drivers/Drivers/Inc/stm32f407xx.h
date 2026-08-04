@@ -267,4 +267,17 @@ typedef struct {
 
 //-------------------------------------------
 
+
+/* ------------------- Interrupt Request Numbers ------------------- */
+
+#define EXTI0_IRQn             6
+#define EXTI1_IRQn             7
+#define EXTI2_IRQn             8
+#define EXTI3_IRQn             9
+#define EXTI4_IRQn             10
+#define EXTI9_5_IRQn           23
+#define EXTI15_10_IRQn         40
+
+//-------------------------------------------
+
 #endif
