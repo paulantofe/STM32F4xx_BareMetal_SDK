@@ -60,4 +60,4 @@ dkms.conf
 Debug/
 Release/
 *.launch
-main.c
+STM32F4xx_Drivers/Src/main.c
