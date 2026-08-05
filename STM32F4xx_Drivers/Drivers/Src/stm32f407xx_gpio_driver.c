@@ -225,7 +225,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @param  EnorDi		ENABLE/DISABLE macros
  * @retval None
  */
-void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi) {
+void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	if (IRQNumber > 81) {
 		return;
 	}
@@ -244,7 +244,7 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi) {
  * @param  IRQPriority	Priority of the interrupt
  * @retval None
  */
-void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority) {
+void GPIO_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	if (IRQNumber > 81 || IRQPriority > 15) {
 		return;
 	}
