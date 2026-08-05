@@ -19,8 +19,9 @@
 
 /* ------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) ------------------- */
 
-#define NVIC_ISER        ((__vo uint32_t*) 0xE000E100UL)
-#define NVIC_ICER        ((__vo uint32_t*) 0XE000E180UL)
+#define NVIC_ISER              ((__vo uint32_t*) 0xE000E100UL)
+#define NVIC_ICER              ((__vo uint32_t*) 0XE000E180UL)
+#define NVIC_IPR               ((__vo uint32_t*) 0xE000E400UL)
 
 //-------------------------------------------
 
