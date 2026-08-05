@@ -256,12 +256,14 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority) {
 }
 
 /**
- * @brief  Handle the interrupt for a specific GPIO pin
+ * @brief  Clear the EXTI_PR bit corresponding to the PinNumber
  * @param  PinNumber	Number of the pin that triggered the interrupt
  * @retval None
  */
 void GPIO_IRQHandling(uint8_t PinNumber) {
-
+	if (EXTI->PR & (1 << PinNumber)) {
+		EXTI->PR = (1 << PinNumber);
+	}
 }
 
 //-------------------------------------------
