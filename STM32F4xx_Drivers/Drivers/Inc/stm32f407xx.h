@@ -19,15 +19,8 @@
 
 /* ------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) ------------------- */
 
-// NVIC ISRx register addresses
-#define NVIC_ISER0             (__vo uint32_t*) 0xE000E100UL
-#define NVIC_ISER1             (__vo uint32_t*) 0xE000E104UL
-#define NVIC_ISER2             (__vo uint32_t*) 0xE000E108UL
-#define NVIC_ISER3             (__vo uint32_t*) 0xE000E10CUL
-#define NVIC_ISER4             (__vo uint32_t*) 0xE000E110UL
-#define NVIC_ISER5             (__vo uint32_t*) 0xE000E114UL
-#define NVIC_ISER6             (__vo uint32_t*) 0xE000E118UL
-#define NVIC_ISER7             (__vo uint32_t*) 0xE000E11CUL
+#define NVIC_ISER        ((__vo uint32_t*) 0xE000E100UL)
+#define NVIC_ICER        ((__vo uint32_t*) 0XE000E180UL)
 
 //-------------------------------------------
 
