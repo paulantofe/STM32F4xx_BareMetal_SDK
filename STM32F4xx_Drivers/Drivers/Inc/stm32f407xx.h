@@ -13,6 +13,7 @@
 #define GPIO_PIN_SET           SET
 #define GPIO_PIN_RESET         RESET
 #define NULL                   ((void*) 0)
+#define NO_PR_BITS_IMPLEMENTED 4
 
 //-------------------------------------------
 
