@@ -291,4 +291,26 @@ typedef enum {
 
 //-------------------------------------------
 
+
+/* ------------------- Interrupt Request Priority Numbers ------------------- */
+
+#define NVIC_IRQ_PR0           0
+#define NVIC_IRQ_PR1           1
+#define NVIC_IRQ_PR2           2
+#define NVIC_IRQ_PR3           3
+#define NVIC_IRQ_PR4           4
+#define NVIC_IRQ_PR5           5
+#define NVIC_IRQ_PR6           6
+#define NVIC_IRQ_PR7           7
+#define NVIC_IRQ_PR8           8
+#define NVIC_IRQ_PR9           9
+#define NVIC_IRQ_PR10          10
+#define NVIC_IRQ_PR11          11
+#define NVIC_IRQ_PR12          12
+#define NVIC_IRQ_PR13          13
+#define NVIC_IRQ_PR14          14
+#define NVIC_IRQ_PR15          15
+
+//-------------------------------------------
+
 #endif
