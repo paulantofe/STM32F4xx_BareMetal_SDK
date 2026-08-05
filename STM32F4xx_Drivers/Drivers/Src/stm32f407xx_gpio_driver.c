@@ -222,12 +222,37 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
 /**
  * @brief  Configure an interrupt on a GPIO pin
  * @param  IRQNumber	Number of the interrupt request
- * @param  IRQPriority	Priority of the interrupt
  * @param  EnorDi		ENABLE/DISABLE macros
  * @retval None
  */
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi) {
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi) {
+	if (IRQNumber > 81) {
+		return;
+	}
 
+	if (EnorDi == ENABLE) {
+		NVIC_ISER_BASEADDR[IRQNumber / 32] |= (1 << (IRQNumber % 32));
+	}
+	else {
+		NVIC_ICER_BASEADDR[IRQNumber / 32] |= (1 << (IRQNumber % 32));
+	}
+}
+
+/**
+ * @brief  Set interrupt priority for a GPIO pin
+ * @param  IRQNumber	Number of the interrupt request
+ * @param  IRQPriority	Priority of the interrupt
+ * @retval None
+ */
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority) {
+	if (IRQNumber > 81 || IRQPriority > 15) {
+		return;
+	}
+
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprxSection = IRQNumber % 4;
+	uint8_t shiftAmount = 8 * iprxSection + (8 - NO_PR_BITS_IMPLEMENTED);
+	NVIC_IPR_BASEADDR[iprx] |= (IRQPriority << shiftAmount);
 }
 
 /**
