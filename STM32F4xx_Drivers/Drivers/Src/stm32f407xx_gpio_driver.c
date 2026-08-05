@@ -102,8 +102,8 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
  */
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
 	uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOx);
-	RCC->AHB2RSTR |= (1 << portCode);
-	RCC->AHB2RSTR &= ~(1 << portCode);
+	RCC->AHB1RSTR |= (1 << portCode);
+	RCC->AHB1RSTR &= ~(1 << portCode);
 }
 
 /**
