@@ -26,7 +26,7 @@
 #define DEBOUNCE_DELAY         15000
 #define PATTERN_DELAY          50000
 #define TIMEOUT_THRESHOLD      100
-#define PWM_STEP_MULTIPLIER   10
+#define PWM_STEP_MULTIPLIER    10
 
 //-------------------------------------------
 
