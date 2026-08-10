@@ -255,7 +255,7 @@ typedef struct {
 //-------------------------------------------
 
 
-/* ------------------- GPIO RESET MACROS ------------------- */
+/* ------------------- RESET MACROS ------------------- */
 
 #define GPIOA_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 0); RCC->AHB1RSTR &= ~(1 << 0); } while (0)
 #define GPIOB_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 1); RCC->AHB1RSTR &= ~(1 << 1); } while (0)
@@ -268,6 +268,13 @@ typedef struct {
 #define GPIOI_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 8); RCC->AHB1RSTR &= ~(1 << 8); } while (0)
 #define GPIOJ_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 9); RCC->AHB1RSTR &= ~(1 << 9); } while (0)
 #define GPIOK_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 10); RCC->AHB1RSTR &= ~(1 << 10); } while (0)
+
+#define SPI1_REG_RESET()       do { RCC->APB2RSTR |= (1 << 12); RCC->APB2RSTR &= ~(1 << 12); } while (0)
+#define SPI2_REG_RESET()       do { RCC->APB1RSTR |= (1 << 14); RCC->APB1RSTR &= ~(1 << 14); } while (0)
+#define SPI3_REG_RESET()       do { RCC->APB1RSTR |= (1 << 15); RCC->APB1RSTR &= ~(1 << 15); } while (0)
+#define SPI4_REG_RESET()       do { RCC->APB2RSTR |= (1 << 13); RCC->APB2RSTR &= ~(1 << 13); } while (0)
+#define SPI5_REG_RESET()       do { RCC->APB2RSTR |= (1 << 20); RCC->APB2RSTR &= ~(1 << 20); } while (0)
+#define SPI6_REG_RESET()       do { RCC->APB2RSTR |= (1 << 21); RCC->APB2RSTR &= ~(1 << 21); } while (0)
 
 //-------------------------------------------
 
