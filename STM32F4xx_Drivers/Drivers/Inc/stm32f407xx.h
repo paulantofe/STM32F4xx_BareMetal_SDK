@@ -199,62 +199,6 @@ typedef struct {
 //-------------------------------------------
 
 
-/* ------------------- CLOCK ENABLE MACROS ------------------- */
-
-#define I2C1_PCLK_EN()         (RCC->APB1ENR |= (1 << 21))
-#define I2C2_PCLK_EN()         (RCC->APB1ENR |= (1 << 22))
-#define I2C3_PCLK_EN()         (RCC->APB1ENR |= (1 << 23))
-
-#define SPI1_PCLK_EN()         (RCC->APB2ENR |= (1 << 12))
-#define SPI2_PCLK_EN()         (RCC->APB1ENR |= (1 << 14))
-#define SPI3_PCLK_EN()         (RCC->APB1ENR |= (1 << 15))
-#define SPI4_PCLK_EN()         (RCC->APB2ENR |= (1 << 13))
-#define SPI5_PCLK_EN()         (RCC->APB2ENR |= (1 << 20))
-#define SPI6_PCLK_EN()         (RCC->APB2ENR |= (1 << 21))
-
-#define UART4_PCLK_EN()        (RCC->APB1ENR |= (1 << 19))
-#define UART5_PCLK_EN()        (RCC->APB1ENR |= (1 << 20))
-#define UART7_PCLK_EN()        (RCC->APB1ENR |= (1 << 30))
-#define UART8_PCLK_EN()        (RCC->APB1ENR |= (1 << 31))
-
-#define USART1_PCLK_EN()       (RCC->APB2ENR |= (1 << 4))
-#define USART2_PCLK_EN()       (RCC->APB1ENR |= (1 << 17))
-#define USART3_PCLK_EN()       (RCC->APB1ENR |= (1 << 18))
-#define USART6_PCLK_EN()       (RCC->APB2ENR |= (1 << 5))
-
-#define SYSCFG_PCLK_EN()       (RCC->APB2ENR |= (1 << 14))
-
-//-------------------------------------------
-
-
-/* ------------------- CLOCK DISABLE MACROS ------------------- */
-
-#define I2C1_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 21))
-#define I2C2_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 22))
-#define I2C3_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 23))
-
-#define SPI1_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 12))
-#define SPI2_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 14))
-#define SPI3_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 15))
-#define SPI4_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 13))
-#define SPI5_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 20))
-#define SPI6_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 21))
-
-#define UART4_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 19))
-#define UART5_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 20))
-#define UART7_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 30))
-#define UART8_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 31))
-
-#define USART1_PCLK_DI()       (RCC->APB2ENR &= ~(1 << 4))
-#define USART2_PCLK_DI()       (RCC->APB1ENR &= ~(1 << 17))
-#define USART3_PCLK_DI()       (RCC->APB1ENR &= ~(1 << 18))
-#define USART6_PCLK_DI()       (RCC->APB2ENR &= ~(1 << 5))
-
-#define SYSCFGR_PCLK_DI()      (RCC->APB2ENR &= ~(1 << 14))
-
-//-------------------------------------------
-
-
 /* ------------------- GPIO RESET MACROS ------------------- */
 
 #define GPIOA_REG_RESET()      do { RCC->AHB1RSTR |= (1 << 0); RCC->AHB1RSTR &= ~(1 << 0); } while (0)
