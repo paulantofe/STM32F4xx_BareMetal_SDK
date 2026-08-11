@@ -1,3 +1,12 @@
+/**
+ * @file 		stm32f407xx_spi_driver.c
+ * @brief 		Source file for SPI peripheral support
+ *
+ * @details     This source file contains the implementation of the APIs for the SPI peripherals on the MCU. It includes the functional
+ *              code for peripheral clock control, SPI initialization and de-initialization, data transmission, as well as interrupt
+ *              configuration and handling.
+ */
+
 #include "stm32f407xx_spi_driver.h"
 
 /* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
