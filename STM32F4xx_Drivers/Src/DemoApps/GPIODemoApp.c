@@ -1,6 +1,6 @@
 /**
- * @file GPIODemoApp.c
- * @brief STM32F407xx Bare-Metal GPIO driver demo
+ * @file 		GPIODemoApp.c
+ * @brief 	    STM32F407xx Bare-Metal GPIO driver demo
  *
  * @details		This demo uses a software PWM to control the brightness of the LEDs.
  *              Each button press increases the duty cycle in steps of 25% (from 0% - OFF to 100% - FULL BRIGHTNESS).
