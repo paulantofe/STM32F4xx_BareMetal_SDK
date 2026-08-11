@@ -7,7 +7,6 @@
  *              for SPI initialization, data transmission and interrupt handling.
  */
 
-
 #ifndef INC_STM32F407XX_SPI_DRIVER_H_
 #define INC_STM32F407XX_SPI_DRIVER_H_
 

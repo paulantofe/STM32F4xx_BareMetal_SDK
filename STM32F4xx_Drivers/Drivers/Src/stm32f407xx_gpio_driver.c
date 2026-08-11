@@ -7,7 +7,6 @@
  *              as well as interrupt configuration and handling
  */
 
-
 #include "stm32f407xx_gpio_driver.h"
 
 /* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
