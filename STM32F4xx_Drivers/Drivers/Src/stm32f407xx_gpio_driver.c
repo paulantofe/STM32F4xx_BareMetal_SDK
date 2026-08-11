@@ -1,3 +1,13 @@
+/**
+ * @file 		stm32f407xx_gpio_driver.c
+ * @brief 		Source file for GPIO peripheral support
+ *
+ * @details     This source file contains the implementation of the APIs for the GPIO peripherals on the MCU. It includes the functional
+ *              code for peripheral clock control, GPIO initialization and de-initialization, read/write operations on pins and ports,
+ *              as well as interrupt configuration and handling
+ */
+
+
 #include "stm32f407xx_gpio_driver.h"
 
 /* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
