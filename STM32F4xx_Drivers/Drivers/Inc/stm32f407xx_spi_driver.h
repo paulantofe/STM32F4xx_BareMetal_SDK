@@ -1,3 +1,13 @@
+/**
+ * @file 		stm32f407xx_spi_driver.h
+ * @brief 		Header file for SPI peripheral support
+ *
+ * @details     This header file provides the configuration and handle structures for the SPI peripherals on the MCU. It includes user macros for
+ *              device modes, bus configurations, clock speeds, data frame formats and clock polarity/phase, along with API function prototypes
+ *              for SPI initialization, data transmission and interrupt handling.
+ */
+
+
 #ifndef INC_STM32F407XX_SPI_DRIVER_H_
 #define INC_STM32F407XX_SPI_DRIVER_H_
 
