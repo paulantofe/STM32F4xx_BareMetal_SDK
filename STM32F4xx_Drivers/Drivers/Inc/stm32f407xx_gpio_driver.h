@@ -1,9 +1,18 @@
+/**
+ * @file 		stm32f407xx_gpio_driver.h
+ * @brief 		Header file for GPIO peripheral support
+ *
+ * @details     This header file provides the configuration and handle structures for the GPIO peripherals on the MCU. It includes user  macros
+ *              for pin modes, output types, speeds and pull-up/pull-down resistors, along with the API function prototypes for GPIO
+ *              initialization, read/write operations and interrupt handling.
+ */
+
 #ifndef INC_STM32F407XX_GPIO_DRIVER_H_
 #define INC_STM32F407XX_GPIO_DRIVER_H_
 
 #include "stm32f407xx.h"
 
-/* ------------------- GENERIC GPIO MACROS ------------------- */
+/* ------------------- GENERIC MACROS ------------------- */
 
 /**
  * @GPIO_MODES
@@ -72,7 +81,7 @@
 //-------------------------------------------
 
 
-/* ------------------- PIN CONFIGURATION STRUCTURES ------------------- */
+/* ------------------- CONFIGURATION STRUCTURES ------------------- */
 
 // Configuration structure for a GPIO pin
 typedef struct {
