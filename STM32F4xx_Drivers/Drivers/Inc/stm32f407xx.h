@@ -1,3 +1,12 @@
+/**
+ * @file 		stm32f407xx.h
+ * @brief 		Generic header file for stm32f407xx microcontroller
+ *
+ * @details     This header file defines generic macros, maps the memory and peripheral addresses and provides register definition structures
+ *              for core peripherals (GPIO, RCC, SPI, EXTI, SYSCFG, I2C, UART, USART). Additionally, it contains helper macros for peripheral
+ *              clock management, register resets and IRQ definitions for the NVIC.
+ */
+
 #ifndef INC_STM32F407XX_H_
 #define INC_STM32F407XX_H_
 
