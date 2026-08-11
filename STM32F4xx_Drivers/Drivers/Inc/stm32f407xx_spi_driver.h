@@ -12,6 +12,13 @@
 
 #include "stm32f407xx.h"
 
+/* ------------------- GENERIC MACROS ------------------- */
+
+
+
+//-------------------------------------------
+
+
 /* ------------------- CONFIGURATION STRUCTURES ------------------- */
 
 // Configuration structure for SPI
