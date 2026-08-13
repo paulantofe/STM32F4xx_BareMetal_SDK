@@ -112,36 +112,36 @@ typedef struct {
 
 // RCC register definition
 typedef struct {
-	__vo uint32_t CR;          /**< RCC  */
-	__vo uint32_t PLLCFGR;
-	__vo uint32_t CFGR;
-	__vo uint32_t CIR;
-	__vo uint32_t AHB1RSTR;
-	__vo uint32_t AHB2RSTR;
-	__vo uint32_t AHB3RSTR;
-	uint32_t      RESERVED0;
-	__vo uint32_t APB1RSTR;
-	__vo uint32_t APB2RSTR;
-	uint32_t      RESERVED1[2];
-	__vo uint32_t AHB1ENR;
-	__vo uint32_t AHB2ENR;
-	__vo uint32_t AHB3ENR;
-	uint32_t      RESERVED2;
-	__vo uint32_t APB1ENR;
-	__vo uint32_t APB2ENR;
-	uint32_t      RESERVED3[2];
-	__vo uint32_t AHB1LPENR;
-	__vo uint32_t AHB2LPENR;
-	__vo uint32_t AHB3LPENR;
-	uint32_t      RESERVED4;
-	__vo uint32_t APB1LPENR;
-	__vo uint32_t APB2LPENR;
-	uint32_t      RESERVED5[2];
-	__vo uint32_t BDCR;
-	__vo uint32_t CSR;
-	uint32_t      RESERVED6[2];
-	__vo uint32_t SSCGR;
-	__vo uint32_t PLLI2SCFGR;
+	__vo uint32_t CR;           /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t PLLCFGR;      /**< PLL Configuration Register               offset 0x04  */
+	__vo uint32_t CFGR;         /**< Clock Configuration Register             offset 0x08  */
+	__vo uint32_t CIR;          /**< Clock Interrupt Register                 offset 0x0C  */
+	__vo uint32_t AHB1RSTR;     /**< AHB1 Peripheral Reset Register           offset 0x10  */
+	__vo uint32_t AHB2RSTR;     /**< AHB2 Peripheral Reset Register           offset 0x14  */
+	__vo uint32_t AHB3RSTR;     /**< AHB3 Peripheral Reset Register           offset 0x18  */
+	uint32_t      RESERVED0;    /**< RESERVED MEMORY                          offset 0x1C  */
+	__vo uint32_t APB1RSTR;     /**< APB1 Peripheral Reset Register           offset 0x20  */
+	__vo uint32_t APB2RSTR;     /**< APB2 Peripheral Reset Register           offset 0x24  */
+	uint32_t      RESERVED1[2]; /**< RESERVED MEMORY                          offset 0x28  */
+	__vo uint32_t AHB1ENR;      /**< AHB1 Peripheral Clock Enable Register    offset 0x30  */
+	__vo uint32_t AHB2ENR;      /**< AHB2 Peripheral Clock Enable Register    offset 0x34  */
+	__vo uint32_t AHB3ENR;      /**< AHB3 Peripheral Clock Enable Register    offset 0x38  */
+	uint32_t      RESERVED2;    /**< RESERVED MEMORY                          offset 0x3C  */
+	__vo uint32_t APB1ENR;      /**< APB1 Peripheral Clock Enable Register    offset 0x40  */
+	__vo uint32_t APB2ENR;      /**< AHB2 Peripheral Clock Enable Register    offset 0x44  */
+	uint32_t      RESERVED3[2]; /**< RESERVED MEMORY                          offset 0x48  */
+	__vo uint32_t AHB1LPENR;    /**< AHB1 PCLK Enable Low Power Mode Register offset 0x50  */
+	__vo uint32_t AHB2LPENR;    /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t AHB3LPENR;    /**< Clock Control Register                   offset 0x00  */
+	uint32_t      RESERVED4;    /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t APB1LPENR;    /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t APB2LPENR;    /**< Clock Control Register                   offset 0x00  */
+	uint32_t      RESERVED5[2]; /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t BDCR;         /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t CSR;          /**< Clock Control Register                   offset 0x00  */
+	uint32_t      RESERVED6[2]; /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t SSCGR;        /**< Clock Control Register                   offset 0x00  */
+	__vo uint32_t PLLI2SCFGR;   /**< Clock Control Register                   offset 0x00  */ 
 } RCC_RegDef_t;
 
 // EXTI register definition
