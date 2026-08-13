@@ -97,15 +97,17 @@
 
 // GPIO register definition
 typedef struct {
-	__vo uint32_t MODER;
-	__vo uint32_t OTYPER;
-	__vo uint32_t OSPEEDR;
-	__vo uint32_t PUPDR;
-	__vo uint32_t IDR;
-	__vo uint32_t ODR;
-	__vo uint32_t BSRR;
-	__vo uint32_t LCKR;
-	__vo uint32_t AFR[2];
+	__vo uint32_t MODER;       /**< GPIOx Mode Register offset 0x00 */   
+	__vo uint32_t OTYPER;      /**< GPIOx Output Type Register offset 0x04 */ 
+	__vo uint32_t OSPEEDR;     /**< GPIOx Output Speed Register offset 0x08 */ 
+	__vo uint32_t PUPDR;       /**< GPIOx Pull-Up/Pull-Down Register  offset 0x0C */ 
+	__vo uint32_t IDR;         /**< GPIOx Input Data Register offset 0x10 */ 
+	__vo uint32_t ODR;         /**< GPIOx Output Data Register offset 0x14 */ 
+	__vo uint32_t BSRR;        /**< GPIOx Bit Set/Reset Register offset 0x18 */ 
+	__vo uint32_t LCKR;        /**< GPIOx Configuration Lock Register offset 0x1C */ 
+	__vo uint32_t AFR[2];      /**< GPIOx Alternate Function Register offset 0x20 
+	                                @note AFR[0]: Alternate Function Low Register offset 0x20
+									      AFR[1]: Alternate Function High Register offset 0x24 */ 
 } GPIO_RegDef_t;
 
 // RCC register definition
