@@ -21,7 +21,7 @@
 
 /* -------------------------- CONFIGURATION STRUCTURES -------------------------- */
 
-/** Configuration structure for SPI */
+/** @brief Configuration structure for SPI */
 typedef struct {
 	uint8_t SPI_DeviceMode;
 	uint8_t SPI_BusConfig;
@@ -32,7 +32,7 @@ typedef struct {
 	uint8_t SPI_SSM;
 } SPI_Config_t;
 
-/** Handle structure for SPI */
+/** @brief Handle structure for SPI */
 typedef struct {
 	SPI_RegDef_t *pSPIx;
 	SPI_Config_t SPI_Config;
