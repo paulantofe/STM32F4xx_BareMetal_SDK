@@ -12,16 +12,16 @@
 
 #include "stm32f407xx.h"
 
-/* ------------------- GENERIC MACROS ------------------- */
+/* -------------------------- GENERIC MACROS -------------------------- */
 
 
 
-//-------------------------------------------
+/* -------------------------------------------------------------------- */
 
 
-/* ------------------- CONFIGURATION STRUCTURES ------------------- */
+/* -------------------------- CONFIGURATION STRUCTURES -------------------------- */
 
-// Configuration structure for SPI
+/** Configuration structure for SPI */
 typedef struct {
 	uint8_t SPI_DeviceMode;
 	uint8_t SPI_BusConfig;
@@ -32,16 +32,16 @@ typedef struct {
 	uint8_t SPI_SSM;
 } SPI_Config_t;
 
-// Handle structure for SPI
+/** Handle structure for SPI */
 typedef struct {
 	SPI_RegDef_t *pSPIx;
 	SPI_Config_t SPI_Config;
 } SPI_Handle_t;
 
-//-------------------------------------------
+/* ------------------------------------------------------------------------------ */
 
 
-/* ------------------- SUPPORTED APIs ------------------- */
+/* -------------------------- SUPPORTED APIs -------------------------- */
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
@@ -55,6 +55,6 @@ void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
-//-------------------------------------------
+/* -------------------------------------------------------------------- */
 
 #endif
