@@ -97,17 +97,17 @@
 
 // GPIO register definition
 typedef struct {
-	__vo uint32_t MODER;       /**< Mode Register 			     offset 0x00 */   
-	__vo uint32_t OTYPER;      /**< Output Type Register         offset 0x04 */ 
-	__vo uint32_t OSPEEDR;     /**< Output Speed Register        offset 0x08 */ 
-	__vo uint32_t PUPDR;       /**< Pull-Up/Pull-Down Register   offset 0x0C */ 
-	__vo uint32_t IDR;         /**< Input Data Register 	     offset 0x10 */ 
-	__vo uint32_t ODR;         /**< Output Data Register 	     offset 0x14 */ 
-	__vo uint32_t BSRR;        /**< Bit Set/Reset Register 	     offset 0x18 */ 
-	__vo uint32_t LCKR;        /**< Configuration Lock Register  offset 0x1C */ 
-	__vo uint32_t AFR[2];      /**< Alternate Function Registers offset 0x20 
-	                                @note AFR[0]: Alternate Function Low Register offset 0x20
-									      AFR[1]: Alternate Function High Register offset 0x24 */ 
+	__vo uint32_t MODER;       /**< Mode Register 			                  offset 0x00 */
+	__vo uint32_t OTYPER;      /**< Output Type Register                      offset 0x04 */
+	__vo uint32_t OSPEEDR;     /**< Output Speed Register                     offset 0x08 */
+	__vo uint32_t PUPDR;       /**< Pull-Up/Pull-Down Register                offset 0x0C */
+	__vo uint32_t IDR;         /**< Input Data Register 	                  offset 0x10 */
+	__vo uint32_t ODR;         /**< Output Data Register 	                  offset 0x14 */
+	__vo uint32_t BSRR;        /**< Bit Set/Reset Register 	                  offset 0x18 */
+	__vo uint32_t LCKR;        /**< Configuration Lock Register               offset 0x1C */
+	__vo uint32_t AFR[2];      /**< Alternate Function Registers              offset 0x20
+	                                @note AFR[0]: AF Low Register             offset 0x20
+									      AFR[1]: AF High Register            offset 0x24 */
 } GPIO_RegDef_t;
 
 // RCC register definition
