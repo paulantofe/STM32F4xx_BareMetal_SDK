@@ -12,7 +12,7 @@
 
 #include <stdint.h>
 
-/* ------------------- GENERIC MACROS ------------------- */
+/* -------------------------- GENERIC MACROS -------------------------- */
 
 #define __vo                   volatile
 #define ENABLE                 1
@@ -24,17 +24,19 @@
 #define NULL                   ((void*) 0)
 #define NO_PR_BITS_IMPLEMENTED 4
 
-//-------------------------------------------
+/* -------------------------------------------------------------------- */
 
-/* ------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) ------------------- */
+
+/* -------------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) -------------------------- */
 
 #define NVIC_ISER_BASEADDR     ((__vo uint32_t*) 0xE000E100UL)
 #define NVIC_ICER_BASEADDR     ((__vo uint32_t*) 0XE000E180UL)
 #define NVIC_IPR_BASEADDR      ((__vo uint32_t*) 0xE000E400UL)
 
-//-------------------------------------------
+/* ------------------------------------------------------------------------------------------------ */
 
-/* ------------------- MEMORY MAPPING ------------------- */
+
+/* -------------------------- MEMORY MAPPING -------------------------- */
 
 // Memory base addresses
 #define FLASH_BASEADDR         0x08000000UL
@@ -88,26 +90,27 @@
 #define EXTI_BASEADDR          (APB2PERIPH_BASEADDR + 0x3C00UL)
 #define SYSCFGR_BASEADDR       (APB2PERIPH_BASEADDR + 0x3800UL)
 
-//-------------------------------------------
+/* -------------------------------------------------------------------- */
 
-/* ------------------- PERIPHERAL REGISTER DEFINITION STRUCTURES ------------------- */
 
-/** GPIO register definition */
+/* -------------------------- PERIPHERAL REGISTER DEFINITION STRUCTURES -------------------------- */
+
+/** @brief GPIO register definition */
 typedef struct {
-	__vo uint32_t MODER;       /**< Mode Register 			                     offset 0x00 */
+	__vo uint32_t MODER;       /**< Mode Register                                offset 0x00 */
 	__vo uint32_t OTYPER;      /**< Output Type Register                         offset 0x04 */
 	__vo uint32_t OSPEEDR;     /**< Output Speed Register                        offset 0x08 */
 	__vo uint32_t PUPDR;       /**< Pull-Up/Pull-Down Register                   offset 0x0C */
-	__vo uint32_t IDR;         /**< Input Data Register 	                     offset 0x10 */
-	__vo uint32_t ODR;         /**< Output Data Register 	                     offset 0x14 */
-	__vo uint32_t BSRR;        /**< Bit Set/Reset Register 	                     offset 0x18 */
+	__vo uint32_t IDR;         /**< Input Data Register                          offset 0x10 */
+	__vo uint32_t ODR;         /**< Output Data Register                         offset 0x14 */
+	__vo uint32_t BSRR;        /**< Bit Set/Reset Register                       offset 0x18 */
 	__vo uint32_t LCKR;        /**< Configuration Lock Register                  offset 0x1C */
 	__vo uint32_t AFR[2];      /**< Alternate Function Registers                 offset 0x20
 	                                @note AFR[0]: AF Low Register                offset 0x20
 	                                      AFR[1]: AF High Register               offset 0x24 */
 } GPIO_RegDef_t;
 
-/** RCC register definition */
+/** @brief RCC register definition */
 typedef struct {
 	__vo uint32_t CR;          /**< Clock Control Register                       offset 0x00  */
 	__vo uint32_t PLLCFGR;     /**< PLL Configuration Register                   offset 0x04  */
@@ -125,7 +128,7 @@ typedef struct {
 	__vo uint32_t AHB3ENR;     /**< AHB3 Peripheral Clock Enable Register        offset 0x38  */
 	uint32_t RESERVED2;        /**< RESERVED MEMORY                              offset 0x3C  */
 	__vo uint32_t APB1ENR;     /**< APB1 Peripheral Clock Enable Register        offset 0x40  */
-	__vo uint32_t APB2ENR;     /**< AHB2 Peripheral Clock Enable Register        offset 0x44  */
+	__vo uint32_t APB2ENR;     /**< APB2 Peripheral Clock Enable Register        offset 0x44  */
 	uint32_t RESERVED3[2];     /**< RESERVED MEMORY                              offset 0x48  */
 	__vo uint32_t AHB1LPENR;   /**< AHB1 PCLK Enable Low Power Mode Register     offset 0x50  */
 	__vo uint32_t AHB2LPENR;   /**< AHB2 PCLK Enable Low Power Mode Register     offset 0x54  */
@@ -136,31 +139,31 @@ typedef struct {
 	uint32_t RESERVED5[2];     /**< RESERVED MEMORY                              offset 0x68  */
 	__vo uint32_t BDCR;        /**< Backup Domain Control Register               offset 0x70  */
 	__vo uint32_t CSR;         /**< Clock Control and Status Register            offset 0x74  */
-	uint32_t RESERVED6[2];     /**< RESERVED MEMORY                              offset 0x00  */
-	__vo uint32_t SSCGR;       /**< Spread Spectrum CLK Generation Register      offset 0x00  */
-	__vo uint32_t PLLI2SCFGR;  /**< PLLI2S Configuration Register                offset 0x00  */
+	uint32_t RESERVED6[2];     /**< RESERVED MEMORY                              offset 0x78  */
+	__vo uint32_t SSCGR;       /**< Spread Spectrum CLK Generation Register      offset 0x80  */
+	__vo uint32_t PLLI2SCFGR;  /**< PLLI2S Configuration Register                offset 0x84  */
 } RCC_RegDef_t;
 
-/** EXTI register definition */
+/** @brief EXTI register definition */
 typedef struct {
 	__vo uint32_t IMR;         /**< Interrupt Mask Register                      offset 0x00 */
 	__vo uint32_t EMR;         /**< Event Mask Register                          offset 0x04 */
 	__vo uint32_t RTSR;        /**< Rising Trigger Selection Register            offset 0x08 */
 	__vo uint32_t FTSR;        /**< Falling Trigger Selection Register           offset 0x0C */
 	__vo uint32_t SWIER;       /**< Software Interrupt Event Register            offset 0x10 */
-	__vo uint32_t PR;          /**< Pending Register Register                    offset 0x14 */
+	__vo uint32_t PR;          /**< Pending Register                             offset 0x14 */
 } EXTI_RegDef_t;
 
-/** SYSCFG register definition */
+/** @brief SYSCFG register definition */
 typedef struct {
 	__vo uint32_t MEMRMP;      /**< Memory Remap Register                        offset 0x00 */
 	__vo uint32_t PMC;         /**< Peripheral Mode Configuration Register       offset 0x04 */
 	__vo uint32_t EXTICR[4];   /**< External Interrupt Configuration Register    offset 0x08 */
-	uint32_t RESERVED0[2];     /**< RESERVED MEMORY                              offset 0x1C */
+	uint32_t RESERVED0[2];     /**< RESERVED MEMORY                              offset 0x18 */
 	__vo uint32_t CMPCR;       /**< Compensation Cell Control Register           offset 0x20 */
 } SYSCFG_RegDef_t;
 
-/** SPI register definition */
+/** @brief SPI register definition */
 typedef struct {
 	__vo uint32_t CR1;         /**< Control Register 1                           offset 0x00 */
 	__vo uint32_t CR2;         /**< Control Register 2                           offset 0x04 */
@@ -170,12 +173,13 @@ typedef struct {
 	__vo uint32_t RXCRCR;      /**< Rx CRC Register                              offset 0x14 */
 	__vo uint32_t TXCRCR;      /**< Tx CRC Register                              offset 0x18 */
 	__vo uint32_t I2SCFGR;     /**< I2S Configuration Register                   offset 0x1C */
-	__vo uint32_t I2SPR;       /**< I2C Prescaler Register                       offset 0x20 */
+	__vo uint32_t I2SPR;       /**< I2S Prescaler Register                       offset 0x20 */
 } SPI_RegDef_t;
 
-//-------------------------------------------
+/* ----------------------------------------------------------------------------------------------- */
 
-/* ------------------- PERIPHERAL DEFINITION ------------------- */
+
+/* -------------------------- PERIPHERAL DEFINITION -------------------------- */
 
 // AHB1 peripherals
 #define GPIOA                  ((GPIO_RegDef_t*) GPIOA_BASEADDR)
@@ -203,9 +207,10 @@ typedef struct {
 #define SPI5                   ((SPI_RegDef_t*) SPI5_BASEADDR)
 #define SPI6                   ((SPI_RegDef_t*) SPI6_BASEADDR)
 
-//-------------------------------------------
+/* --------------------------------------------------------------------------- */
 
-/* ------------------- CLOCK ENABLE MACROS ------------------- */
+
+/* -------------------------- CLOCK ENABLE MACROS -------------------------- */
 
 #define I2C1_PCLK_EN()         (RCC->APB1ENR |= (1 << 21))
 #define I2C2_PCLK_EN()         (RCC->APB1ENR |= (1 << 22))
@@ -230,9 +235,10 @@ typedef struct {
 
 #define SYSCFG_PCLK_EN()       (RCC->APB2ENR |= (1 << 14))
 
-//-------------------------------------------
+/* ------------------------------------------------------------------------- */
 
-/* ------------------- CLOCK DISABLE MACROS ------------------- */
+
+/* -------------------------- CLOCK DISABLE MACROS -------------------------- */
 
 #define I2C1_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 21))
 #define I2C2_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 22))
@@ -257,9 +263,10 @@ typedef struct {
 
 #define SYSCFGR_PCLK_DI()      (RCC->APB2ENR &= ~(1 << 14))
 
-//-------------------------------------------
+/* -------------------------------------------------------------------------- */
 
-/* ------------------- RESET MACROS ------------------- */
+
+/* -------------------------- RESET MACROS -------------------------- */
 
 #define SPI1_REG_RESET()       do { RCC->APB2RSTR |= (1 << 12); RCC->APB2RSTR &= ~(1 << 12); } while (0)
 #define SPI2_REG_RESET()       do { RCC->APB1RSTR |= (1 << 14); RCC->APB1RSTR &= ~(1 << 14); } while (0)
@@ -268,9 +275,10 @@ typedef struct {
 #define SPI5_REG_RESET()       do { RCC->APB2RSTR |= (1 << 20); RCC->APB2RSTR &= ~(1 << 20); } while (0)
 #define SPI6_REG_RESET()       do { RCC->APB2RSTR |= (1 << 21); RCC->APB2RSTR &= ~(1 << 21); } while (0)
 
-//-------------------------------------------
+/* ------------------------------------------------------------------ */
 
-/* ------------------- Interrupt Request Numbers ------------------- */
+
+/* -------------------------- Interrupt Request Numbers -------------------------- */
 
 typedef enum {
 	EXTI0_IRQn = 6,
@@ -282,9 +290,10 @@ typedef enum {
 	EXTI15_10_IRQn = 40
 } IRQn_Type;
 
-//-------------------------------------------
+/* ------------------------------------------------------------------------------- */
 
-/* ------------------- Interrupt Request Priority Numbers ------------------- */
+
+/* -------------------------- Interrupt Request Priority Numbers -------------------------- */
 
 #define NVIC_IRQ_PR0           0
 #define NVIC_IRQ_PR1           1
@@ -303,6 +312,6 @@ typedef enum {
 #define NVIC_IRQ_PR14          14
 #define NVIC_IRQ_PR15          15
 
-//-------------------------------------------
+/* ---------------------------------------------------------------------------------------- */
 
 #endif
