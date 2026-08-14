@@ -148,16 +148,16 @@ typedef struct {
 	__vo uint32_t RTSR;        /**< Rising Trigger Selection Register            offset 0x08 */
 	__vo uint32_t FTSR;        /**< Falling Trigger Selection Register           offset 0x0C */
 	__vo uint32_t SWIER;       /**< Software Interrupt Event Register            offset 0x10 */
-	__vo uint32_t PR;          /**< Pending Register Register            offset 0x14 */
+	__vo uint32_t PR;          /**< Pending Register Register                    offset 0x14 */
 } EXTI_RegDef_t;
 
-// SYSCFG register definition
+/** SYSCFG register definition */
 typedef struct {
-	__vo uint32_t MEMRMP;
-	__vo uint32_t PMC;
-	__vo uint32_t EXTICR[4];
-	uint32_t RESERVED0[2];
-	__vo uint32_t CMPCR;
+	__vo uint32_t MEMRMP;      /**< Memory Remap Register                        offset 0x00 */
+	__vo uint32_t PMC;         /**< Peripheral Mode Configuration Register       offset 0x04 */
+	__vo uint32_t EXTICR[4];   /**< External Interrupt Configuration Register    offset 0x08 */
+	uint32_t RESERVED0[2];     /**< RESERVED MEMORY                              offset 0x1C */
+	__vo uint32_t CMPCR;       /**< Compensation Cell Control Register           offset 0x20 */
 } SYSCFG_RegDef_t;
 
 // SPI register definition
