@@ -30,7 +30,7 @@
 /* -------------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) -------------------------- */
 
 #define NVIC_ISER_BASEADDR     ((__vo uint32_t*) 0xE000E100UL)
-#define NVIC_ICER_BASEADDR     ((__vo uint32_t*) 0XE000E180UL)
+#define NVIC_ICER_BASEADDR     ((__vo uint32_t*) 0xE000E180UL)
 #define NVIC_IPR_BASEADDR      ((__vo uint32_t*) 0xE000E400UL)
 
 /* ------------------------------------------------------------------------------------------------ */
@@ -261,7 +261,7 @@ typedef struct {
 #define USART3_PCLK_DI()       (RCC->APB1ENR &= ~(1 << 18))
 #define USART6_PCLK_DI()       (RCC->APB2ENR &= ~(1 << 5))
 
-#define SYSCFGR_PCLK_DI()      (RCC->APB2ENR &= ~(1 << 14))
+#define SYSCFG_PCLK_DI()       (RCC->APB2ENR &= ~(1 << 14))
 
 /* -------------------------------------------------------------------------- */
 
