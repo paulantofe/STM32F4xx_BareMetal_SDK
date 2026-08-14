@@ -9,7 +9,7 @@
 
 #include "stm32f407xx_spi_driver.h"
 
-/* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
+/* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (EnorDi == ENABLE) {
@@ -82,4 +82,4 @@ void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
-//-------------------------------------------
+/* ----------------------------------------------------------------------------------- */
