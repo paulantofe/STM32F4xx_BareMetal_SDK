@@ -9,7 +9,7 @@
 
 #include "stm32f407xx_gpio_driver.h"
 
-/* ------------------- SUPPORTED APIs IMPLEMENTATION ------------------- */
+/* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 /**
  * @brief  Enable/disable peripheral clock for the given GPIO port
@@ -215,4 +215,4 @@ void GPIO_IRQHandling(uint8_t PinNumber) {
 	}
 }
 
-//-------------------------------------------
+/* ----------------------------------------------------------------------------------- */
