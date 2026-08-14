@@ -141,14 +141,14 @@ typedef struct {
 	__vo uint32_t PLLI2SCFGR;  /**< PLLI2S Configuration Register                offset 0x00  */
 } RCC_RegDef_t;
 
-// EXTI register definition
+/** EXTI register definition */
 typedef struct {
-	__vo uint32_t IMR;
-	__vo uint32_t EMR;
-	__vo uint32_t RTSR;
-	__vo uint32_t FTSR;
-	__vo uint32_t SWIER;
-	__vo uint32_t PR;
+	__vo uint32_t IMR;         /**< Interrupt Mask Register                      offset 0x00 */
+	__vo uint32_t EMR;         /**< Event Mask Register                          offset 0x04 */
+	__vo uint32_t RTSR;        /**< Rising Trigger Selection Register            offset 0x08 */
+	__vo uint32_t FTSR;        /**< Falling Trigger Selection Register           offset 0x0C */
+	__vo uint32_t SWIER;       /**< Software Interrupt Event Register            offset 0x10 */
+	__vo uint32_t PR;          /**< Pending Register Register            offset 0x14 */
 } EXTI_RegDef_t;
 
 // SYSCFG register definition
