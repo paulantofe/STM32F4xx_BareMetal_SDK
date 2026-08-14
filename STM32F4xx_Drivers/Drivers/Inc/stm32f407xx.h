@@ -26,7 +26,6 @@
 
 //-------------------------------------------
 
-
 /* ------------------- PROCESSOR SPECIFIC DETAILS (ARM Cortex-M4) ------------------- */
 
 #define NVIC_ISER_BASEADDR     ((__vo uint32_t*) 0xE000E100UL)
@@ -34,7 +33,6 @@
 #define NVIC_IPR_BASEADDR      ((__vo uint32_t*) 0xE000E400UL)
 
 //-------------------------------------------
-
 
 /* ------------------- MEMORY MAPPING ------------------- */
 
@@ -92,56 +90,55 @@
 
 //-------------------------------------------
 
-
 /* ------------------- PERIPHERAL REGISTER DEFINITION STRUCTURES ------------------- */
 
-// GPIO register definition
+/** GPIO register definition */
 typedef struct {
-	__vo uint32_t MODER;       /**< Mode Register 			                  offset 0x00 */
-	__vo uint32_t OTYPER;      /**< Output Type Register                      offset 0x04 */
-	__vo uint32_t OSPEEDR;     /**< Output Speed Register                     offset 0x08 */
-	__vo uint32_t PUPDR;       /**< Pull-Up/Pull-Down Register                offset 0x0C */
-	__vo uint32_t IDR;         /**< Input Data Register 	                  offset 0x10 */
-	__vo uint32_t ODR;         /**< Output Data Register 	                  offset 0x14 */
-	__vo uint32_t BSRR;        /**< Bit Set/Reset Register 	                  offset 0x18 */
-	__vo uint32_t LCKR;        /**< Configuration Lock Register               offset 0x1C */
-	__vo uint32_t AFR[2];      /**< Alternate Function Registers              offset 0x20
-	                                @note AFR[0]: AF Low Register             offset 0x20
-									      AFR[1]: AF High Register            offset 0x24 */
+	__vo uint32_t MODER;       /**< Mode Register 			                     offset 0x00 */
+	__vo uint32_t OTYPER;      /**< Output Type Register                         offset 0x04 */
+	__vo uint32_t OSPEEDR;     /**< Output Speed Register                        offset 0x08 */
+	__vo uint32_t PUPDR;       /**< Pull-Up/Pull-Down Register                   offset 0x0C */
+	__vo uint32_t IDR;         /**< Input Data Register 	                     offset 0x10 */
+	__vo uint32_t ODR;         /**< Output Data Register 	                     offset 0x14 */
+	__vo uint32_t BSRR;        /**< Bit Set/Reset Register 	                     offset 0x18 */
+	__vo uint32_t LCKR;        /**< Configuration Lock Register                  offset 0x1C */
+	__vo uint32_t AFR[2];      /**< Alternate Function Registers                 offset 0x20
+	                                @note AFR[0]: AF Low Register                offset 0x20
+	                                      AFR[1]: AF High Register               offset 0x24 */
 } GPIO_RegDef_t;
 
-// RCC register definition
+/** RCC register definition */
 typedef struct {
-	__vo uint32_t CR;           /**< Clock Control Register                   offset 0x00  */
-	__vo uint32_t PLLCFGR;      /**< PLL Configuration Register               offset 0x04  */
-	__vo uint32_t CFGR;         /**< Clock Configuration Register             offset 0x08  */
-	__vo uint32_t CIR;          /**< Clock Interrupt Register                 offset 0x0C  */
-	__vo uint32_t AHB1RSTR;     /**< AHB1 Peripheral Reset Register           offset 0x10  */
-	__vo uint32_t AHB2RSTR;     /**< AHB2 Peripheral Reset Register           offset 0x14  */
-	__vo uint32_t AHB3RSTR;     /**< AHB3 Peripheral Reset Register           offset 0x18  */
-	uint32_t      RESERVED0;    /**< RESERVED MEMORY                          offset 0x1C  */
-	__vo uint32_t APB1RSTR;     /**< APB1 Peripheral Reset Register           offset 0x20  */
-	__vo uint32_t APB2RSTR;     /**< APB2 Peripheral Reset Register           offset 0x24  */
-	uint32_t      RESERVED1[2]; /**< RESERVED MEMORY                          offset 0x28  */
-	__vo uint32_t AHB1ENR;      /**< AHB1 Peripheral Clock Enable Register    offset 0x30  */
-	__vo uint32_t AHB2ENR;      /**< AHB2 Peripheral Clock Enable Register    offset 0x34  */
-	__vo uint32_t AHB3ENR;      /**< AHB3 Peripheral Clock Enable Register    offset 0x38  */
-	uint32_t      RESERVED2;    /**< RESERVED MEMORY                          offset 0x3C  */
-	__vo uint32_t APB1ENR;      /**< APB1 Peripheral Clock Enable Register    offset 0x40  */
-	__vo uint32_t APB2ENR;      /**< AHB2 Peripheral Clock Enable Register    offset 0x44  */
-	uint32_t      RESERVED3[2]; /**< RESERVED MEMORY                          offset 0x48  */
-	__vo uint32_t AHB1LPENR;    /**< AHB1 PCLK Enable Low Power Mode Register offset 0x50  */
-	__vo uint32_t AHB2LPENR;    /**< AHB2 PCLK Enable Low Power Mode Register offset 0x54  */
-	__vo uint32_t AHB3LPENR;    /**< AHB3 PCLK Enable Low Power Mode Register offset 0x58  */
-	uint32_t      RESERVED4;    /**< RESERVED MEMORY                          offset 0x5C  */
-	__vo uint32_t APB1LPENR;    /**< APB1 PCLK Enable Low Power Mode Register offset 0x60  */
-	__vo uint32_t APB2LPENR;    /**< APB2 PCLK Enable Low Power Mode Register offset 0x64  */
-	uint32_t      RESERVED5[2]; /**< RESERVED MEMORY                          offset 0x68  */
-	__vo uint32_t BDCR;         /**< Backup Domain Control Register           offset 0x70  */
-	__vo uint32_t CSR;          /**< Clock Control and Status Register        offset 0x74  */
-	uint32_t      RESERVED6[2]; /**< RESERVED MEMORY                          offset 0x00  */
-	__vo uint32_t SSCGR;        /**< Spread Spectrum CLK Generation Register  offset 0x00  */
-	__vo uint32_t PLLI2SCFGR;   /**< PLLI2S Configuration Register            offset 0x00  */
+	__vo uint32_t CR;          /**< Clock Control Register                       offset 0x00  */
+	__vo uint32_t PLLCFGR;     /**< PLL Configuration Register                   offset 0x04  */
+	__vo uint32_t CFGR; 	   /**< Clock Configuration Register                 offset 0x08  */
+	__vo uint32_t CIR;         /**< Clock Interrupt Register                     offset 0x0C  */
+	__vo uint32_t AHB1RSTR;    /**< AHB1 Peripheral Reset Register               offset 0x10  */
+	__vo uint32_t AHB2RSTR;    /**< AHB2 Peripheral Reset Register               offset 0x14  */
+	__vo uint32_t AHB3RSTR;    /**< AHB3 Peripheral Reset Register               offset 0x18  */
+	uint32_t RESERVED0;        /**< RESERVED MEMORY                              offset 0x1C  */
+	__vo uint32_t APB1RSTR;	   /**< APB1 Peripheral Reset Register               offset 0x20  */
+	__vo uint32_t APB2RSTR;    /**< APB2 Peripheral Reset Register               offset 0x24  */
+	uint32_t RESERVED1[2]; 	   /**< RESERVED MEMORY                              offset 0x28  */
+	__vo uint32_t AHB1ENR; 	   /**< AHB1 Peripheral Clock Enable Register        offset 0x30  */
+	__vo uint32_t AHB2ENR; 	   /**< AHB2 Peripheral Clock Enable Register        offset 0x34  */
+	__vo uint32_t AHB3ENR;     /**< AHB3 Peripheral Clock Enable Register        offset 0x38  */
+	uint32_t RESERVED2;        /**< RESERVED MEMORY                              offset 0x3C  */
+	__vo uint32_t APB1ENR;     /**< APB1 Peripheral Clock Enable Register        offset 0x40  */
+	__vo uint32_t APB2ENR;     /**< AHB2 Peripheral Clock Enable Register        offset 0x44  */
+	uint32_t RESERVED3[2];     /**< RESERVED MEMORY                              offset 0x48  */
+	__vo uint32_t AHB1LPENR;   /**< AHB1 PCLK Enable Low Power Mode Register     offset 0x50  */
+	__vo uint32_t AHB2LPENR;   /**< AHB2 PCLK Enable Low Power Mode Register     offset 0x54  */
+	__vo uint32_t AHB3LPENR;   /**< AHB3 PCLK Enable Low Power Mode Register     offset 0x58  */
+	uint32_t RESERVED4;        /**< RESERVED MEMORY                              offset 0x5C  */
+	__vo uint32_t APB1LPENR;   /**< APB1 PCLK Enable Low Power Mode Register     offset 0x60  */
+	__vo uint32_t APB2LPENR;   /**< APB2 PCLK Enable Low Power Mode Register     offset 0x64  */
+	uint32_t RESERVED5[2];     /**< RESERVED MEMORY                              offset 0x68  */
+	__vo uint32_t BDCR;        /**< Backup Domain Control Register               offset 0x70  */
+	__vo uint32_t CSR;         /**< Clock Control and Status Register            offset 0x74  */
+	uint32_t RESERVED6[2];     /**< RESERVED MEMORY                              offset 0x00  */
+	__vo uint32_t SSCGR;       /**< Spread Spectrum CLK Generation Register      offset 0x00  */
+	__vo uint32_t PLLI2SCFGR;  /**< PLLI2S Configuration Register                offset 0x00  */
 } RCC_RegDef_t;
 
 // EXTI register definition
@@ -178,7 +175,6 @@ typedef struct {
 
 //-------------------------------------------
 
-
 /* ------------------- PERIPHERAL DEFINITION ------------------- */
 
 // AHB1 peripherals
@@ -209,7 +205,6 @@ typedef struct {
 
 //-------------------------------------------
 
-
 /* ------------------- CLOCK ENABLE MACROS ------------------- */
 
 #define I2C1_PCLK_EN()         (RCC->APB1ENR |= (1 << 21))
@@ -236,7 +231,6 @@ typedef struct {
 #define SYSCFG_PCLK_EN()       (RCC->APB2ENR |= (1 << 14))
 
 //-------------------------------------------
-
 
 /* ------------------- CLOCK DISABLE MACROS ------------------- */
 
@@ -265,7 +259,6 @@ typedef struct {
 
 //-------------------------------------------
 
-
 /* ------------------- RESET MACROS ------------------- */
 
 #define SPI1_REG_RESET()       do { RCC->APB2RSTR |= (1 << 12); RCC->APB2RSTR &= ~(1 << 12); } while (0)
@@ -276,7 +269,6 @@ typedef struct {
 #define SPI6_REG_RESET()       do { RCC->APB2RSTR |= (1 << 21); RCC->APB2RSTR &= ~(1 << 21); } while (0)
 
 //-------------------------------------------
-
 
 /* ------------------- Interrupt Request Numbers ------------------- */
 
@@ -291,7 +283,6 @@ typedef enum {
 } IRQn_Type;
 
 //-------------------------------------------
-
 
 /* ------------------- Interrupt Request Priority Numbers ------------------- */
 
