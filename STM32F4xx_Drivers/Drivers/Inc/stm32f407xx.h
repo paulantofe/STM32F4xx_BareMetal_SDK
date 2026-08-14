@@ -160,17 +160,17 @@ typedef struct {
 	__vo uint32_t CMPCR;       /**< Compensation Cell Control Register           offset 0x20 */
 } SYSCFG_RegDef_t;
 
-// SPI register definition
+/** SPI register definition */
 typedef struct {
-	__vo uint32_t CR1;
-	__vo uint32_t CR2;
-	__vo uint32_t SR;
-	__vo uint32_t DR;
-	__vo uint32_t CRCPR;
-	__vo uint32_t RXCRCR;
-	__vo uint32_t TXCRCR;
-	__vo uint32_t I2SCFGR;
-	__vo uint32_t I2SPR;
+	__vo uint32_t CR1;         /**< Control Register 1                           offset 0x00 */
+	__vo uint32_t CR2;         /**< Control Register 2                           offset 0x04 */
+	__vo uint32_t SR;          /**< Status Register                              offset 0x08 */
+	__vo uint32_t DR;          /**< Data Register                                offset 0x0C */
+	__vo uint32_t CRCPR;       /**< CRC Polynomial Register                      offset 0x10 */
+	__vo uint32_t RXCRCR;      /**< Rx CRC Register                              offset 0x14 */
+	__vo uint32_t TXCRCR;      /**< Tx CRC Register                              offset 0x18 */
+	__vo uint32_t I2SCFGR;     /**< I2S Configuration Register                   offset 0x1C */
+	__vo uint32_t I2SPR;       /**< I2C Prescaler Register                       offset 0x20 */
 } SPI_RegDef_t;
 
 //-------------------------------------------
