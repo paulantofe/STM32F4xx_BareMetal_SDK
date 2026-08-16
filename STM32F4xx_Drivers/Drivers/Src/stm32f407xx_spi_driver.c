@@ -53,7 +53,53 @@ void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	}
 }
 
-void SPI_Init(SPI_Handle_t *pSPIHandle);
+void SPI_Init(SPI_Handle_t *pSPIHandle) {
+	if (pSPIHandle == NULL) { return; }
+
+	uint32_t tempReg = 0;
+
+	// Device Mode Configuration
+	tempReg |= (pSPIHandle->SPI_Config.SPI_DeviceMode << SPI_CR1_MSTR_POS);
+
+	// Bus Configuration
+	if (pSPIHandle->SPI_Config.SPI_BusConfig == SPI_BUS_CONFIG_FD) {
+		// BIDIMODE should be cleared
+		// RXONLY should be cleared
+		// As tempReg is initialized with 0, no code is needed
+	}
+	else if (pSPIHandle->SPI_Config.SPI_BusConfig == SPI_BUS_CONFIG_HD) {
+		// BIDIMODE should be set
+		tempReg |= (1 << SPI_CR1_BIDIMODE_POS);
+
+		// RXONLY should be cleared
+		// As tempReg is initialized with 0, RXONLY does not need to be cleared
+	}
+	else if (pSPIHandle->SPI_Config.SPI_BusConfig == SPI_BUS_CONFIG_RXONLY) {
+		// BIDIMODE should be cleared
+		// As tempReg is initialized with 0, BIDIMODE does not need to be cleared
+
+		// RXONLY should be set
+		tempReg |= (1 << SPI_CR1_RXONLY_POS);
+	}
+
+	// Baud Rate Configuration
+	tempReg |= (pSPIHandle->SPI_Config.SPI_SCLKSpeed << SPI_CR1_BR_POS);
+
+	// DFF Configuration
+	tempReg |= (pSPIHandle->SPI_Config.SPI_DFF << SPI_CR1_DFF_POS);
+
+	// CPOL Configuration
+	tempReg |= (pSPIHandle->SPI_Config.SPI_CPOL << SPI_CR1_CPOL_POS);
+
+	// CPHA Configuration
+    tempReg |= (pSPIHandle->SPI_Config.SPI_CPHA << SPI_CR1_CPHA_POS);
+
+    // SSM Configuration
+    tempReg |= (pSPIHandle->SPI_Config.SPI_SSM << SPI_CR1_SSM_POS);
+
+    pSPIHandle->pSPIx->CR1 = tempReg;
+}
+
 void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	if (pSPIx == SPI1) {
 		SPI1_REG_RESET();
