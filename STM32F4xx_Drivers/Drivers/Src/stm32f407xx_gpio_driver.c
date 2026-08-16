@@ -18,7 +18,10 @@
  * @retval None
  */
 void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
+	if (pGPIOx == NULL) { return; }
+
 	uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOx);
+
 	if (EnorDi == ENABLE) {
 		RCC->AHB1ENR |= (1 << portCode);
 	}
