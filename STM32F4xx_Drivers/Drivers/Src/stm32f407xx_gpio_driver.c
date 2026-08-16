@@ -155,10 +155,14 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
  * @retval None
  */
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value) {
-	if (Value == GPIO_PIN_SET)
-		pGPIOx->BSRR = (1 << PinNumber);
-	else
-		pGPIOx->BSRR = (1 << (PinNumber + 16));
+	if (pGPIOx == NULL || PinNumber > 15) { return; }
+
+	if (Value == GPIO_PIN_SET) {
+		pGPIOx->BSRR = (1 << GPIO_BSRR_SET_POS(PinNumber));
+	}
+	else {
+		pGPIOx->BSRR = (1 << GPIO_BSRR_RESET_POS(PinNumber));
+	}
 }
 
 /**
