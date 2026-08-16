@@ -172,6 +172,8 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Val
  * @retval None
  */
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
+	if (pGPIOx == NULL) { return; }
+
 	pGPIOx->ODR = Value;
 }
 
