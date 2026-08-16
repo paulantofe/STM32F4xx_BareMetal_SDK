@@ -181,7 +181,14 @@ typedef struct {
 
 /* -------------------------- BIT POSITION DEFINITION -------------------------- */
 
+/* ---------- GPIO Peripheral ---------- */
+
+
+
+/* ------------------------------------- */
+
 /* ---------- SPI Peripheral ---------- */
+
 // Bit position definitions for SPI_CR1
 #define SPI_CR1_CPHA_POS       0
 #define SPI_CR1_CPOL_POS       1
@@ -217,6 +224,7 @@ typedef struct {
 #define SPI_SR_OVR_POS           6
 #define SPI_SR_BSY_POS           7
 #define SPI_SR_FRE_POS           8
+
 /* ------------------------------------ */
 
 /* ----------------------------------------------------------------------------- */
