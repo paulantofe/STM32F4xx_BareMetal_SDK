@@ -184,7 +184,9 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
  * @retval None
  */
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-	pGPIOx->ODR ^= (1 << PinNumber);
+	if (pGPIOx == NULL || PinNumber > 15) { return; }
+
+	pGPIOx->ODR ^= (1 << GPIO_ODR_PIN_POS(PinNumber));
 }
 
 /**
