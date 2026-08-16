@@ -28,8 +28,7 @@
  */
 #define SPI_BUS_CONFIG_FD      1      // full duplex
 #define SPI_BUS_CONFIG_HD      2      // half duplex
-#define SPI_BUS_CONFIG_TXONLY  3      // simplex Tx only
-#define SPI_BUS_CONFIG_RXONLY  4      // simplex Rx only
+#define SPI_BUS_CONFIG_RXONLY  3      // simplex Rx only
 /** @} */
 
 /**
