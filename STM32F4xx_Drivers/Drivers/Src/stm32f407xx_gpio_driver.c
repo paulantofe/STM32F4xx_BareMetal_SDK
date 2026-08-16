@@ -141,6 +141,7 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @brief  Read from an input port
  * @param  pGPIOx	Base address of the GPIO peripheral
  * @retval Values of the pins in the input port
+ * @note   There is no error value left to return, so this API will generate Hard Fault in case of invalid pointer
  */
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
 	return (uint16_t) pGPIOx->IDR;
