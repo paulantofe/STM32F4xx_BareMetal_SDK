@@ -73,8 +73,8 @@
  * @defgroup SPI_SSM           Software Slave Management
  * @{
  */
-#define SPI_SSM_HW             0
-#define SPI_SSM_SW             1
+#define SPI_SSM_DI             0
+#define SPI_SSM_EN             1
 /** @} */
 
 /* -------------------------------------------------------------------- */
