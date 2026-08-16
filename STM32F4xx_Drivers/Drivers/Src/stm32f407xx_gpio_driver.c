@@ -129,10 +129,12 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
  * @brief  Read from an input pin
  * @param  pGPIOx		Base address of the GPIO peripheral
  * @param  PinNumber	Number of the read pin
- * @retval Value of the input pin
+ * @retval Value of the input pin (0 or 1), or 0xFF on error
  */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-	return (pGPIOx->IDR & (1 << PinNumber)) != 0;
+	if (pGPIOx == NULL || PinNumber > 15) { return 0xFF; }
+
+	return (pGPIOx->IDR & (1 << GPIO_IDR_PIN_POS(PinNumber))) != 0;
 }
 
 /**
