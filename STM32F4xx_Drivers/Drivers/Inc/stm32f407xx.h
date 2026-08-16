@@ -180,7 +180,21 @@ typedef struct {
 
 /* ---------- GPIO Peripheral ---------- */
 
+// Bit position calculation macros for GPIO pins (x = Pin Number: 0 to 15)
+#define GPIO_MODER_PIN_POS(x)   ((x) * 2)
+#define GPIO_OTYPER_PIN_POS(x)  (x)
+#define GPIO_OSPEEDR_PIN_POS(x) ((x) * 2)
+#define GPIO_PUPDR_PIN_POS(x)   ((x) * 2)
+#define GPIO_IDR_PIN_POS(x)     (x)
+#define GPIO_ODR_PIN_POS(x)     (x)
 
+// BSRR (Bit Set/Reset Register) positions
+#define GPIO_BSRR_SET_POS(x)    (x)
+#define GPIO_BSRR_RESET_POS(x)  ((x) + 16)
+
+// AFR (Alternate Function Registers) positions
+#define GPIO_AFRL_PIN_POS(x)    ((x) * 4)          // For pins 0-7
+#define GPIO_AFRH_PIN_POS(x)    (((x) % 8) * 4)    // For pins 8-15
 
 /* ------------------------------------- */
 
