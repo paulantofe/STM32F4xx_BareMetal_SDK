@@ -12,6 +12,8 @@
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if (pSPIx == NULL) { return; }
+
 	if (EnorDi == ENABLE) {
 		if (pSPIx == SPI1) {
 			SPI1_PCLK_EN();
@@ -22,15 +24,6 @@ void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 		else if (pSPIx == SPI3) {
 			SPI3_PCLK_EN();
 		}
-		else if (pSPIx == SPI4) {
-			SPI4_PCLK_EN();
-		}
-		else if (pSPIx == SPI5) {
-			SPI5_PCLK_EN();
-		}
-		else if (pSPIx == SPI6) {
-			SPI6_PCLK_EN();
-		}
 	} else {
 		if (pSPIx == SPI1) {
 			SPI1_PCLK_DI();
@@ -40,15 +33,6 @@ void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 		}
 		else if (pSPIx == SPI3) {
 			SPI3_PCLK_DI();
-		}
-		else if (pSPIx == SPI4) {
-			SPI4_PCLK_DI();
-		}
-		else if (pSPIx == SPI5) {
-			SPI5_PCLK_DI();
-		}
-		else if (pSPIx == SPI6) {
-			SPI6_PCLK_DI();
 		}
 	}
 }
