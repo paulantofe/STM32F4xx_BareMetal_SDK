@@ -94,15 +94,6 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	else if (pSPIx == SPI3) {
 		SPI3_REG_RESET();
 	}
-	else if (pSPIx == SPI4) {
-		SPI4_REG_RESET();
-	}
-	else if (pSPIx == SPI5) {
-		SPI5_REG_RESET();
-	}
-	else if (pSPIx == SPI6) {
-		SPI6_REG_RESET();
-	}
 }
 
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len);
