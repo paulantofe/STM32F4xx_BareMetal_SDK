@@ -82,9 +82,6 @@
 
 // APB2 peripherals base addresses
 #define SPI1_BASEADDR          (APB2PERIPH_BASEADDR + 0x3000UL)
-#define SPI4_BASEADDR          (APB2PERIPH_BASEADDR + 0x3400UL)
-#define SPI5_BASEADDR          (APB2PERIPH_BASEADDR + 0x5000UL)
-#define SPI6_BASEADDR          (APB2PERIPH_BASEADDR + 0x5400UL)
 #define USART1_BASEADDR        (APB2PERIPH_BASEADDR + 0x1000UL)
 #define USART6_BASEADDR        (APB2PERIPH_BASEADDR + 0x1400UL)
 #define EXTI_BASEADDR          (APB2PERIPH_BASEADDR + 0x3C00UL)
@@ -254,9 +251,6 @@ typedef struct {
 #define EXTI                   ((EXTI_RegDef_t*) EXTI_BASEADDR)
 #define SYSCFG                 ((SYSCFG_RegDef_t*) SYSCFGR_BASEADDR)
 #define SPI1                   ((SPI_RegDef_t*) SPI1_BASEADDR)
-#define SPI4                   ((SPI_RegDef_t*) SPI4_BASEADDR)
-#define SPI5                   ((SPI_RegDef_t*) SPI5_BASEADDR)
-#define SPI6                   ((SPI_RegDef_t*) SPI6_BASEADDR)
 
 /* --------------------------------------------------------------------------- */
 
@@ -270,9 +264,6 @@ typedef struct {
 #define SPI1_PCLK_EN()         (RCC->APB2ENR |= (1 << 12))
 #define SPI2_PCLK_EN()         (RCC->APB1ENR |= (1 << 14))
 #define SPI3_PCLK_EN()         (RCC->APB1ENR |= (1 << 15))
-#define SPI4_PCLK_EN()         (RCC->APB2ENR |= (1 << 13))
-#define SPI5_PCLK_EN()         (RCC->APB2ENR |= (1 << 20))
-#define SPI6_PCLK_EN()         (RCC->APB2ENR |= (1 << 21))
 
 #define UART4_PCLK_EN()        (RCC->APB1ENR |= (1 << 19))
 #define UART5_PCLK_EN()        (RCC->APB1ENR |= (1 << 20))
@@ -298,9 +289,6 @@ typedef struct {
 #define SPI1_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 12))
 #define SPI2_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 14))
 #define SPI3_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 15))
-#define SPI4_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 13))
-#define SPI5_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 20))
-#define SPI6_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 21))
 
 #define UART4_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 19))
 #define UART5_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 20))
@@ -322,9 +310,6 @@ typedef struct {
 #define SPI1_REG_RESET()       do { RCC->APB2RSTR |= (1 << 12); RCC->APB2RSTR &= ~(1 << 12); } while (0)
 #define SPI2_REG_RESET()       do { RCC->APB1RSTR |= (1 << 14); RCC->APB1RSTR &= ~(1 << 14); } while (0)
 #define SPI3_REG_RESET()       do { RCC->APB1RSTR |= (1 << 15); RCC->APB1RSTR &= ~(1 << 15); } while (0)
-#define SPI4_REG_RESET()       do { RCC->APB2RSTR |= (1 << 13); RCC->APB2RSTR &= ~(1 << 13); } while (0)
-#define SPI5_REG_RESET()       do { RCC->APB2RSTR |= (1 << 20); RCC->APB2RSTR &= ~(1 << 20); } while (0)
-#define SPI6_REG_RESET()       do { RCC->APB2RSTR |= (1 << 21); RCC->APB2RSTR &= ~(1 << 21); } while (0)
 
 /* ------------------------------------------------------------------ */
 
