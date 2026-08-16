@@ -14,7 +14,69 @@
 
 /* -------------------------- GENERIC MACROS -------------------------- */
 
+/**
+ * @defgroup SPI_DEVICE_MODES  Device Modes
+ * @{
+ */
+#define SPI_DEVICE_MODE_SLAVE  0
+#define SPI_DEVICE_MODE_MASTER 1
+/** @} */
 
+/**
+ * @defgroup SPI_BUS_CONFIG    Bus Configuration
+ * @{
+ */
+#define SPI_BUS_CONFIG_FD      1      // full duplex
+#define SPI_BUS_CONFIG_HD      2      // half duplex
+#define SPI_BUS_CONFIG_TXONLY  3      // simplex Tx only
+#define SPI_BUS_CONFIG_RXONLY  4      // simplex Rx only
+/** @} */
+
+/**
+ * @defgroup SPI_SCLK_SPEED    Serial Clock Speed
+ * @{
+ */
+#define SPI_SCLK_SPEED_DIV2    0
+#define SPI_SCLK_SPEED_DIV4    1
+#define SPI_SCLK_SPEED_DIV8    2
+#define SPI_SCLK_SPEED_DIV16   3
+#define SPI_SCLK_SPEED_DIV32   4
+#define SPI_SCLK_SPEED_DIV64   5
+#define SPI_SCLK_SPEED_DIV128  6
+#define SPI_SCLK_SPEED_DIV256  7
+/** @} */
+
+/**
+ * @defgroup SPI_DFF           Data Frame Format
+ * @{
+ */
+#define SPI_DFF_8_BITS         0
+#define SPI_DFF_16_BITS        1
+/** @} */
+
+/**
+ * @defgroup SPI_CPOL          Clock Polarity
+ * @{
+ */
+#define SPI_CPOL_LOW           0
+#define SPI_CPOL_HIGH          1
+/** @} */
+
+/**
+ * @defgroup SPI_CPHA          Clock Phase
+ * @{
+ */
+#define SPI_CPHA_FIRST_EDGE    0
+#define SPI_CPHA_SECOND_EDGE   1
+/** @} */
+
+/**
+ * @defgroup SPI_SSM           Software Slave Management
+ * @{
+ */
+#define SPI_SSM_HW             0
+#define SPI_SSM_SW             1
+/** @} */
 
 /* -------------------------------------------------------------------- */
 
