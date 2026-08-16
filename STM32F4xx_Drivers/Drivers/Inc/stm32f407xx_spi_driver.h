@@ -103,7 +103,7 @@ typedef struct {
 /* ------------------------------------------------------------------------------ */
 
 
-/* -------------------------- SUPPORTED APIs -------------------------- */
+/* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
@@ -117,6 +117,6 @@ void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
-/* -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------------------------- */
 
 #endif

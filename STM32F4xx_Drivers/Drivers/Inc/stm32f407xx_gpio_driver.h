@@ -134,7 +134,7 @@ typedef struct {
 /* ------------------------------------------------------------------------------ */
 
 
-/* -------------------------- SUPPORTED APIs -------------------------- */
+/* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
 void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
 
@@ -151,6 +151,6 @@ void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void GPIO_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 void GPIO_IRQHandling(uint8_t PinNumber);
 
-/* -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------------------------- */
 
 #endif
