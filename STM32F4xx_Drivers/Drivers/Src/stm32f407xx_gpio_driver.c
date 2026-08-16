@@ -112,12 +112,15 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 }
 
 /**
- * @brief  Reset a GPIO pin
+ * @brief  De-initialize (reset) and entire GPIO peripheral
  * @param  pGPIOx	Base address of the GPIO peripheral
  * @retval None
  */
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
+	if (pGPIOx == NULL) { return; }
+
 	uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOx);
+
 	RCC->AHB1RSTR |= (1 << portCode);
 	RCC->AHB1RSTR &= ~(1 << portCode);
 }
