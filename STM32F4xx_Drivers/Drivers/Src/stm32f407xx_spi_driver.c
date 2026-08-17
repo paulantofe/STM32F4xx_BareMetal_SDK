@@ -9,6 +9,13 @@
 
 #include "stm32f407xx_spi_driver.h"
 
+/* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
+
+
+
+/* ----------------------------------------------------------------------------------- */
+
+
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
