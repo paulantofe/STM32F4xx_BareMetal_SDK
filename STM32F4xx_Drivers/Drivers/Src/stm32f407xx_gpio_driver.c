@@ -126,76 +126,28 @@ void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 	if (pGPIOHandle == NULL || pGPIOHandle->pGPIOx == NULL) { return; }
 
-	uint32_t temp = 0;
-	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
-
 	// Mode Configuration
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG) {
-		// Non-Interrupt Mode
-		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode  << GPIO_MODER_PIN_POS(pinNumber);
-		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << GPIO_MODER_PIN_POS(pinNumber));
-		pGPIOHandle->pGPIOx->MODER |= temp;
+		gpio_configure_ni_mode(pGPIOHandle);
 	}
 	else {
-		// Interrupt Mode (forces pin into input mode implicitly)
-		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << GPIO_MODER_PIN_POS(pinNumber));
-
-		if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT) {
-			EXTI->RTSR &= ~(1 << pinNumber);
-			EXTI->FTSR |= (1 << pinNumber);
-		}
-		else if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT) {
-			EXTI->FTSR &= ~(1 << pinNumber);
-			EXTI->RTSR |= (1 << pinNumber);
-		}
-		else if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT) {
-			EXTI->FTSR |= (1 << pinNumber);
-			EXTI->RTSR |= (1 << pinNumber);
-		}
-
-		// SYSCFG Configuration for EXTICR
-		uint32_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
-		uint32_t temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
-		uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
-		SYSCFG_PCLK_EN();
-		SYSCFG->EXTICR[temp1] &= ~(0xF << (temp2 * 4));
-		SYSCFG->EXTICR[temp1] |= portCode << (temp2 * 4);
-
-		// Enable EXTI interrupt delivery
-		EXTI->IMR |= (1 << pinNumber);
+		gpio_configure_i_mode(pGPIOHandle);
  	}
 
 	// OType and Speed Configuration (only valid for Output/AF modes)
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_OUTPUT ||
 	    pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN) {
-		// OType Configuration
-		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinOType << GPIO_OTYPER_PIN_POS(pinNumber);
-		pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << GPIO_OTYPER_PIN_POS(pinNumber));
-		pGPIOHandle->pGPIOx->OTYPER |= temp;
+		gpio_configure_otype(pGPIOHandle);
 
-		// Speed Configuration
-		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << GPIO_OSPEEDR_PIN_POS(pinNumber);
-		pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << GPIO_OSPEEDR_PIN_POS(pinNumber));
-		pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+		gpio_configure_ospeed(pGPIOHandle);
 	}
 
 	// PuPd Configuration
-	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << GPIO_PUPDR_PIN_POS(pinNumber);
-	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << GPIO_PUPDR_PIN_POS(pinNumber));
-	pGPIOHandle->pGPIOx->PUPDR |= temp;
+	gpio_configure_pupd(pGPIOHandle);
 
 	// AF Configuration
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN) {
-		if (pinNumber <= 7) {
-			temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinAFMode << GPIO_AFRL_PIN_POS(pinNumber);
-			pGPIOHandle->pGPIOx->AFR[0] &= ~(0xF << GPIO_AFRL_PIN_POS(pinNumber));
-			pGPIOHandle->pGPIOx->AFR[0] |= temp;
-		}
-		else {
-			temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinAFMode << GPIO_AFRH_PIN_POS(pinNumber);
-			pGPIOHandle->pGPIOx->AFR[1] &= ~(0xF << GPIO_AFRH_PIN_POS(pinNumber));
-			pGPIOHandle->pGPIOx->AFR[1] |= temp;
-		}
+		gpio_configure_alt_fn(pGPIOHandle);
 	}
 }
 
