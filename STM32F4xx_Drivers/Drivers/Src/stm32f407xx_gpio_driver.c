@@ -191,7 +191,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
 
 /**
  * @brief  Configure an interrupt on a GPIO pin
- * @param  IRQNumber	Number of the interrupt request
+ * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi		ENABLE/DISABLE macros
  * @retval None
  */
