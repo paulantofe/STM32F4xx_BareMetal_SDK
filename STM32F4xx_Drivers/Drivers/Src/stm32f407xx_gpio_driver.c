@@ -196,9 +196,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @retval None
  */
 void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
-	if (IRQNumber > 81) {
-		return;
-	}
+	if (IRQNumber > 81) { return; }
 
 	if (EnorDi == ENABLE) {
 		NVIC_ISER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
