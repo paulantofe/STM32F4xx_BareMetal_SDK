@@ -201,10 +201,10 @@ void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	}
 
 	if (EnorDi == ENABLE) {
-		NVIC_ISER_BASEADDR[IRQNumber / 32] |= (1 << (IRQNumber % 32));
+		NVIC_ISER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
 	}
 	else {
-		NVIC_ICER_BASEADDR[IRQNumber / 32] |= (1 << (IRQNumber % 32));
+		NVIC_ICER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
 	}
 }
 
