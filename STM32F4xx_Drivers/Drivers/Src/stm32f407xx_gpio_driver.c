@@ -9,6 +9,18 @@
 
 #include "stm32f407xx_gpio_driver.h"
 
+/* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
+
+static void gpio_configure_mode(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_interrupt(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_otype(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_ospeed(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_pupd(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_alt_fn(GPIO_Handle_t *pGPIOHandle);
+
+/* ----------------------------------------------------------------------------------- */
+
+
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 /**
