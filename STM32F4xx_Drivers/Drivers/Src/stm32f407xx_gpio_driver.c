@@ -11,12 +11,88 @@
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
-static void gpio_configure_mode(GPIO_Handle_t *pGPIOHandle);
-static void gpio_configure_interrupt(GPIO_Handle_t *pGPIOHandle);
-static void gpio_configure_otype(GPIO_Handle_t *pGPIOHandle);
-static void gpio_configure_ospeed(GPIO_Handle_t *pGPIOHandle);
-static void gpio_configure_pupd(GPIO_Handle_t *pGPIOHandle);
-static void gpio_configure_alt_fn(GPIO_Handle_t *pGPIOHandle);
+static void gpio_configure_ni_mode(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode  << GPIO_MODER_PIN_POS(pinNumber);
+	pGPIOHandle->pGPIOx->MODER &= ~(0x3 << GPIO_MODER_PIN_POS(pinNumber));
+	pGPIOHandle->pGPIOx->MODER |= temp;
+}
+
+static void gpio_configure_i_mode(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	// Forces pin into input mode implicitly
+	pGPIOHandle->pGPIOx->MODER &= ~(0x3 << GPIO_MODER_PIN_POS(pinNumber));
+
+	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT) {
+		EXTI->RTSR &= ~(1 << pinNumber);
+		EXTI->FTSR |= (1 << pinNumber);
+	}
+	else if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT) {
+		EXTI->FTSR &= ~(1 << pinNumber);
+		EXTI->RTSR |= (1 << pinNumber);
+	}
+	else if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT) {
+		EXTI->FTSR |= (1 << pinNumber);
+		EXTI->RTSR |= (1 << pinNumber);
+	}
+
+	// SYSCFG Configuration for EXTICR
+	uint32_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
+	uint32_t temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
+	uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
+	SYSCFG_PCLK_EN();
+	SYSCFG->EXTICR[temp1] &= ~(0xF << (temp2 * 4));
+	SYSCFG->EXTICR[temp1] |= portCode << (temp2 * 4);
+
+	// Enable EXTI interrupt delivery
+	EXTI->IMR |= (1 << pinNumber);
+}
+
+static void gpio_configure_otype(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinOType << GPIO_OTYPER_PIN_POS(pinNumber);
+	pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << GPIO_OTYPER_PIN_POS(pinNumber));
+	pGPIOHandle->pGPIOx->OTYPER |= temp;
+}
+
+static void gpio_configure_ospeed(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << GPIO_OSPEEDR_PIN_POS(pinNumber);
+	pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << GPIO_OSPEEDR_PIN_POS(pinNumber));
+	pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+}
+
+static void gpio_configure_pupd(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << GPIO_PUPDR_PIN_POS(pinNumber);
+	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << GPIO_PUPDR_PIN_POS(pinNumber));
+	pGPIOHandle->pGPIOx->PUPDR |= temp;
+}
+
+static void gpio_configure_alt_fn(GPIO_Handle_t *pGPIOHandle) {
+	uint32_t temp = 0;
+	uint32_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+	if (pinNumber <= 7) {
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinAFMode << GPIO_AFRL_PIN_POS(pinNumber);
+		pGPIOHandle->pGPIOx->AFR[0] &= ~(0xF << GPIO_AFRL_PIN_POS(pinNumber));
+		pGPIOHandle->pGPIOx->AFR[0] |= temp;
+	}
+	else {
+		temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinAFMode << GPIO_AFRH_PIN_POS(pinNumber);
+		pGPIOHandle->pGPIOx->AFR[1] &= ~(0xF << GPIO_AFRH_PIN_POS(pinNumber));
+		pGPIOHandle->pGPIOx->AFR[1] |= temp;
+	}
+}
 
 /* ----------------------------------------------------------------------------------- */
 
