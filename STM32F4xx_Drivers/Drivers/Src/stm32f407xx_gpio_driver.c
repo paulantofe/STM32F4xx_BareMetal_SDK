@@ -229,6 +229,8 @@ void GPIO_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
  * @retval None
  */
 void GPIO_IRQHandling(uint8_t PinNumber) {
+	if (PinNumber > 15) { return; }
+
 	if (EXTI->PR & (1 << PinNumber)) {
 		EXTI->PR = (1 << PinNumber);
 	}
