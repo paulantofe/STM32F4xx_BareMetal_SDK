@@ -98,7 +98,24 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	}
 }
 
-void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len);
+void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len) {
+	if (pSPIx == NULL || pTxBuffer == NULL) { return; }
+
+	while (len > 0) {
+		while ( !(pSPIx->SR & (1 << SPI_SR_TXE_POS)) );
+		if (pSPIx->CR1 & (1 << SPI_CR1_DFF_POS)) {
+			pSPIx->DR = *(uint16_t*) pTxBuffer;
+			len -= 2;
+			pTxBuffer += 2;
+		}
+		else {
+			pSPIx->DR = *pTxBuffer;
+			len--;
+			pTxBuffer++;
+		}
+	}
+}
+
 void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t* pRxBuffer, uint32_t len);
 
 void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
