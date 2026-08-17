@@ -38,7 +38,7 @@ void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 }
 
 void SPI_Init(SPI_Handle_t *pSPIHandle) {
-	if (pSPIHandle == NULL) { return; }
+	if (pSPIHandle == NULL || pSPIHandle->pSPIx == NULL) { return; }
 
 	uint32_t tempReg = 0;
 
