@@ -77,6 +77,15 @@
 #define SPI_SSM_EN             1
 /** @} */
 
+/**
+ * @defgroup SPI_FLAGS         Status Flags
+ * @{
+ */
+#define SPI_TXE_FLAG           (1 << SPI_SR_TXE_POS)        // Tx Buffer Empty Flag
+#define SPI_RXNE_FLAG          (1 << SPI_SR_RXNE_POS)       // Rx Buffer Not Empty Flag
+#define SPI_BSY_FLAG           (1 << SPI_SR_BSY_POS)        // Busy In Communication Flag
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
