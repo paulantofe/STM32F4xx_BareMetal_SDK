@@ -95,7 +95,7 @@ void SPI_Init(SPI_Handle_t *pSPIHandle) {
 	}
 
 	// Baud Rate Configuration
-	tempReg |= (pSPIHandle->SPI_Config.SPI_SCLKSpeed << SPI_CR1_BR_POS);
+	tempReg |= (pSPIHandle->SPI_Config.SPI_ClkPrescaler << SPI_CR1_BR_POS);
 
 	// DFF Configuration
 	tempReg |= (pSPIHandle->SPI_Config.SPI_DFF << SPI_CR1_DFF_POS);
