@@ -84,6 +84,12 @@
 #define SPI_TXE_FLAG           (1 << SPI_SR_TXE_POS)        // Tx Buffer Empty Flag
 #define SPI_RXNE_FLAG          (1 << SPI_SR_RXNE_POS)       // Rx Buffer Not Empty Flag
 #define SPI_BSY_FLAG           (1 << SPI_SR_BSY_POS)        // Busy In Communication Flag
+#define SPI_FRE_FLAG           (1 << SPI_SR_FRE_POS)        // Frame Format Error Flag
+#define SPI_OVR_FLAG           (1 << SPI_SR_OVR_POS)        // Overrun Flag
+#define SPI_MODF_FLAG          (1 << SPI_SR_MODF_POS)       // Mode Fault Flag
+#define SPI_CRCERR_FLAG        (1 << SPI_SR_CRCERR_POS)     // CRC Error Flag
+#define SPI_UDR_FLAG           (1 << SPI_SR_UDR_POS)        // Underrun Flag
+#define SPI_CHSIDE_FLAG        (1 << SPI_SR_CHSIDE_POS)     // Channel Side Flag
 /** @} */
 
 /* -------------------------------------------------------------------- */
