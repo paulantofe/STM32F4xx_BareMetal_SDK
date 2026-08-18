@@ -28,6 +28,17 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
 	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if (EnorDi == ENABLE) {
+		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
+	}
+	else {
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
+	}
+}
+
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+
 /**
  * @brief  Enable/Disable peripheral clock for a given SPI peripheral
  * @param  pSPIx	Base address of the SPI peripheral
