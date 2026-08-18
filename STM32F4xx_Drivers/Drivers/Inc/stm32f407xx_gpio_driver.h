@@ -136,7 +136,7 @@ typedef struct {
 
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
-void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_PClkControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
 
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);

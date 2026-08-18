@@ -48,7 +48,7 @@ static __vo uint8_t secretModeActive = 0;
 /* -------------------------- INITIALIZATION FUNCTIONS -------------------------- */
 
 void ledsInit(void) {
-	GPIO_PCLKControl(GPIOD, ENABLE);
+	GPIO_PClkControl(GPIOD, ENABLE);
 
 	GPIO_Handle_t led = { 0 };
 	led.pGPIOx = GPIOD;
@@ -62,7 +62,7 @@ void ledsInit(void) {
 }
 
 void buttonInit(void) {
-	GPIO_PCLKControl(GPIOA, ENABLE);
+	GPIO_PClkControl(GPIOA, ENABLE);
 
 	GPIO_Handle_t button = { 0 };
 	button.pGPIOx = GPIOA;
