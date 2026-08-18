@@ -119,7 +119,7 @@ typedef struct {
 
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
-uint8_t SPI_GetFlagStatus(SPI_RegDef_t pSPIx, uint32_t FlagName);
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
 
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
