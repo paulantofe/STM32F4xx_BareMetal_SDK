@@ -18,10 +18,22 @@
 
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
+/**
+ * @brief  Check status for a specific SPI flag
+ * @param  pSPIx	Base address of the SPI peripheral
+ * @param  FlagName	Macro of the flag to check @ref SPI_FLAGS
+ * @retval FLAG_SET or FLAG_RESET macro
+ */
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
 	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
+/**
+ * @brief  Enable/Disable peripheral clock for a given SPI peripheral
+ * @param  pSPIx	Base address of the SPI peripheral
+ * @param  EnorDi   ENABLE/DISABLE macros
+ * @retval None
+ */
 void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
@@ -48,6 +60,11 @@ void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	}
 }
 
+/**
+ * @brief  Initialize a SPI peripheral with the given settings
+ * @param  pSPIHandle	Handle structure with desired settings
+ * @retval None
+ */
 void SPI_Init(SPI_Handle_t *pSPIHandle) {
 	if (pSPIHandle == NULL || pSPIHandle->pSPIx == NULL) { return; }
 
@@ -95,6 +112,11 @@ void SPI_Init(SPI_Handle_t *pSPIHandle) {
     pSPIHandle->pSPIx->CR1 = tempReg;
 }
 
+/**
+ * @brief  De-initialize (reset) a SPI peripheral
+ * @param  pSPIx	Base address of SPI peripheral
+ * @retval None
+ */
 void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	if (pSPIx == NULL) { return; }
 
@@ -109,6 +131,14 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	}
 }
 
+/**
+ * @brief  Send information with SPI protocol
+ * @param  pSPIx	    Base address of the SPI peripheral
+ * @param  pTxBuffer    Pointer to Tx buffer
+ * @param  len          Length in bytes of the Tx buffer
+ * @retval None
+ * @note   This is a blocking API as it is polling the SPI_SR. Check other SendData APIs in the file for other methods
+ */
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len) {
 	if (pSPIx == NULL || pTxBuffer == NULL) { return; }
 
