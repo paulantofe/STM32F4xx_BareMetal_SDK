@@ -115,7 +115,9 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len) {
 	if (pSPIx == NULL || pTxBuffer == NULL) { return; }
 
 	while (len > 0) {
-		while ( !(pSPIx->SR & (1 << SPI_SR_TXE_POS)) );
+		while (SPI_GetFlagStatus(pSPIx, SPI_TXE_FLAG) == FLAG_RESET);
+		// Wait until Tx Buffer is Empty
+
 		if (pSPIx->CR1 & (1 << SPI_CR1_DFF_POS)) {
 			pSPIx->DR = *(uint16_t*) pTxBuffer;
 			len -= 2;
