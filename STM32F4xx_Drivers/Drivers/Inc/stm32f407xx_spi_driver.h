@@ -32,7 +32,7 @@
 /** @} */
 
 /**
- * @defgroup SPI_SCLK_SPEED       Serial Clock Speed
+ * @defgroup SPI_SCLK_PRESCALER   Serial Clock Prescaler
  * @{
  */
 #define SPI_CLK_PRESCALER_DIV2    0
@@ -99,13 +99,13 @@
 
 /** @brief Configuration structure for SPI */
 typedef struct {
-	uint8_t SPI_DeviceMode;       /**< possible values from @ref SPI_DEVICE_MODES */
-	uint8_t SPI_BusConfig;        /**< possible values from @ref SPI_BUS_CONFIG   */
-	uint8_t SPI_ClkPrescaler;     /**< possible values from @ref SPI_SCLK_SPEED   */
-	uint8_t SPI_DFF;              /**< possible values from @ref SPI_DFF          */
-	uint8_t SPI_CPOL;             /**< possible values from @ref SPI_CPOL         */
-	uint8_t SPI_CPHA;             /**< possible values from @ref SPI_CPHA         */
-	uint8_t SPI_SSM;              /**< possible values from @ref SPI_SSM          */
+	uint8_t SPI_DeviceMode;       /**< possible values from @ref SPI_DEVICE_MODES    */
+	uint8_t SPI_BusConfig;        /**< possible values from @ref SPI_BUS_CONFIG      */
+	uint8_t SPI_ClkPrescaler;     /**< possible values from @ref SPI_SCLK_PRESCALER  */
+	uint8_t SPI_DFF;              /**< possible values from @ref SPI_DFF             */
+	uint8_t SPI_CPOL;             /**< possible values from @ref SPI_CPOL            */
+	uint8_t SPI_CPHA;             /**< possible values from @ref SPI_CPHA            */
+	uint8_t SPI_SSM;              /**< possible values from @ref SPI_SSM             */
 } SPI_Config_t;
 
 /** @brief Handle structure for SPI */
