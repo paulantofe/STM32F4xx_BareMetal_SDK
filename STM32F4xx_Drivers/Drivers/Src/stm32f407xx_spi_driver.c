@@ -40,7 +40,14 @@ void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 }
 
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if (pSPIx == NULL) { return; }
 
+	if (EnorDi == ENABLE) {
+		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
+	}
+	else {
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
+	}
 }
 
 /**
