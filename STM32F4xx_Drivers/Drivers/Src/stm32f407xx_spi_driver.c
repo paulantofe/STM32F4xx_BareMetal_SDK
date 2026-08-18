@@ -29,15 +29,19 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
 }
 
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if (pSPIx == NULL) { return; }
+
 	if (EnorDi == ENABLE) {
-		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
+		pSPIx->CR1 |= (1 << SPI_CR1_SSI_POS);
 	}
 	else {
-		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI_POS);
 	}
 }
 
-void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+
+}
 
 /**
  * @brief  Enable/Disable peripheral clock for a given SPI peripheral
