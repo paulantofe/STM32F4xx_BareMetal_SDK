@@ -105,7 +105,7 @@ static void gpio_configure_alt_fn(GPIO_Handle_t *pGPIOHandle) {
  * @param  EnorDi	ENABLE or DISABLE macros
  * @retval None
  */
-void GPIO_PCLKControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
+void GPIO_PClkControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 	if (pGPIOx == NULL) { return; }
 
 	uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOx);

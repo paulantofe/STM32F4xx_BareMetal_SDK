@@ -34,7 +34,7 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
  * @param  EnorDi   ENABLE/DISABLE macros
  * @retval None
  */
-void SPI_PCLKControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+void SPI_PClkControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
 	if (EnorDi == ENABLE) {
