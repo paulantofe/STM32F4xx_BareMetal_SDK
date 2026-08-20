@@ -46,6 +46,12 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
 	}
 	else {
+		while (SPI_GetFlagStatus(pSPIx, SPI_TXE_FLAG) == FLAG_RESET);
+		// Wait until Tx Buffer is Empty
+
+		while (SPI_GetFlagStatus(pSPIx, SPI_BSY_FLAG) == FLAG_SET);
+		// Wait until SPI is not busy in communication
+
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
 	}
 }
