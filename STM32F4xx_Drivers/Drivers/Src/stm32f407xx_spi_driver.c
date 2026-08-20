@@ -11,15 +11,13 @@
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
-static uint8_t spi_wait_on_flag_timeout(SPI_RegDef_t pSPIx, uint32_t FlagName, uint8_t Status) {
+static void spi_wait_on_flag_timeout(SPI_RegDef_t pSPIx, uint32_t FlagName, uint8_t Status) {
 	uint32_t timeout = 500000;
 
 	while (SPI_GetFlagStatus(pSPIx, FlagName) == Status) {
 		timeout--;
-		if (timeout == 0) { return 0; }
+		if (timeout == 0) { return; }
 	}
-
-	return 1;
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -37,6 +35,7 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
 	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
+
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
@@ -48,6 +47,7 @@ void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	}
 }
 
+
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
@@ -55,11 +55,9 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
 	}
 	else {
-		while (SPI_GetFlagStatus(pSPIx, SPI_TXE_FLAG) == FLAG_RESET);
-		// Wait until Tx Buffer is Empty
+		spi_wait_on_flag_timeout(pSPIx, SPI_TXE_FLAG, FLAG_RESET);
 
-		while (SPI_GetFlagStatus(pSPIx, SPI_BSY_FLAG) == FLAG_SET);
-		// Wait until SPI is not busy in communication
+		spi_wait_on_flag_timeout(pSPIx, SPI_BSY_FLAG, FLAG_SET);
 
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
 	}
