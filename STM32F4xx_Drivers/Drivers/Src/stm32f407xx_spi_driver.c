@@ -11,7 +11,7 @@
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
-static void spi_wait_on_flag_timeout(SPI_RegDef_t pSPIx, uint32_t FlagName, uint8_t Status) {
+static void spi_wait_on_flag_timeout(SPI_RegDef_t *pSPIx, uint32_t FlagName, uint8_t Status) {
 	uint32_t timeout = 500000;
 
 	while (SPI_GetFlagStatus(pSPIx, FlagName) == Status) {
