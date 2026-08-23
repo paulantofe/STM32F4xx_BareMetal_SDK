@@ -98,7 +98,16 @@
 #define SPI_READY                 0
 #define SPI_BSY_IN_RX             1
 #define SPI_BSY_IN_TX             2
-/* @} */
+/** @} */
+
+/*
+ * @defgroup SPI_EVENTS           SPI Application Events
+ * @{
+ */
+#define SPI_EVENT_TX_CMPLT        0
+#define SPI_EVENT_RX_CMPLT        1
+#define SPI_EVENT_OVR_ERR         2
+/** @} */
 
 /* -------------------------------------------------------------------- */
 
