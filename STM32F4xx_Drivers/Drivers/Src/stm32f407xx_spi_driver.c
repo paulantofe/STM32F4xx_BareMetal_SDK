@@ -166,70 +166,14 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	}
 }
 
-/**
- * @brief  Send information with SPI protocol
- * @param  pSPIx	    Base address of the SPI peripheral
- * @param  pTxBuffer    Pointer to Tx buffer
- * @param  len          Length in bytes of the Tx buffer
- * @retval None
- * @note   This is a blocking API as it is polling the SPI_SR. Check other SendData APIs in the file for other methods
- */
-void SPI_TransmitData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t Len) {
-	spi_wait_on_flag_timeout(pSPIx, SPI_TXE_FLAG, FLAG_RESET);
-
-	uint8_t dummy_tx = 0xFF;
-	uint8_t data_frame = pSPIx->CR1 & (1 << SPI_CR1_DFF_POS);
-
-    if (pTxBuffer != NULL) {
-    	if (data_frame == 0) {
-    		pSPIx->DR = *pTxBuffer;
-    		pTxBuffer++;
-    		Len--;
-    	}
-    	else {
-    		pSPIx->DR = *((uint16_t*) pTxBuffer);
-    		pTxBuffer += 2;
-    		Len -= 2;
-    	}
-    }
-    else {
-    	pSPIx->DR = dummy_tx;
-    }
-}
-
-void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t* pRxBuffer, uint32_t *Len) {
-	spi_wait_on_flag_timeout(pSPIx, SPI_RXNE_FLAG, FLAG_SET);
-
-	uint8_t dummy_rx = 0xFF;
-	uint8_t data_frame = pSPIx->CR1 & (1 << SPI_CR1_DFF_POS);
-
-    if (pRxBuffer != NULL) {
-    	if (data_frame == 0) {
-    		*pRxBuffer = pSPIx->DR;
-    		pRxBuffer++;
-    		Len--;
-    	}
-    	else {
-    		*((uint16_t*) pRxBuffer) = pSPIx->DR;
-    		pRxBuffer += 2;
-    		Len -= 2;
-    	}
-    }
-    else {
-    	dummy_rx = pSPIx->DR;
-    }
-}
-
-
 void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t *Len) {
 	if (pSPIx == NULL) { return; }
 
 	while (Len > 0) {
-		SPI_TransmitData(pSPIx, pTxBuffer, Len);
-		SPI_ReceiveData(pSPIx, pRxBuffer, Len);
+		SPI_TransmitData(pSPIx, pTxBuffer, &Len);
+		SPI_ReceiveData(pSPIx, pRxBuffer, &Len);
 	}
 }
-
 
 void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
