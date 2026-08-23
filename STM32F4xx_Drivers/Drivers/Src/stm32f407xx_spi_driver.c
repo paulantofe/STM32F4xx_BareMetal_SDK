@@ -20,6 +20,28 @@ static void spi_wait_on_flag_timeout(SPI_RegDef_t *pSPIx, uint32_t FlagName, uin
 	}
 }
 
+static void spi_txe_it_handle(SPI_Handle_t *pSPIHandle) {
+	if (pSPIHandle->pSPIx->CR1 & (1 << SPI_CR1_DFF_POS)) { // 16-bit format
+		pSPIHandle->pSPIx->DR = *((uint16_t*) pSPIHandle->pTxBuffer);
+		pSPIHandle->pTxBuffer += 2;
+		pSPIHandle->TxLen -= 2;
+	}
+	else { // 8-bit format
+		pSPIHandle->pSPIx->DR = *pSPIHandle->pTxBuffer;
+		pSPIHandle->pTxBuffer++;
+		pSPIHandle->TxLen--;
+	}
+
+	if (pSPIHandle->TxLen == 0) {
+		pSPIHandle->pSPIx->CR2 &= ~(1 << SPI_CR2_TXEIE_POS);
+
+		pSPIHandle->pTxBuffer = NULL;
+		pSPIHandle->TxLen = 0;
+		pSPIHandle->TxState = SPI_READY;
+		SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_TX_CMPLT);
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
