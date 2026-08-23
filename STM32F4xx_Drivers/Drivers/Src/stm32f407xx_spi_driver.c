@@ -64,6 +64,13 @@ static void spi_rxne_it_handle(SPI_Handle_t *pSPIHandle) {
 	}
 }
 
+static void spi_ovr_err_it_handle(SPI_Handle_t *pSPIHandle) {
+	(void) pSPIHandle->pSPIx->DR;
+	(void) pSPIHandle->pSPIx->SR;
+
+	SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_OVR_ERR);
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
