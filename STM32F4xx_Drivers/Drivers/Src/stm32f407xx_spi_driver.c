@@ -166,6 +166,19 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	}
 }
 
+/**
+ * @brief  Transmit and/or receive data using SPI protocol
+ * @param  pSPIx	   Base address of SPI peripheral
+ * @param  pTxBuffer   Pointer to transmission buffer
+ * @param  pRxBuffer   Pointer to reception buffer
+ * @param  Len         Length of the transmission/reception in bytes
+ * @retval None
+ * @note               Passing the NULL macro to any of the buffers
+ *                     will disable the corresponding communication
+ *                     direction. In this case, the API will send/receive
+ *                     a dummy value just to generate the required
+ *                     clock source.
+ */
 void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t Len) {
 	if (pSPIx == NULL) { return; }
 
