@@ -277,6 +277,33 @@ void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	NVIC_IPR_BASEADDR[iprx] |= (IRQPriority << shiftAmount);
 }
 
+/**
+ * @brief  Transmit data using SPI protocol (non-blocking mode)
+ * @param  pSPIHandle  Handle structure of SPI
+ * @param  pTxBuffer   Pointer to transmission buffer
+ * @param  Len         Length of the transmission in bytes
+ * @retval SPI Peripheral state before API call:
+ *         - SPI_READY: transmission started
+ *         - SPI_BSY_IN_TX: peripheral was busy. Data is not transmitted
+ */
+uint8_t SPI_TransmitIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len) {
+	uint8_t state = pSPIHandle->TxState;
+
+	if (state != SPI_BSY_IN_TX) {
+		pSPIHandle->pTxBuffer = pTxBuffer;
+		pSPIHandle->TxLen = Len;
+
+		pSPIHandle->TxState = SPI_BSY_IN_TX;
+
+		pSPIHandle->pSPIx->CR2 |= (1 << SPI_CR2_TXEIE_POS);
+	}
+
+	return state;
+}
+
+
+void SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len);
+
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
 /* ----------------------------------------------------------------------------------- */
