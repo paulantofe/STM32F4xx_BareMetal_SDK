@@ -333,13 +333,16 @@ typedef struct {
 /* -------------------------- Interrupt Request Numbers -------------------------- */
 
 typedef enum {
-	EXTI0_IRQn = 6,
-	EXTI1_IRQn = 7,
-	EXTI2_IRQn = 8,
-	EXTI3_IRQn = 9,
-	EXTI4_IRQn = 10,
-	EXTI9_5_IRQn = 23,
-	EXTI15_10_IRQn = 40
+	EXTI0_IRQn      = 6,
+	EXTI1_IRQn      = 7,
+	EXTI2_IRQn      = 8,
+	EXTI3_IRQn      = 9,
+	EXTI4_IRQn      = 10,
+	EXTI9_5_IRQn    = 23,
+	EXTI15_10_IRQn  = 40,
+	SPI1_IRQn       = 35,
+	SPI2_IRQn       = 36,
+	SPI3_IRQn       = 51
 } IRQn_Type;
 
 /* ------------------------------------------------------------------------------- */
