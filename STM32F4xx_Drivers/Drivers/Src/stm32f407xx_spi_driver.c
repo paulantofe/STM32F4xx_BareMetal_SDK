@@ -260,7 +260,23 @@ void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	}
 }
 
-void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
+/**
+ * @brief  Set interrupt priority for SPI interrupt
+ * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
+ * @param  IRQPriority	Priority of the interrupt
+ * @retval None
+ */
+void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
+	if (IRQNumber > 81 || IRQPriority > 15) { return; }
+
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprxSection = IRQNumber % 4;
+	uint8_t shiftAmount = 8 * iprxSection + (8 - NO_PR_BITS_IMPLEMENTED);
+
+	NVIC_IPR_BASEADDR[iprx] &= ~(0xFF << (8 * iprxSection));
+	NVIC_IPR_BASEADDR[iprx] |= (IRQPriority << shiftAmount);
+}
+
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
 /* ----------------------------------------------------------------------------------- */
