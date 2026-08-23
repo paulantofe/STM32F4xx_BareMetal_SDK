@@ -42,6 +42,28 @@ static void spi_txe_it_handle(SPI_Handle_t *pSPIHandle) {
 	}
 }
 
+static void spi_rxne_it_handle(SPI_Handle_t *pSPIHandle) {
+	if (pSPIHandle->pSPIx->CR1 & (1 << SPI_CR1_DFF_POS)) { // 16-bit format
+		*((uint16_t*) pSPIHandle->pRxBuffer) = pSPIHandle->pSPIx->DR;
+		pSPIHandle->pRxBuffer += 2;
+		pSPIHandle->RxLen -= 2;
+	}
+	else { // 8-bit format
+		*pSPIHandle->pRxBuffer = pSPIHandle->pSPIx->DR;
+		pSPIHandle->pRxBuffer++;
+		pSPIHandle->RxLen--;
+	}
+
+	if (pSPIHandle->RxLen == 0) {
+		pSPIHandle->pSPIx->CR2 &= ~(1 << SPI_CR2_RXNEIE_POS);
+
+		pSPIHandle->pRxBuffer = NULL;
+		pSPIHandle->RxLen = 0;
+		pSPIHandle->RxState = SPI_READY;
+		SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_RX_CMPLT);
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
