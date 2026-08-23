@@ -243,7 +243,23 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
 	}
 }
 
-void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
+/**
+ * @brief  Configure an interrupt for SPI peripheral
+ * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
+ * @param  EnorDi		ENABLE/DISABLE macros
+ * @retval None
+ */
+void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
+	if (IRQNumber > 81) { return; }
+
+	if (EnorDi == ENABLE) {
+		NVIC_ISER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+	else {
+		NVIC_ICER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+}
+
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
