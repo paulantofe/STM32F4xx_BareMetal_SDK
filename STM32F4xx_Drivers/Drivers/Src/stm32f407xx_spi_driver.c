@@ -193,7 +193,6 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
 	if (pSPIx == NULL) { return; }
 
 	uint16_t dummy_tx = 0xFFFF;
-	uint16_t dummy_rx = 0x0000;
 	uint8_t data_frame = pSPIx->CR1 & (1 << SPI_CR1_DFF_POS);
 
 	while (Len > 0) {
@@ -231,7 +230,7 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
 			}
 		}
 		else {
-			dummy_rx = pSPIx->DR;
+			(void) pSPIx->DR;
 		}
 
 		// Length decrement
