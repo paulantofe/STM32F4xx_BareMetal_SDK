@@ -130,8 +130,7 @@ void SPI_PClkControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 void SPI_Init(SPI_Handle_t *pSPIHandle);
 void SPI_DeInit(SPI_RegDef_t *pSPIx);
 
-void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len);
-void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t* pRxBuffer, uint32_t len);
+void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t Len);
 
 void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
