@@ -141,6 +141,13 @@ typedef struct {
 /* ------------------------------------------------------------------------------ */
 
 
+/* -------------------------- APPLICATION CALL BACKS -------------------------- */
+
+void SPI_ApplicationEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv);
+
+/* ------------------------------------------------------------------------------ */
+
+
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
