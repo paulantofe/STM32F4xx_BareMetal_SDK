@@ -193,7 +193,24 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t* pTxBuffer, uint32_t len) {
 	}
 }
 
-void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t* pRxBuffer, uint32_t len);
+void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t* pRxBuffer, uint32_t len) {
+	if (pSPIx == NULL || pRxBuffer == NULL) { return; }
+
+	while (len > 0) {
+		spi_wait_on_flag_timeout(pSPIx, SPI_RXNE_FLAG, FLAG_RESET);
+
+		if (pSPIx->CR1 & (1 << SPI_CR1_DFF_POS)) {
+			*((uint16_t*) pRxBuffer) = pSPIx->DR;
+			len -= 2;
+			pRxBuffer += 2;
+		}
+		else {
+			*pRxBuffer = pSPIx->DR;
+			len--;
+			pRxBuffer++;
+		}
+	}
+}
 
 void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
