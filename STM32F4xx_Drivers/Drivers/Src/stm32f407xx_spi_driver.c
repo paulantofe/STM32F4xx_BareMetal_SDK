@@ -74,6 +74,21 @@ static void spi_ovr_err_it_handle(SPI_Handle_t *pSPIHandle) {
 /* ----------------------------------------------------------------------------------- */
 
 
+/* -------------------------- APPLICATION CALL BACKS WEAK IMPLEMENTATION -------------------------- */
+
+/**
+ * @brief  Application event callback function
+ * @param  pSPIHandle   Pointer to the SPI handle structure
+ * @param  AppEv        Application event type macro
+ * @retval None
+ */
+__weak void SPI_ApplicationEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv) {
+	// This is a weak implementation. The application may override this function
+}
+
+/* ------------------------------------------------------------------------------ */
+
+
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 /**
