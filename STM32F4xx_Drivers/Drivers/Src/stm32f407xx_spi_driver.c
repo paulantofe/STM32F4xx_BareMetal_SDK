@@ -325,6 +325,32 @@ uint8_t SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len
 	return state;
 }
 
-void SPI_IRQHandling(SPI_Handle_t *pHandle);
+/**
+ * @brief  Manage interrupt events of SPI peripheral
+ * @param  pSPIHandle  Handle structure of SPI
+ * @retval None
+ */
+void SPI_IRQHandling(SPI_Handle_t *pSPIHandle) {
+	uint8_t temp1;
+	uint8_t temp2;
+
+	temp1 = pSPIHandle->pSPIx->SR & (1 << SPI_SR_TXE_POS);
+    temp2 = pSPIHandle->pSPIx->CR2 & (1 << SPI_CR2_TXEIE_POS);
+	if (temp1 && temp2) {
+		spi_txe_it_handle(pSPIHandle);
+	}
+
+	temp1 = pSPIHandle->pSPIx->SR & (1 << SPI_SR_RXNE_POS);
+    temp2 = pSPIHandle->pSPIx->CR2 & (1 << SPI_CR2_RXNEIE_POS);
+    if (temp1 && temp2) {
+    	spi_rxne_it_handle(pSPIHandle);
+	}
+
+    temp1 = pSPIHandle->pSPIx->SR & (1 << SPI_SR_OVR_POS);
+    temp2 = pSPIHandle->pSPIx->CR2 & (1 << SPI_CR2_ERRIE_POS);
+    if (temp1 && temp2) {
+    	spi_ovr_err_it_handle(pSPIHandle);
+    }
+}
 
 /* ----------------------------------------------------------------------------------- */
