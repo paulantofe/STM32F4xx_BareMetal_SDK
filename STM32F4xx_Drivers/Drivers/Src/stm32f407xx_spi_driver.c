@@ -301,8 +301,29 @@ uint8_t SPI_TransmitIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Le
 	return state;
 }
 
+/**
+ * @brief  Receive data using SPI protocol (non-blocking mode)
+ * @param  pSPIHandle  Handle structure of SPI
+ * @param  pRxBuffer   Pointer to reception buffer
+ * @param  Len         Length of the reception in bytes
+ * @retval SPI Peripheral state before API call:
+ *         - SPI_READY: reception started
+ *         - SPI_BSY_IN_RX: peripheral was busy. Data is not received
+ */
+uint8_t SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len) {
+	uint8_t state = pSPIHandle->RxState;
 
-void SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len);
+	if (state != SPI_BSY_IN_RX) {
+		pSPIHandle->pRxBuffer = pRxBuffer;
+		pSPIHandle->RxLen = Len;
+
+		pSPIHandle->RxState = SPI_BSY_IN_RX;
+
+		pSPIHandle->pSPIx->CR2 |= (1 << SPI_CR2_RXNEIE_POS);
+	}
+
+	return state;
+}
 
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
