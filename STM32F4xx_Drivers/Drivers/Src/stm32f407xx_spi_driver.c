@@ -35,7 +35,12 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
 	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
-
+/**
+ * @brief  Configure the Internal Slave Select (SSI)
+ * @param  pSPIx	Base address of the SPI peripheral
+ * @param  EnorDi   ENABLE/DISABLE Macros
+ * @retval None
+ */
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
