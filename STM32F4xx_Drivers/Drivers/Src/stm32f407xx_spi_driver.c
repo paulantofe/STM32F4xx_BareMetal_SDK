@@ -166,12 +166,58 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	}
 }
 
-void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t *Len) {
+void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t Len) {
 	if (pSPIx == NULL) { return; }
 
+	uint16_t dummy_tx = 0xFFFF;
+	uint16_t dummy_rx = 0x0000;
+	uint8_t data_frame = pSPIx->CR1 & (1 << SPI_CR1_DFF_POS);
+
 	while (Len > 0) {
-		SPI_TransmitData(pSPIx, pTxBuffer, &Len);
-		SPI_ReceiveData(pSPIx, pRxBuffer, &Len);
+		// Transmission
+		spi_wait_on_flag_timeout(pSPIx, SPI_TXE_FLAG, FLAG_RESET);
+		if (pTxBuffer != NULL) {
+			if (data_frame == 0) {
+				pSPIx->DR = *pTxBuffer;
+				pTxBuffer++;
+			}
+			else {
+				pSPIx->DR = *((uint16_t*) pTxBuffer);
+				pTxBuffer += 2;
+			}
+		}
+		else {
+			if (data_frame == 0) { // 8-bit Format
+				pSPIx->DR = (uint8_t) dummy_tx;
+			}
+			else { // 16-bit Format
+				pSPIx->DR = dummy_tx;
+			}
+		}
+
+		// Reception
+		spi_wait_on_flag_timeout(pSPIx, SPI_RXNE_FLAG, FLAG_RESET);
+		if (pRxBuffer != NULL) { // 8-bit Format
+			if (data_frame == 0) {
+				*pRxBuffer = pSPIx->DR;
+				pRxBuffer++;
+			}
+			else { // 16-bit Format
+				*((uint16_t*) pRxBuffer) = pSPIx->DR;
+				pRxBuffer += 2;
+			}
+		}
+		else {
+			dummy_rx = pSPIx->DR;
+		}
+
+		// Length decrement
+		if (data_frame == 0) {
+			Len--;
+		}
+		else {
+			Len -= 2;
+		}
 	}
 }
 
