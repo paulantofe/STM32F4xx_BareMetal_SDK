@@ -92,6 +92,14 @@
 #define SPI_CHSIDE_FLAG           (1 << SPI_SR_CHSIDE_POS)     // Channel Side Flag
 /** @} */
 
+/* @defgroup SPI_STATES           SPI Application States
+ * @{
+ */
+#define SPI_READY                 0
+#define SPI_BSY_IN_RX             1
+#define SPI_BSY_IN_TX             2
+/* @} */
+
 /* -------------------------------------------------------------------- */
 
 
