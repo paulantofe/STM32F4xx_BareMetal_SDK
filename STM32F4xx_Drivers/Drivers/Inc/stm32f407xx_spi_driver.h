@@ -112,6 +112,13 @@ typedef struct {
 typedef struct {
 	SPI_RegDef_t *pSPIx;
 	SPI_Config_t SPI_Config;
+
+	uint8_t      *pTxBuffer;
+	uint8_t      *pRxBuffer;
+	uint32_t     TxLen;
+	uint32_t     RxLen;
+	uint8_t      TxState;
+	uint8_t      RxState;
 } SPI_Handle_t;
 
 /* ------------------------------------------------------------------------------ */
