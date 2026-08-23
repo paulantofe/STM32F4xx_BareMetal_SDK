@@ -52,7 +52,12 @@ void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	}
 }
 
-
+/**
+ * @brief  Enable/Disable the given SPI peripheral
+ * @param  pSPIx	Base address of the SPI peripheral
+ * @param  EnorDi   ENABLE/DISABLE Macros
+ * @retval None
+ */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
 
