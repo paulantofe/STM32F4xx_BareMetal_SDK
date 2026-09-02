@@ -5,7 +5,7 @@
  * @details
  */
 
-#include "stm32f407xx_spi_driver.h"
+#include "stm32f407xx_i2c_driver.h"
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 /* ----------------------------------------------------------------------------------- */
@@ -39,12 +39,36 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 }
 
 /**
- * @brief
- * @param
- * @param
- * @retval
+ * @brief  Enable/Disable peripheral clock for a given I2C peripheral
+ * @param  pI2Cx   Base address of I2C peripheral
+ * @param  EnorDi  ENABLE/DISABLE macro
+ * @retval None
  */
-void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
+void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
+	if (pI2Cx == NULL) { return; }
+
+	if (EnorDi == ENABLE) {
+		if (pI2Cx == I2C1) {
+			I2C1_PCLK_EN();
+		}
+		else if (pI2Cx == I2C2) {
+			I2C2_PCLK_EN();
+		}
+		else if (pI2Cx == I2C3) {
+			I2C3_PCLK_EN();
+		}
+	} else {
+		if (pI2Cx == I2C1) {
+			I2C1_PCLK_DI();
+		}
+		else if (pI2Cx == I2C2) {
+			I2C2_PCLK_DI();
+		}
+		else if (pI2Cx == I2C3) {
+			I2C3_PCLK_DI();
+		}
+	}
+}
 
 /**
  * @brief
