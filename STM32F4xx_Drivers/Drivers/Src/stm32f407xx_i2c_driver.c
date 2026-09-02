@@ -135,11 +135,36 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	pI2CHandle->pI2Cx->CR2 = (temp_reg & 0x3F);
 
 	// Device Own Address
+	temp_reg = 0;
 	temp_reg |= (pI2CHandle->I2C_Config.I2C_DeviceAddress << 1);
 	temp_reg |= (1 << 14); // Reference Manual mentions that this bit must be programmed to 1, no explanation
 	pI2CHandle->pI2Cx->OAR1 = temp_reg;
 
-	// CCR Calculations (to be continued...)
+	// CCR Calculations
+	uint16_t ccr_value = 0;
+	temp_reg = 0;
+	if (pI2CHandle->I2C_Config.I2C_SclSpeed == I2C_SCL_SPEED_SM) {
+		// Standard Mode
+		ccr_value = rcc_get_pclk1_value() / (2 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+		temp_reg = (ccr_value & 0xFFF);
+	}
+	else {
+		// Fast Mode
+		temp_reg = (1 << I2C_CCR_F_S_POS);
+		temp_reg |= (pI2CHandle->I2C_Config.I2C_FMDutyCycle << I2C_CCR_DUTY_POS);
+
+		if (pI2CHandle->I2C_Config.I2C_FMDutyCycle == I2C_FM_DUTY_2) {
+			ccr_value = rcc_get_pclk1_value() / (3 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+		}
+		else {
+			ccr_value = rcc_get_pclk1_value() / (25 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+		}
+
+		temp_reg |= (ccr_value & 0xFFF);
+	}
+	pI2CHandle->pI2Cx->CCR = temp_reg;
+
+	// TRISE Configuration (to be continued...)
 }
 
 /**
