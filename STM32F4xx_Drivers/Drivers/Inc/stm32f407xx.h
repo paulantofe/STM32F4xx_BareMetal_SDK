@@ -248,6 +248,10 @@ typedef struct {
 #define I2C_SR2_BUSY_POS       1
 #define I2C_SR2_TRA_POS        2
 
+// Bit position definitions for I2C_CCR
+#define I2C_CCR_CCR_POS        0
+#define I2C_CCR_F_S_POS        15
+
 /* ------------------------------------- */
 
 /* ---------- SPI Peripheral ---------- */
