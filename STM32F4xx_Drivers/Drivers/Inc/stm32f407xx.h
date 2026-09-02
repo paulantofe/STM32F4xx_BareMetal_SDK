@@ -220,24 +220,24 @@ typedef struct {
 #define SPI_CR1_BIDIMODE_POS   15
 
 // Bit position definitions for SPI_CR2
-#define SPI_CR2_RXDMAEN_POS      0
-#define SPI_CR2_TXDMAEN_POS      1
-#define SPI_CR2_SSOE_POS         2
-#define SPI_CR2_FRF_POS          4
-#define SPI_CR2_ERRIE_POS        5
-#define SPI_CR2_RXNEIE_POS       6
-#define SPI_CR2_TXEIE_POS        7
+#define SPI_CR2_RXDMAEN_POS    0
+#define SPI_CR2_TXDMAEN_POS    1
+#define SPI_CR2_SSOE_POS       2
+#define SPI_CR2_FRF_POS        4
+#define SPI_CR2_ERRIE_POS      5
+#define SPI_CR2_RXNEIE_POS     6
+#define SPI_CR2_TXEIE_POS      7
 
 // Bit position definitions for SPI_SR
-#define SPI_SR_RXNE_POS          0
-#define SPI_SR_TXE_POS           1
-#define SPI_SR_CHSIDE_POS        2
-#define SPI_SR_UDR_POS           3
-#define SPI_SR_CRCERR_POS        4
-#define SPI_SR_MODF_POS          5
-#define SPI_SR_OVR_POS           6
-#define SPI_SR_BSY_POS           7
-#define SPI_SR_FRE_POS           8
+#define SPI_SR_RXNE_POS        0
+#define SPI_SR_TXE_POS         1
+#define SPI_SR_CHSIDE_POS      2
+#define SPI_SR_UDR_POS         3
+#define SPI_SR_CRCERR_POS      4
+#define SPI_SR_MODF_POS        5
+#define SPI_SR_OVR_POS         6
+#define SPI_SR_BSY_POS         7
+#define SPI_SR_FRE_POS         8
 
 /* ------------------------------------ */
 
