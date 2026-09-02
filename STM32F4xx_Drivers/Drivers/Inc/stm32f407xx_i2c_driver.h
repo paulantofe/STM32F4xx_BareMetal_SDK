@@ -33,6 +33,13 @@
 #define I2C_FM_DUTY_16_9       1
 /** @} */
 
+/** @defgroup I2C_R_START      Enable/Disable Repeated Start
+ * @{
+ */
+#define I2C_SR_EN              1
+#define I2C_SR_DI              0
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
