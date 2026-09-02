@@ -71,11 +71,13 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 }
 
 /**
- * @brief
- * @param
- * @retval
+ * @brief  Initialize a I2C peripheral with the given settings
+ * @param  pI2CHandle   Handle structure with desired settings
+ * @retval None
  */
-void I2C_Init(I2C_Handle_t *pI2CHandle);
+void I2C_Init(I2C_Handle_t *pI2CHandle) {
+
+}
 
 /**
  * @brief
