@@ -123,7 +123,23 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
  * @retval None
  */
 void I2C_Init(I2C_Handle_t *pI2CHandle) {
+	uint32_t temp_reg = 0;
 
+	// ACK Control Bit
+	temp_reg |= (pI2CHandle->I2C_Config.I2C_AckControl << I2C_CR1_ACK_POS);
+	pI2CHandle->pI2Cx->CR1 = temp_reg;
+
+	// FREQ Field of CR1
+	temp_reg = 0;
+	temp_reg |= rcc_get_pclk1_value() / 1000000U;
+	pI2CHandle->pI2Cx->CR2 = (temp_reg & 0x3F);
+
+	// Device Own Address
+	temp_reg |= (pI2CHandle->I2C_Config.I2C_DeviceAddress << 1);
+	temp_reg |= (1 << 14); // Reference Manual mentions that this bit must be programmed to 1, no explanation
+	pI2CHandle->pI2Cx->OAR1 = temp_reg;
+
+	// CCR Calculations (to be continued...)
 }
 
 /**
