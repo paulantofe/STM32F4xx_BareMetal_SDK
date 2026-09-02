@@ -15,6 +15,21 @@
 
 
 /* -------------------------- CONFIGURATION STRUCTURES -------------------------- */
+
+/** @brief Configuration structure for I2C */
+typedef struct {
+	uint32_t I2C_SclSpeed;
+	uint8_t  I2C_DeviceAddress;
+	uint8_t  I2C_AckControl;
+	uint16_t I2C_FMDutyCycle;
+} I2C_Config_t;
+
+/** @brief Handle structure for I2C */
+typedef struct {
+	I2C_RegDef_t *pI2Cx;
+	I2C_Config_t I2C_Config;
+} I2C_Handle_t;
+
 /* ------------------------------------------------------------------------------ */
 
 
