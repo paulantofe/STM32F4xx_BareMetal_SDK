@@ -23,9 +23,9 @@ uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName);
 
 /**
  * @brief  Enable/Disable the given I2C peripheral
- * @param
- * @param
- * @retval
+ * @param  pI2C    Base address of I2C peripheral
+ * @param  EnorDi  ENABLE/DISABLE macro
+ * @retval None
  */
 void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 	if (pI2Cx == NULL) { return; }
