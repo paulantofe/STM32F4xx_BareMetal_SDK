@@ -215,6 +215,41 @@ typedef struct {
 
 /* ------------------------------------- */
 
+/* ---------- I2C Peripheral ---------- */
+
+// Bit position definitions for I2C_CR1
+#define I2C_CR1_PE_POS         0
+#define I2C_CR1_NOSTRETCH_POS  7
+#define I2C_CR1_START_POS      8
+#define I2C_CR1_STOP_POS       9
+#define I2C_CR1_ACK_POS        10
+#define I2C_CR1_SWRST_POS      15
+
+// Bit position definitions for I2C_CR2
+#define I2C_CR2_FREQ_POS       0
+#define I2C_CR2_ITERREN_POS    8
+#define I2C_CR2_ITEVTEN_POS    9
+#define I2C_CR2_ITBUFEN_POS    10
+
+// Bit position definitions for I2C_SR1
+#define I2C_SR1_SB_POS         0
+#define I2C_SR1_ADDR_POS       1
+#define I2C_SR1_BTF_POS        2
+#define I2C_SR1_RXNE_POS       6
+#define I2C_SR1_TXE_POS        7
+#define I2C_SR1_BERR_POS       8
+#define I2C_SR1_ARLO_POS       9
+#define I2C_SR1_AF_POS         10
+#define I2C_SR1_OVR_POS        11
+#define I2C_SR1_TIMEOUT_POS    14
+
+// Bit position definitions for I2C_SR2
+#define I2C_SR2_MSL_POS        0
+#define I2C_SR2_BUSY_POS       1
+#define I2C_SR2_TRA_POS        2
+
+/* ------------------------------------- */
+
 /* ---------- SPI Peripheral ---------- */
 
 // Bit position definitions for SPI_CR1
