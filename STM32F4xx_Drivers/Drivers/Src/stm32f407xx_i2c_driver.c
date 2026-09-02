@@ -80,11 +80,23 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 }
 
 /**
- * @brief
- * @param
- * @retval
+ * @brief  De-initialize (reset) a I2C peripheral
+ * @param  pI2Cx   Base address of I2C peripheral
+ * @retval None
  */
-void I2C_DeInit(I2C_RegDef_t *pI2Cx);
+void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
+	if (pI2Cx == NULL) { return; }
+
+	if (pI2Cx == I2C1) {
+		I2C1_REG_RESET();
+	}
+	else if (pI2Cx == I2C2) {
+		I2C2_REG_RESET();
+	}
+	else if (pI2Cx == I2C3) {
+		I2C3_REG_RESET();
+	}
+}
 
 /**
  * @brief
