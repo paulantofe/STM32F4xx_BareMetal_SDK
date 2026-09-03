@@ -7,7 +7,7 @@ I created this SDK to master the ARM Cortex-M4 architecture and understand how s
 
 ## Implemented Peripherals
 * GPIO
-* SPI *(in progress)*
+* SPI 
 * I2C *(in progress)*
 * UART/USART *(in progress)*
 
