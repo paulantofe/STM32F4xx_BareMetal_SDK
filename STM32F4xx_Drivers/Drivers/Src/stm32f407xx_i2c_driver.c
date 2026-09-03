@@ -65,6 +65,11 @@ static void i2c_execute_address_phase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddress)
 	pI2Cx->DR = SlaveAddress;
 }
 
+static void i2c_clear_addr_flag(I2C_RegDef_t *pI2Cx) {
+	(void) pI2Cx->SR1;
+	(void) pI2Cx->SR2;
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
