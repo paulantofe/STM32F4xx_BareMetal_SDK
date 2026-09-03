@@ -15,35 +15,40 @@
 
 /* -------------------------- GENERIC MACROS -------------------------- */
 
-/** @defgroup I2C_SCL_SPEED    Speed of I2C Serial Clock
+/**
+ * @defgroup I2C_SCL_SPEED    Speed of I2C Serial Clock
  * @{
  */
 #define I2C_SCL_SPEED_SM       100000U   // Standard Mode 100 kHz
 #define I2C_SCL_SPEED_FM       400000U   // Fast Mode     400 kHz
 /** @} */
 
-/** @defgroup I2C_ACK_CTRL     Enable/Disable ACK
+/**
+ * @defgroup I2C_ACK_CTRL     Enable/Disable ACK
  * @{
  */
 #define I2C_ACK_EN             1
 #define I2C_ACK_DI             0
 /** @} */
 
-/** @defgroup I2C_FM_DUTY      Duty Cycle for Fast Mode
+/**
+ * @defgroup I2C_FM_DUTY      Duty Cycle for Fast Mode
  * @{
  */
 #define I2C_FM_DUTY_2          0
 #define I2C_FM_DUTY_16_9       1
 /** @} */
 
-/** @defgroup I2C_R_START      Enable/Disable Repeated Start
+/**
+ * @defgroup I2C_R_START      Enable/Disable Repeated Start
  * @{
  */
 #define I2C_SR_EN              1
 #define I2C_SR_DI              0
 /** @} */
 
-/** @defgroup I2C_FLAGS         Status Flags
+/**
+ * @defgroup I2C_FLAGS         Status Flags
  * @{
  */
 #define I2C_TXE_FLAG           (1 << I2C_SR1_TXE_POS)
