@@ -235,6 +235,7 @@ typedef struct {
 #define I2C_SR1_SB_POS         0
 #define I2C_SR1_ADDR_POS       1
 #define I2C_SR1_BTF_POS        2
+#define I2C_SR1_STOPF_POS      4
 #define I2C_SR1_RXNE_POS       6
 #define I2C_SR1_TXE_POS        7
 #define I2C_SR1_BERR_POS       8
