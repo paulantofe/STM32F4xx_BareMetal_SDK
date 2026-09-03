@@ -57,6 +57,14 @@ static uint32_t rcc_get_pclk1_value(void) {
 	return pclk1;
 }
 
+static void i2c_execute_address_phase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddress) {
+	SlaveAddress = SlaveAddress << 1;
+
+	SlaveAddress &= ~1;
+
+	pI2Cx->DR = SlaveAddress;
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
