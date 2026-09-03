@@ -63,12 +63,21 @@ static uint32_t rcc_get_pclk1_value(void) {
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 /**
- * @brief
- * @param
- * @param
- * @retval
+ * @brief  Check status for a specific I2C flag
+ * @param  pI2Cx    Base address of I2C peripheral
+ * @param  FlagName Macro of the flag to check @ref I2C_FLAGS
+ * @retval FLAG_SET or FLAG_RESET macro
  */
-uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName);
+uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName) {
+	if (pI2Cx == NULL) { return FLAG_RESET; }
+
+	if (FlagName == I2C_BUSY_FLAG) {
+		return (pI2Cx->SR2 & FlagName) ? FLAG_SET : FLAG_RESET;
+	}
+	else {
+		return (pI2Cx->SR1 & FlagName) ? FLAG_SET : FLAG_RESET;
+	}
+}
 
 /**
  * @brief  Enable/Disable the given I2C peripheral
