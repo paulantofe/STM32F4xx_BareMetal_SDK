@@ -2,7 +2,10 @@
  * @file 		stm32f407xx_i2c_driver.h
  * @brief 		Header file for I2C peripheral support
  *
- * @details
+ * @details     This header file provides the configuration and handle structures for the I2C peripheral on the MCU.
+ *              It includes user macros for clock speeds (Standard and Fast Mode), ACK control, Fast Mode duty cycles
+ *              and Repeated Start generation, along with API function prototypes for I2C initialization, master and
+ *              slave data communication, peripheral control and interrupt handling.
  */
 
 #ifndef INC_STM32F407XX_I2C_DRIVER_H_
