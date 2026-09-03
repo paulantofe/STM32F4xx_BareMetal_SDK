@@ -43,6 +43,23 @@
 #define I2C_SR_DI              0
 /** @} */
 
+/** @defgroup I2C_FLAGS         Status Flags
+ * @{
+ */
+#define I2C_TXE_FLAG           (1 << I2C_SR1_TXE_POS)
+#define I2C_RXNE_FLAG          (1 << I2C_SR1_RXNE_POS)
+#define I2C_SB_FLAG            (1 << I2C_SR1_SB_POS)
+#define I2C_ADDR_FLAG          (1 << I2C_SR1_ADDR_POS)
+#define I2C_BTF_FLAG           (1 << I2C_SR1_BTF_POS)
+#define I2C_STOPF_FLAG         (1 << I2C_SR1_STOPF_POS)
+#define I2C_BERR_FLAG          (1 << I2C_SR1_BERR_POS)
+#define I2C_ARLO_FLAG          (1 << I2C_SR1_ARLO_POS)
+#define I2C_AF_FLAG            (1 << I2C_SR1_AF_POS)
+#define I2C_OVR_FLAG           (1 << I2C_SR1_OVR_POS)
+#define I2C_TIMEOUT_FLAG       (1 << I2C_SR1_TIMEOUT_POS)
+#define I2C_BUSY_FLAG          (1 << I2C_SR2_BUSY_POS)
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
