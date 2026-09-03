@@ -2,7 +2,9 @@
  * @file 		stm32f407xx_i2c_driver.c
  * @brief 		Source file for I2C peripheral support
  *
- * @details
+ * @details     This source file contains the implementation of the APIs for the I2C peripherals on the MCU. It includes the functional
+ *              code for peripheral clock control, I2C initialization and de-initialization, data transmission, as well as interrupt
+ *              configuration and handling.
  */
 
 #include "stm32f407xx_i2c_driver.h"
