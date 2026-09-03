@@ -166,7 +166,16 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	}
 	pI2CHandle->pI2Cx->CCR = temp_reg;
 
-	// TRISE Configuration (to be continued...)
+	// TRISE Configuration
+	if (pI2CHandle->I2C_Config.I2C_SclSpeed == I2C_SCL_SPEED_SM) {
+		// Standard Mode: maximum rise time is 1000 ns
+		temp_reg = (rcc_get_pclk1_value() / 1000000U) + 1;
+	}
+	else {
+		// Fast Mode: maximum rise time is 300 ns
+		temp_reg = ((rcc_get_pclk1_value() / 1000000U) * 300) / 1000 +  1;
+	}
+	pI2CHandle->pI2Cx->TRISE = (temp_reg & 0x3F);
 }
 
 /**
