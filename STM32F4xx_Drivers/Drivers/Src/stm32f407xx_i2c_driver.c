@@ -93,12 +93,7 @@ static void i2c_wait_on_flag_timeout(I2C_RegDef_t *pI2Cx, uint32_t FlagName, uin
 uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName) {
 	if (pI2Cx == NULL) { return FLAG_RESET; }
 
-	if (FlagName == I2C_BUSY_FLAG) {
-		return (pI2Cx->SR2 & FlagName) ? FLAG_SET : FLAG_RESET;
-	}
-	else {
-		return (pI2Cx->SR1 & FlagName) ? FLAG_SET : FLAG_RESET;
-	}
+    return (pI2Cx->SR1 & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
 /**
