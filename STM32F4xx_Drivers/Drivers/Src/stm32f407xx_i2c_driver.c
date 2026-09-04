@@ -70,6 +70,15 @@ static void i2c_clear_addr_flag(I2C_RegDef_t *pI2Cx) {
 	(void) pI2Cx->SR2;
 }
 
+static void i2c_wait_on_flag_timeout(I2C_RegDef_t *pI2Cx, uint32_t FlagName, uint8_t Status) {
+	uint32_t timeout = 500000;
+
+	while (I2C_GetFlagStatus(pI2Cx, FlagName) == Status) {
+		timeout--;
+		if (timeout == 0) { return; }
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
