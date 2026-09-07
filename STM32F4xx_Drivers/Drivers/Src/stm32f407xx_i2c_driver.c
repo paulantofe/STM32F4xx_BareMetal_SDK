@@ -271,15 +271,78 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
 }
 
 /**
- * @brief
- * @param
- * @param
- * @param
- * @param
- * @param
- * @retval
+ * @brief  Receive data using I2C protocol
+ * @param  pI2CHandle     Handle structure
+ * @param  pRxBuffer      Pointer to reception buffer
+ * @param  Len            Length of the reception in bytes
+ * @param  SlaveAddr      Address of the slave to receive from
+ * @retval None
  */
-void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr);
+void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr) {
+	// Generate Start Condition
+	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
+
+	// Wait until Start Condition is generated
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_SB_FLAG, FLAG_RESET);
+
+	// Send Slave Address along with R/nW bit set to 1 (8 bits in total)
+	i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr, 1);
+
+	// Wait until Address Phase is over
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_ADDR_FLAG, FLAG_RESET);
+
+	// Procedure to read only one byte of data from slave
+	if (Len == 1) {
+		// Disable Acking
+		pI2CHandle->pI2Cx->CR1 &= ~(1 << I2C_CR1_ACK_POS);
+
+		// Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
+		i2c_clear_addr_flag(pI2CHandle->pI2Cx);
+
+		// Wait until Rx buffer is not empty
+		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
+
+		// Generate Stop Condition
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+
+		// Read data into pRxBuffer
+		*pRxBuffer = pI2CHandle->pI2Cx->DR;
+
+		// Restore ACK Control to initial configuration
+        if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
+        	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
+        }
+
+		return;
+	}
+
+	if (Len > 1) {
+		// Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
+	    i2c_clear_addr_flag(pI2CHandle->pI2Cx);
+
+	    while (Len > 0) {
+	    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
+
+	    	if (Len == 2) {
+	    		// Disable Acking
+	    		pI2CHandle->pI2Cx->CR1 &= ~(1 << I2C_CR1_ACK_POS);
+
+	    		// Generate Stop Condition
+	    		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+	    	}
+
+	    	// Read data into pRxBuffer
+	    	*pRxBuffer = pI2CHandle->pI2Cx->DR;
+	    	pRxBuffer++;
+	    	Len--;
+	    }
+
+	    // Restore ACK Control to initial configuration
+	    if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
+	    	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
+	    }
+	}
+}
 
 /**
  * @brief
