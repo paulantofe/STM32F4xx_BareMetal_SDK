@@ -307,16 +307,9 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 
 		// Read data into pRxBuffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
-
-		// Restore ACK Control to initial configuration
-        if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
-        	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
-        }
-
-		return;
 	}
 
-	if (Len > 1) {
+	else if (Len > 1) {
 		// Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
 	    i2c_clear_addr_flag(pI2CHandle->pI2Cx);
 
@@ -336,12 +329,12 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 	    	pRxBuffer++;
 	    	Len--;
 	    }
-
-	    // Restore ACK Control to initial configuration
-	    if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
-	    	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
-	    }
 	}
+
+	// Restore ACK Control to initial configuration
+	if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
+    }
 }
 
 /**
