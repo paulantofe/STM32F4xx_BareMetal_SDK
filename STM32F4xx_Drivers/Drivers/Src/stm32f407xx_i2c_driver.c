@@ -236,21 +236,21 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
 	// Wait until Start Condition is generated
-	while (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_SB_FLAG) == FLAG_RESET);
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_SB_FLAG, FLAG_RESET);
 
 	// Send Slave Address along with R/nW bit set to 0 (8 bits in total)
     i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr);
 
     // Wait until Address Phase is over
-    while (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_ADDR_FLAG) == FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_ADDR_FLAG, FLAG_RESET);
 
     // Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
     i2c_clear_addr_flag(pI2CHandle->pI2Cx);
 
     // Send data until Len is 0
     while (Len > 0) {
-    	while (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_TXE_FLAG) == FLAG_RESET);
     	// Wait until Tx buffer is empty
+    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_TXE_FLAG, FLAG_RESET);
 
     	pI2CHandle->pI2Cx->DR = *pTxBuffer;
     	pTxBuffer++;
@@ -258,8 +258,8 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
     }
 
     // Wait until Tx buffer is empty and BTF Flag is set (Byte Transfer Finished)
-    while (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_TXE_FLAG) == FLAG_RESET);
-    while (I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_BTF_FLAG) == FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_TXE_FLAG, FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_BTF_FLAG, FLAG_RESET);
 
     // Generate Stop Condition
     pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
