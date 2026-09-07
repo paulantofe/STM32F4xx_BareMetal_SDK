@@ -233,7 +233,7 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
  * @param  pI2CHandle    Handle structure
  * @param  pTxBuffer     Pointer to transmission buffer
  * @param  Len           Length of the transmission in bytes
- * @param  SlaveAddr     Address of the slave to transmit
+ * @param  SlaveAddr     Address of the slave to transmit to
  * @retval None
  */
 void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr) {
