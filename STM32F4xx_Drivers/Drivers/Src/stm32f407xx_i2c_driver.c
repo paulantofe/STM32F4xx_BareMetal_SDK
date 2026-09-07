@@ -244,7 +244,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
 	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_SB_FLAG, FLAG_RESET);
 
 	// Send Slave Address along with R/nW bit set to 0 (8 bits in total)
-    i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr);
+    i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr, 0);
 
     // Wait until Address Phase is over
     i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_ADDR_FLAG, FLAG_RESET);
