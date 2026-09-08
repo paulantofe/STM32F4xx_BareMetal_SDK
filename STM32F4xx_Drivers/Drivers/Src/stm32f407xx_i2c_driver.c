@@ -236,7 +236,7 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
  * @param  SlaveAddr     Address of the slave to transmit to
  * @retval None
  */
-void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr) {
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
 	// Generate Start Condition
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
