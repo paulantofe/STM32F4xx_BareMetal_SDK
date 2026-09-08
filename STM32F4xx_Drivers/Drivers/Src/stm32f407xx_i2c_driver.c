@@ -303,13 +303,13 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 		// Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
 		i2c_clear_addr_flag(pI2CHandle->pI2Cx);
 
-		// Wait until Rx buffer is not empty
-		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
-
 		if (Sr == I2C_SR_DI) {
-		    // Repeated Start is deactivated. Generate stop condition
+			// Repeated Start is deactivated. Generate stop condition
 		    pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
 		}
+
+		// Wait until Rx buffer is not empty
+		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
 
 		// Read data into pRxBuffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
