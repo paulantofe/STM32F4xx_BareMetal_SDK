@@ -379,11 +379,39 @@ uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint3
 }
 
 /**
- * @brief
- * @param
- * @retval
+ * @brief  Receive data using I2C protocol (non-blocking mode)
+ * @param  pI2CHandle    Handle structure
+ * @param  pRxBuffer     Pointer to reception buffer
+ * @param  Len           Length of the reception in bytes
+ * @param  SlaveAddr     Address of the slave to receive from
+ * @param  Sr            I2C_SR_EN/I2C_SR_DI macro
+ * @retval I2C Peripheral state before API call:
+ *         - I2C_READY: transmission started
+ *         - I2C_BUSY_IN_TX/I2C_BUSY_IN_RX: peripheral was busy. Data is not transmitted
  */
-uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr);
+uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
+	uint8_t state = pI2CHandle->TxRxState;
+
+	if( (state != I2C_BUSY_IN_TX) && (state != I2C_BUSY_IN_RX))
+	{
+		pI2CHandle->pRxBuffer = pRxBuffer;
+		pI2CHandle->RxLen = Len;
+		pI2CHandle->TxRxState = I2C_BUSY_IN_RX;
+		pI2CHandle->RxSize = Len;
+		pI2CHandle->DevAddr = SlaveAddr;
+		pI2CHandle->Sr = Sr;
+
+		// Enable ITBUFEN, ITEVTEN and ITERREN
+        pI2CHandle->pI2Cx->CR2 |= (1 << I2C_CR2_ITBUFEN_POS) |
+        		                  (1 << I2C_CR2_ITEVTEN_POS) |
+								  (1 << I2C_CR2_ITERREN_POS);
+
+		// Generate Start Condition
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
+	}
+
+	return state;
+}
 
 /**
  * @brief
