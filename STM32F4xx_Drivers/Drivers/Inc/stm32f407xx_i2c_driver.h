@@ -57,7 +57,7 @@
 #define I2C_BUSY_FLAG          (1 << I2C_SR2_BUSY_POS)
 /** @} */
 
-/** @defgroup I2C_SR_CTRL      Enable/Disable Reapeated Start
+/** @defgroup I2C_SR_CTRL      Enable/Disable Repeated Start
  * @{
  */
 #define I2C_SR_EN              1
