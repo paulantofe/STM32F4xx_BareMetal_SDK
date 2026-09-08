@@ -280,7 +280,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
  * @param  SlaveAddr      Address of the slave to receive from
  * @retval None
  */
-void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr) {
+void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
 	// Generate Start Condition
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
@@ -304,8 +304,10 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 		// Wait until Rx buffer is not empty
 		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
 
-		// Generate Stop Condition
-		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+		if (Sr == I2C_SR_DI) {
+		    // Repeated Start is deactivated. Generate stop condition
+		    pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+		}
 
 		// Read data into pRxBuffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
@@ -322,8 +324,10 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 	    		// Disable Acking
 	    		pI2CHandle->pI2Cx->CR1 &= ~(1 << I2C_CR1_ACK_POS);
 
-	    		// Generate Stop Condition
-	    		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+	    		if (Sr == I2C_SR_DI) {
+	    		    // Repeated Start is deactivated. Generate stop condition
+	    		   	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+	    	    }
 	    	}
 
 	    	// Read data into pRxBuffer
