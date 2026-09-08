@@ -57,6 +57,13 @@
 #define I2C_BUSY_FLAG          (1 << I2C_SR2_BUSY_POS)
 /** @} */
 
+/** @defgroup I2C_SR_CTRL      Enable/Disable Reapeated Start
+ * @{
+ */
+#define I2C_SR_EN              1
+#define I2C_SR_DI              0
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
@@ -90,7 +97,7 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 void I2C_Init(I2C_Handle_t *pI2CHandle);
 void I2C_DeInit(I2C_RegDef_t *pI2Cx);
 
-void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr);
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr);
 void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr);
 void I2C_SlaveSendData(I2C_RegDef_t *pI2Cx, uint8_t data);
 uint8_t I2C_SlaveReceiveData(I2C_RegDef_t *pI2Cx);
