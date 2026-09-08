@@ -266,8 +266,10 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
     i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_TXE_FLAG, FLAG_RESET);
     i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_BTF_FLAG, FLAG_RESET);
 
-    // Generate Stop Condition
-    pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+    if (Sr == I2C_SR_DI) {
+    	// Repeated Start is deactivated. Generate stop condition
+    	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+    }
 }
 
 /**
