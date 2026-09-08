@@ -405,7 +405,13 @@ typedef enum {
 	EXTI15_10_IRQn  = 40,
 	SPI1_IRQn       = 35,
 	SPI2_IRQn       = 36,
-	SPI3_IRQn       = 51
+	SPI3_IRQn       = 51,
+	I2C1_EV_IRQn    = 31,
+	I2C1_ER_IRQn    = 32,
+	I2C2_EV_IRQn    = 33,
+	I2C2_ER_IRQn    = 34,
+	I2C3_EV_IRQn    = 72,
+	I2C3_ER_IRQn    = 73,
 } IRQn_Type;
 
 /* ------------------------------------------------------------------------------- */
