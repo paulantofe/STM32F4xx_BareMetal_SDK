@@ -64,6 +64,14 @@
 #define I2C_SR_DI              0
 /** @} */
 
+/** @defgroup I2C_STATES       I2C Application States
+ * @{
+ */
+#define I2C_READY              0
+#define I2C_BUSY_IN_RX         1
+#define I2C_BUSY_IN_TX         2
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
