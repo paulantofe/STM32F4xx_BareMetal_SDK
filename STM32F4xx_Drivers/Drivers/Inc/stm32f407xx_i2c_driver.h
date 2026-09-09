@@ -112,6 +112,13 @@ typedef struct {
 /* ------------------------------------------------------------------------------ */
 
 
+/* -------------------------- APPLICATION CALL BACKS -------------------------- */
+
+void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv);
+
+/* ------------------------------------------------------------------------------ */
+
+
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
 uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName);
