@@ -103,7 +103,7 @@ static void i2c_close_rx(I2C_Handle_t *pI2CHandle) {
 	pI2CHandle->RxSize = 0;
 
 	if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
-		pI2CHandle->pI2Cx->CR1 = (1 << I2C_CR1_ACK_POS);
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
 	}
 }
 
