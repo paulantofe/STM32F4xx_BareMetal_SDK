@@ -73,12 +73,23 @@
 /** @} */
 
 /*
- * @defgroup I2C_EVENTS           I2C Application Events
+ * @defgroup I2C_EVENTS        I2C Application Events
  * @{
  */
-#define I2C_EVENT_TX_CMPLT        0
-#define I2C_EVENT_RX_CMPLT        1
-#define I2C_EVENT_OVR_ERR         2
+#define I2C_EVENT_TX_CMPLT     0
+#define I2C_EVENT_RX_CMPLT     1
+#define I2C_EVENT_OVR_ERR      2
+/** @} */
+
+/*
+ * @defgroup I2C_ERRORS        I2C Application Errors
+ * @{
+ */
+#define I2C_ERROR_BERR         0   // Bus Error
+#define I2C_ERROR_ARLO         1   // Arbitration Lost Error
+#define I2C_ERROR_AF           2   // Acknowledge Failure Error
+#define I2C_ERROR_OVR          3   // Overrun/Underrun Error
+#define I2C_ERROR_TIMEOUT      4   // Timeout Error
 /** @} */
 
 /* -------------------------------------------------------------------- */
