@@ -104,9 +104,32 @@ static void i2c_handle_rxne_ev(I2C_Handle_t *pI2CHandle) {
 		pI2CHandle->pRxBuffer++;
 	}
 	if (pI2CHandle->RxLen == 0) {
-		i2c_close_rx();
+		i2c_close_rx(pI2CHandle);
 
 		I2C_ApplicationEventCallback(pI2CHandle, I2C_EV_RX_CMPLT);
+	}
+}
+
+static void i2c_close_tx(I2C_Handle_t *pI2CHandle) {
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITEVTEN_POS);
+
+	pI2CHandle->TxRxState = I2C_READY;
+	pI2CHandle->pTxBuffer = NULL;
+	pI2CHandle->TxLen = 0;
+}
+
+static void i2c_close_rx(I2C_Handle_t *pI2CHandle) {
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITEVTEN_POS);
+
+	pI2CHandle->TxRxState = I2C_READY;
+	pI2CHandle->pRxBuffer = NULL;
+	pI2CHandle->RxLen = 0;
+	pI2CHandle->RxSize = 0;
+
+	if (pI2CHandle->I2C_Config.I2C_AckControl == I2C_ACK_EN) {
+		pI2CHandle->pI2Cx->CR1 = (1 << I2C_CR1_ACK_POS);
 	}
 }
 
@@ -528,7 +551,7 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 					}
 
 					// Reset handle structure members
-					i2c_close_tx();
+					i2c_close_tx(pI2CHandle);
 
 					I2C_ApplicationEventCallback(pI2CHandle, I2C_EV_TX_CMPLT);
 				}
