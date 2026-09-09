@@ -414,20 +414,38 @@ uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, ui
 }
 
 /**
- * @brief
- * @param
- * @param
- * @retval
+ * @brief  Configure an interrupt for I2C peripheral
+ * @param  Number of the interrupt request from IRQn_Type enum
+ * @param  ENABLE/DISABLE macro
+ * @retval None
  */
-void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
+void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
+	if (IRQNumber > 81) { return; }
+
+	if (EnorDi == ENABLE) {
+		NVIC_ISER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+	else {
+		NVIC_ICER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+}
 
 /**
- * @brief
- * @param
- * @param
- * @retval
+ * @brief  Set interrupt priority for I2C interrupt
+ * @param  Number of the interrupt request from IRQn_Type enum
+ * @param  Priority of the interrupt
+ * @retval None
  */
-void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
+void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
+	if (IRQNumber > 81 || IRQPriority > 15) { return; }
+
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprxSection = IRQNumber % 4;
+	uint8_t shiftAmount = 8 * iprxSection + (8 - NO_PR_BITS_IMPLEMENTED);
+
+	NVIC_IPR_BASEADDR[iprx] &= ~(0xFF << (8 * iprxSection));
+	NVIC_IPR_BASEADDR[iprx] |= (IRQPriority << shiftAmount);
+}
 
 /**
  * @brief
