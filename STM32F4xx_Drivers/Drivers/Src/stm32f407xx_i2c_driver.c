@@ -504,7 +504,7 @@ void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
  * @retval None
  */
 void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
-	uint16_t temp1, temp2, temp3;
+	uint32_t temp1, temp2, temp3;
 	temp1 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITEVTEN_POS);
 	temp2 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITBUFEN_POS);
 
@@ -601,6 +601,8 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
  * @param
  * @retval
  */
-void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle);
+void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle) {
+
+}
 
 /* ----------------------------------------------------------------------------------- */
