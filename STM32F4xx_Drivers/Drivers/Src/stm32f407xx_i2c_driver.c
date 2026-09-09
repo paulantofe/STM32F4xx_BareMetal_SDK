@@ -429,4 +429,18 @@ void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
  */
 void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 
+/**
+ * @brief
+ * @param
+ * @retval
+ */
+void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle);
+
+/**
+ * @brief
+ * @param
+ * @retval
+ */
+void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle);
+
 /* ----------------------------------------------------------------------------------- */
