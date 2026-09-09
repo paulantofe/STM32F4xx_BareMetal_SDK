@@ -597,12 +597,65 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 }
 
 /**
- * @brief
- * @param
- * @retval
+ * @brief  Manage interrupt errors of I2C peripheral
+ * @param  Handle structure
+ * @retval None
  */
 void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle) {
+	uint32_t temp1, temp2;
 
+    temp1 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITERREN_POS);
+
+	// Handle Bus Error
+	temp2 = pI2CHandle->pI2Cx->SR1 & (1 << I2C_SR1_BERR_POS);
+	if(temp1 && temp2 ) {
+		// Clear Buss Error Flag
+		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_BERR_POS);
+
+		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_BERR);
+	}
+
+	// Handle Arbitration Lost Error Flag
+	temp2 = pI2CHandle->pI2Cx->SR1 & (1 << I2C_SR1_ARLO_POS);
+	if(temp1 && temp2) {
+		// Clear Arbitration Lost Error Flag
+		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_ARLO_POS);
+
+		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_ARLO);
+	}
+
+    // Handle Acknowledge Failure Error Flag
+	temp2 = pI2CHandle->pI2Cx->SR1 & (1 << I2C_SR1_AF_POS);
+	if(temp1 && temp2) {
+		// Clear Acknowledge Failure Error Flag
+		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_AF_POS);
+
+		// Generate Stop Condition
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+
+		i2c_close_rx(pI2CHandle);
+		i2c_close_tx(pI2CHandle);
+
+		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_AF);
+	}
+
+	// Handle Overrun/Underrun Error Flag
+	temp2 = pI2CHandle->pI2Cx->SR1 & (1 << I2C_SR1_OVR_POS);
+	if(temp1 && temp2) {
+		// Clear Overrun/Underrun Error Flag
+		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_OVR_POS);
+
+		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_OVR);
+	}
+
+	// Handle Timeout Error Flag
+	temp2 = pI2CHandle->pI2Cx->SR1 & (1 << I2C_SR1_TIMEOUT_POS);
+	if(temp1 && temp2) {
+		// Clear Timeout Error Flag
+		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_TIMEOUT_POS);
+
+		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_TIMEOUT);
+	}
 }
 
 /* ----------------------------------------------------------------------------------- */
