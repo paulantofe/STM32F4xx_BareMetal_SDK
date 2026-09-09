@@ -138,6 +138,21 @@ static void i2c_handle_rxne_ev(I2C_Handle_t *pI2CHandle) {
 /* ----------------------------------------------------------------------------------- */
 
 
+/* -------------------------- APPLICATION CALL BACKS WEAK IMPLEMENTATION -------------------------- */
+
+/**
+ * @brief  Application event callback function
+ * @param  pI2CHandle   Pointer to the I2C handle structure
+ * @param  AppEv        Application event type macro
+ * @retval None
+ */
+__weak void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv) {
+	// This is a weak implementation. The application may override this function
+}
+
+/* ------------------------------------------------------------------------------ */
+
+
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
 /**
