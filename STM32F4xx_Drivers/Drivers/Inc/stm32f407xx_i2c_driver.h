@@ -72,6 +72,15 @@
 #define I2C_BUSY_IN_TX         2
 /** @} */
 
+/*
+ * @defgroup I2C_EVENTS           I2C Application Events
+ * @{
+ */
+#define I2C_EVENT_TX_CMPLT        0
+#define I2C_EVENT_RX_CMPLT        1
+#define I2C_EVENT_OVR_ERR         2
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
