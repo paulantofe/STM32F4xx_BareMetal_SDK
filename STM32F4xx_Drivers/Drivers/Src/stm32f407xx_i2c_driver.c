@@ -87,6 +87,7 @@ static void i2c_wait_on_flag_timeout(I2C_RegDef_t *pI2Cx, uint32_t FlagName, uin
 static void i2c_close_tx(I2C_Handle_t *pI2CHandle) {
 	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
 	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITEVTEN_POS);
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITERREN_POS);
 
 	pI2CHandle->TxRxState = I2C_READY;
 	pI2CHandle->pTxBuffer = NULL;
@@ -96,6 +97,7 @@ static void i2c_close_tx(I2C_Handle_t *pI2CHandle) {
 static void i2c_close_rx(I2C_Handle_t *pI2CHandle) {
 	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
 	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITEVTEN_POS);
+	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITERREN_POS);
 
 	pI2CHandle->TxRxState = I2C_READY;
 	pI2CHandle->pRxBuffer = NULL;
