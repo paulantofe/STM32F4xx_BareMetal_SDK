@@ -598,6 +598,11 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 				pI2CHandle->TxLen--;
 				pI2CHandle->pTxBuffer++;
 			}
+
+			if (pI2CHandle->TxLen == 0) {
+				// Mask TXE Interrupt when transmission is done
+				pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
+			}
 		}
 	}
 
