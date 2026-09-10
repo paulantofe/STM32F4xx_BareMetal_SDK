@@ -432,13 +432,13 @@ uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint3
 		pI2CHandle->DevAddr = SlaveAddr;
 		pI2CHandle->Sr = Sr;
 
+		// Generate Start Condition
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
+
 		// Enable ITBUFEN, ITEVTEN and ITERREN
 		pI2CHandle->pI2Cx->CR2 |= (1 << I2C_CR2_ITBUFEN_POS) |
 				                  (1 << I2C_CR2_ITEVTEN_POS) |
 								  (1 << I2C_CR2_ITERREN_POS);
-
-		// Generate Start Condition
-	    pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 	}
 
 	return state;
@@ -467,13 +467,13 @@ uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, ui
 		pI2CHandle->DevAddr = SlaveAddr;
 		pI2CHandle->Sr = Sr;
 
+		// Generate Start Condition
+		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
+
 		// Enable ITBUFEN, ITEVTEN and ITERREN
         pI2CHandle->pI2Cx->CR2 |= (1 << I2C_CR2_ITBUFEN_POS) |
         		                  (1 << I2C_CR2_ITEVTEN_POS) |
 								  (1 << I2C_CR2_ITERREN_POS);
-
-		// Generate Start Condition
-		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 	}
 
 	return state;
@@ -600,7 +600,6 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 			}
 
 			if (pI2CHandle->TxLen == 0) {
-				// Mask TXE Interrupt when transmission is done
 				pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITBUFEN_POS);
 			}
 		}
