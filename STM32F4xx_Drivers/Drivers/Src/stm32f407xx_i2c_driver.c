@@ -706,11 +706,13 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle) {
 		// Clear Acknowledge Failure Error Flag
 		pI2CHandle->pI2Cx->SR1 &= ~(1 << I2C_SR1_AF_POS);
 
-		// Generate Stop Condition
-		pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
+		if (pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_MSL_POS)) {
+			// Generate Stop Condition
+			pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_STOP_POS);
 
-		i2c_close_rx(pI2CHandle);
-		i2c_close_tx(pI2CHandle);
+			i2c_close_rx(pI2CHandle);
+			i2c_close_tx(pI2CHandle);
+		}
 
 		I2C_ApplicationEventCallback(pI2CHandle, I2C_ERROR_AF);
 	}
