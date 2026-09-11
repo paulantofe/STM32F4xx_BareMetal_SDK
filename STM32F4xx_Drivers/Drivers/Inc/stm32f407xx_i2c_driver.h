@@ -78,7 +78,9 @@
  */
 #define I2C_EVENT_TX_CMPLT     0
 #define I2C_EVENT_RX_CMPLT     1
-#define I2C_EVENT_OVR_ERR      2
+#define I2C_EVENT_STOP         2
+#define I2C_EVENT_DATA_REQ     3
+#define I2C_EVENT_DATA_RCV     4
 /** @} */
 
 /*
