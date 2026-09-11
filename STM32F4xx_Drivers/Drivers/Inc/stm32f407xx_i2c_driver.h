@@ -140,6 +140,8 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 
 void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 
+void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
+
 void I2C_Init(I2C_Handle_t *pI2CHandle);
 void I2C_DeInit(I2C_RegDef_t *pI2Cx);
 
