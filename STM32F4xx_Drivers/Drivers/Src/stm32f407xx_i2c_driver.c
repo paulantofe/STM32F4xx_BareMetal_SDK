@@ -217,6 +217,22 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 }
 
 /**
+ * @brief  Enable/Disable acking for a given I2C peripheral
+ * @param  pI2Cx   Base address of I2C peripheral
+ * @param  EnorDi  ENABLE/DISABLE macro
+ * @retval None
+ * @note   This API should be called AFTER I2C_PeripheralControl API as the hardware clears ACK bit when PE = 0
+ */
+void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
+	if (EnorDi == ENABLE) {
+		pI2Cx->CR1 |= (1 << I2C_CR1_ACK_POS);
+	}
+	else {
+		pI2Cx->CR1 &= ~(1 << I2C_CR1_ACK_POS);
+	}
+}
+
+/**
  * @brief  Initialize a I2C peripheral with the given settings
  * @param  pI2CHandle   Handle structure with desired settings
  * @retval None
@@ -225,10 +241,6 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }
 
 	uint32_t temp_reg = 0;
-
-	// ACK Control Bit
-	temp_reg |= (pI2CHandle->I2C_Config.I2C_AckControl << I2C_CR1_ACK_POS);
-	pI2CHandle->pI2Cx->CR1 = temp_reg;
 
 	// FREQ Field of CR1
 	temp_reg = 0;
