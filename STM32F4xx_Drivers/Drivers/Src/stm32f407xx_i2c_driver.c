@@ -222,6 +222,8 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
  * @retval None
  */
 void I2C_Init(I2C_Handle_t *pI2CHandle) {
+	if (pI2CHandle->pI2Cx == NULL) { return; }
+
 	uint32_t temp_reg = 0;
 
 	// ACK Control Bit
@@ -304,6 +306,8 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
  * @retval None
  */
 void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
+	if (pI2CHandle->pI2Cx == NULL) { return; }
+
 	// Generate Start Condition
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
@@ -349,6 +353,8 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
  * @retval None
  */
 void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
+	if (pI2CHandle->pI2Cx == NULL) { return; }
+
 	// Generate Start Condition
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
@@ -423,6 +429,8 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
  *         - I2C_BUSY_IN_TX/I2C_BUSY_IN_RX: peripheral was busy. Data is not transmitted
  */
 uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
+	if (pI2CHandle->pI2Cx == NULL) { return -1; }
+
 	uint8_t state = pI2CHandle->TxRxState;
 
 	if((state != I2C_BUSY_IN_TX) && (state != I2C_BUSY_IN_RX)) {
@@ -456,6 +464,8 @@ uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint3
  *         - I2C_BUSY_IN_TX/I2C_BUSY_IN_RX: peripheral was busy. Data is not transmitted
  */
 uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
+	if (pI2CHandle->pI2Cx == NULL) { return -1; }
+
 	uint8_t state = pI2CHandle->TxRxState;
 
 	if( (state != I2C_BUSY_IN_TX) && (state != I2C_BUSY_IN_RX))
@@ -519,6 +529,8 @@ void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
  * @retval None
  */
 void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
+	if (pI2CHandle->pI2Cx == NULL) { return; }
+
 	uint32_t temp1, temp2, temp3;
 	temp1 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITEVTEN_POS);
 	temp2 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITBUFEN_POS);
@@ -621,6 +633,8 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
  * @retval None
  */
 void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle) {
+	if (pI2CHandle->pI2Cx == NULL) { return; }
+
 	uint32_t temp1, temp2;
 
     temp1 = pI2CHandle->pI2Cx->CR2 & (1 << I2C_CR2_ITERREN_POS);
