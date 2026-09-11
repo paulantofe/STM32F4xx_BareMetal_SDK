@@ -490,6 +490,20 @@ uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, ui
 }
 
 /**
+ * @brief  Send data using I2C protocol (slave mode)
+ * @param  pI2Cx   Base address of I2C peripheral
+ * @retval None
+ */
+void I2C_SlaveSendData(I2C_RegDef_t *pI2Cx, uint8_t data);
+
+/**
+ * @brief  Receive data using I2C protocol (slave mode)
+ * @param  pI2Cx   Base address of I2C peripheral
+ * @retval Data received from master
+ */
+uint8_t I2C_SlaveReceiveData(I2C_RegDef_t *pI2Cx);
+
+/**
  * @brief  Configure an interrupt for I2C peripheral
  * @param  Number of the interrupt request from IRQn_Type enum
  * @param  ENABLE/DISABLE macro
