@@ -40,6 +40,16 @@ typedef struct {
 
 
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
+
+uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint32_t FlagName);
+
+void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
+
+void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
+
+void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
+void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
+
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
 #endif
