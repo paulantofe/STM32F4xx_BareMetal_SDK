@@ -431,6 +431,12 @@ typedef enum {
 	I2C2_ER_IRQn    = 34,
 	I2C3_EV_IRQn    = 72,
 	I2C3_ER_IRQn    = 73,
+	UART4_IRQn      = 52,
+	UART5_IRQn      = 53,
+	USART1_IRQn     = 37,
+	USART2_IRQn     = 38,
+	USART3_IRQn     = 39,
+	USART6_IRQn     = 71
 } IRQn_Type;
 
 /* ------------------------------------------------------------------------------- */
