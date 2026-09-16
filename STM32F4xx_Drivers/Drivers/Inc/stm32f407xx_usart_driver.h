@@ -36,6 +36,9 @@ typedef struct {
 
 
 /* -------------------------- APPLICATION CALL BACKS -------------------------- */
+
+void USART_ApplicationCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv);
+
 /* ------------------------------------------------------------------------------ */
 
 
@@ -47,8 +50,17 @@ void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
 
 void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
 
+void USART_Init(USART_Handle_t *pUSARTHandle);
+void USART_DeInit(USART_RegDef_t *pUSARTx);
+
+void USART_SendData(USART_RegDef_t *pUSARTx, uint8_t *pTxBuffer, uint32_t Len);
+void USART_ReceiveData(USART_RegDef_t *pUSARTx, uint8_t *pRxBuffer, uint32_t Len);
+uint8_t USART_SendDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t Len);
+uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t Len);
+
 void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
 void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
+void USART_IRQHandling(USART_Handle_t *pUSARTHandle);
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
