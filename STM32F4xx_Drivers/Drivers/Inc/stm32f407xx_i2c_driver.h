@@ -43,18 +43,18 @@
  * @defgroup I2C_FLAGS         Status Flags
  * @{
  */
-#define I2C_TXE_FLAG           (1 << I2C_SR1_TXE_POS)
-#define I2C_RXNE_FLAG          (1 << I2C_SR1_RXNE_POS)
-#define I2C_SB_FLAG            (1 << I2C_SR1_SB_POS)
-#define I2C_ADDR_FLAG          (1 << I2C_SR1_ADDR_POS)
-#define I2C_BTF_FLAG           (1 << I2C_SR1_BTF_POS)
-#define I2C_STOPF_FLAG         (1 << I2C_SR1_STOPF_POS)
-#define I2C_BERR_FLAG          (1 << I2C_SR1_BERR_POS)
-#define I2C_ARLO_FLAG          (1 << I2C_SR1_ARLO_POS)
-#define I2C_AF_FLAG            (1 << I2C_SR1_AF_POS)
-#define I2C_OVR_FLAG           (1 << I2C_SR1_OVR_POS)
-#define I2C_TIMEOUT_FLAG       (1 << I2C_SR1_TIMEOUT_POS)
-#define I2C_BUSY_FLAG          (1 << I2C_SR2_BUSY_POS)
+#define I2C_FLAG_TXE           (1 << I2C_SR1_TXE_POS)        // Tx Buffer Empty Flag
+#define I2C_FLAG_RXNE          (1 << I2C_SR1_RXNE_POS)       // Rx Buffer Not Empty Flag
+#define I2C_FLAG_SB            (1 << I2C_SR1_SB_POS)         // Start Bit (Master mode) Flag
+#define I2C_FLAG_ADDR          (1 << I2C_SR1_ADDR_POS)       // Address Sent/Matched Flag
+#define I2C_FLAG_BTF           (1 << I2C_SR1_BTF_POS)        // Byte Transfer Finished Flag
+#define I2C_FLAG_STOPF         (1 << I2C_SR1_STOPF_POS)      // Stop Detection Flag
+#define I2C_FLAG_BERR          (1 << I2C_SR1_BERR_POS)       // Bus Error Flag
+#define I2C_FLAG_ARLO          (1 << I2C_SR1_ARLO_POS)       // Arbitration Lost Flag
+#define I2C_FLAG_AF            (1 << I2C_SR1_AF_POS)         // Acknowledge Failure Flag
+#define I2C_FLAG_OVR           (1 << I2C_SR1_OVR_POS)        // Overrun/Underrun Flag
+#define I2C_FLAG_TIMEOUT       (1 << I2C_SR1_TIMEOUT_POS)    // Timeout Error Flag
+#define I2C_FLAG_BUSY          (1 << I2C_SR2_BUSY_POS)       // Bus Busy Flag
 /** @} */
 
 /**

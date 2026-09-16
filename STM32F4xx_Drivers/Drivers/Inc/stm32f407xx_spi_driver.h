@@ -81,15 +81,15 @@
  * @defgroup SPI_FLAGS            Status Flags
  * @{
  */
-#define SPI_TXE_FLAG              (1 << SPI_SR_TXE_POS)        // Tx Buffer Empty Flag
-#define SPI_RXNE_FLAG             (1 << SPI_SR_RXNE_POS)       // Rx Buffer Not Empty Flag
-#define SPI_BSY_FLAG              (1 << SPI_SR_BSY_POS)        // Busy In Communication Flag
-#define SPI_FRE_FLAG              (1 << SPI_SR_FRE_POS)        // Frame Format Error Flag
-#define SPI_OVR_FLAG              (1 << SPI_SR_OVR_POS)        // Overrun Flag
-#define SPI_MODF_FLAG             (1 << SPI_SR_MODF_POS)       // Mode Fault Flag
-#define SPI_CRCERR_FLAG           (1 << SPI_SR_CRCERR_POS)     // CRC Error Flag
-#define SPI_UDR_FLAG              (1 << SPI_SR_UDR_POS)        // Underrun Flag
-#define SPI_CHSIDE_FLAG           (1 << SPI_SR_CHSIDE_POS)     // Channel Side Flag
+#define SPI_FLAG_TXE              (1 << SPI_SR_TXE_POS)        // Tx Buffer Empty Flag
+#define SPI_FLAG_RXNE             (1 << SPI_SR_RXNE_POS)       // Rx Buffer Not Empty Flag
+#define SPI_FLAG_BSY              (1 << SPI_SR_BSY_POS)        // Busy In Communication Flag
+#define SPI_FLAG_FRE              (1 << SPI_SR_FRE_POS)        // Frame Format Error Flag
+#define SPI_FLAG_OVR              (1 << SPI_SR_OVR_POS)        // Overrun Flag
+#define SPI_FLAG_MODF             (1 << SPI_SR_MODF_POS)       // Mode Fault Flag
+#define SPI_FLAG_CRCERR           (1 << SPI_SR_CRCERR_POS)     // CRC Error Flag
+#define SPI_FLAG_UDR              (1 << SPI_SR_UDR_POS)        // Underrun Flag
+#define SPI_FLAG_CHSIDE           (1 << SPI_SR_CHSIDE_POS)     // Channel Side Flag
 /** @} */
 
 /* @defgroup SPI_STATES           SPI Application States
