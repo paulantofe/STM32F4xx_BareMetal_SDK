@@ -188,6 +188,17 @@ typedef struct {
 	__vo uint32_t FLTR;        /**< FLTR Register                                offset 0x24 */
 } I2C_RegDef_t;
 
+/** @brief USART register definition */
+typedef struct {
+	__vo uint32_t SR;          /**< Status Register                              offset 0x00 */
+	__vo uint32_t DR;          /**< Data Register                                offset 0x04 */
+	__vo uint32_t BRR;         /**< Baud Rate Register                           offset 0x08 */
+	__vo uint32_t CR1;         /**< Control Register 1                           offset 0x0C */
+	__vo uint32_t CR2;         /**< Control Register 2                           offset 0x10 */
+	__vo uint32_t CR3;         /**< Control Register 3                           offset 0x14 */
+	__vo uint32_t GTPR;        /**< Guard Time and Prescaler Register            offset 0x18 */
+} USART_RegDef_t;
+
 /* ----------------------------------------------------------------------------------------------- */
 
 
