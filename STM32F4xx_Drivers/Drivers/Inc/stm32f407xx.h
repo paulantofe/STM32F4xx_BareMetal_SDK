@@ -204,7 +204,7 @@ typedef struct {
 
 /* -------------------------- BIT POSITION DEFINITIONS -------------------------- */
 
-/* ---------- GPIO Peripheral ---------- */
+/* ---------- GPIO Peripheral ----------- */
 
 // Bit position calculation macros for GPIO pins (x = Pin Number: 0 to 15)
 #define GPIO_MODER_PIN_POS(x)   ((x) * 2)
@@ -222,9 +222,9 @@ typedef struct {
 #define GPIO_AFRL_PIN_POS(x)    ((x) * 4)          // For pins 0-7
 #define GPIO_AFRH_PIN_POS(x)    (((x) % 8) * 4)    // For pins 8-15
 
-/* ------------------------------------- */
+/* -------------------------------------- */
 
-/* ---------- I2C Peripheral ---------- */
+/* ----------- I2C Peripheral ----------- */
 
 // Bit position definitions for I2C_CR1
 #define I2C_CR1_PE_POS         0
@@ -263,9 +263,9 @@ typedef struct {
 #define I2C_CCR_DUTY_POS       14
 #define I2C_CCR_F_S_POS        15
 
-/* ------------------------------------- */
+/* ---------------------------------------*/
 
-/* ---------- SPI Peripheral ---------- */
+/* ----------- SPI Peripheral ----------- */
 
 // Bit position definitions for SPI_CR1
 #define SPI_CR1_CPHA_POS       0
@@ -303,7 +303,65 @@ typedef struct {
 #define SPI_SR_BSY_POS         7
 #define SPI_SR_FRE_POS         8
 
-/* ------------------------------------ */
+/* -------------------------------------- */
+
+/* ---------- USART Peripheral ---------- */
+
+// Bit position definitions for USART_SR
+#define USART_SR_PE_POS        0
+#define USART_SR_FE_POS        1
+#define USART_SR_NF_POS        2
+#define USART_SR_ORE_POS       3
+#define USART_SR_IDLE_POS      4
+#define USART_SR_RXNE_POS      5
+#define USART_SR_TC_POS        6
+#define USART_SR_TXE_POS       7
+#define USART_SR_LBD_POS       8
+#define USART_SR_CTS_POS       9
+
+// Bit position definitions for USART_CR1
+#define USART_CR1_SBK_POS      0
+#define USART_CR1_RWU_POS      1
+#define USART_CR1_RE_POS       2
+#define USART_CR1_TE_POS       3
+#define USART_CR1_IDLEIE_POS   4
+#define USART_CR1_RXNEIE_POS   5
+#define USART_CR1_TCIE_POS     6
+#define USART_CR1_TXEIE_POS    7
+#define USART_CR1_PEIE_POS     8
+#define USART_CR1_PS_POS       9
+#define USART_CR1_PCE_POS      10
+#define USART_CR1_WAKE_POS     11
+#define USART_CR1_M_POS        12
+#define USART_CR1_UE_POS       13
+#define USART_CR1_OVER8_POS    15
+
+// Bit position definitions for USART_CR2
+#define USART_CR2_ADD_POS      0
+#define USART_CR2_LBDL_POS     5
+#define USART_CR2_LBDIE_POS    6
+#define USART_CR2_LBCL_POS     8
+#define USART_CR2_CPHA_POS     9
+#define USART_CR2_CPOL_POS     10
+#define USART_CR2_CLKEN_POS    11
+#define USART_CR2_STOP_POS     12
+#define USART_CR2_LINEN_POS    14
+
+// Bit position definitions for USART_CR3
+#define USART_CR3_EIE_POS      0
+#define USART_CR3_IREN_POS     1
+#define USART_CR3_IRLP_POS     2
+#define USART_CR3_HDSEL_POS    3
+#define USART_CR3_NACK_POS     4
+#define USART_CR3_SCEN_POS     5
+#define USART_CR3_DMAR_POS     6
+#define USART_CR3_DMAT_POS     7
+#define USART_CR3_RTSE_POS     8
+#define USART_CR3_CTSE_POS     9
+#define USART_CR3_CTSIE_POS    10
+#define USART_CR3_ONEBIT_POS   11
+
+/* -------------------------------------- */
 
 /* ----------------------------------------------------------------------------- */
 
