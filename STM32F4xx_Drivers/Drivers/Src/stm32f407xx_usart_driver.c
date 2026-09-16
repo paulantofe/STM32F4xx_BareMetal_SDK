@@ -29,7 +29,22 @@ uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint32_t FlagName) {
 	return (pUSARTx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
-void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
+/**
+ * @brief  Enable/Disable the given USART peripheral
+ * @param  pUSARTx    Base address of USART peripheral
+ * @param  EnorDi  ENABLE/DISABLE macro
+ * @retval None
+ */
+void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
+	if (pUSARTx == NULL) { return; }
+
+	if (EnorDi == ENABLE) {
+		pUSARTx->CR1 |= (1 << USART_CR1_UE_POS);
+	}
+	else {
+		pUSARTx->CR1 &= ~(1 << USART_CR1_UE_POS);
+	}
+}
 
 void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi);
 
