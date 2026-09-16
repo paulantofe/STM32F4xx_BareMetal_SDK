@@ -330,11 +330,17 @@ typedef struct {
 #define I2C3                   ((I2C_RegDef_t*) I2C3_BASEADDR)
 #define SPI2                   ((SPI_RegDef_t*) SPI2_BASEADDR)
 #define SPI3                   ((SPI_RegDef_t*) SPI3_BASEADDR)
+#define UART4                  ((USART_RegDef_t*) UART4_BASEADDR)
+#define UART5                  ((USART_RegDef_t*) UART5_BASEADDR)
+#define USART2                 ((USART_RegDef_t*) USART2_BASEADDR)
+#define USART3                 ((USART_RegDef_t*) USART3_BASEADDR)
 
 // APB2 peripherals
 #define EXTI                   ((EXTI_RegDef_t*) EXTI_BASEADDR)
 #define SYSCFG                 ((SYSCFG_RegDef_t*) SYSCFGR_BASEADDR)
 #define SPI1                   ((SPI_RegDef_t*) SPI1_BASEADDR)
+#define USART1                 ((USART_RegDef_t*) USART1_BASEADDR)
+#define USART6                 ((USART_RegDef_t*) USART6_BASEADDR)
 
 /* --------------------------------------------------------------------------- */
 
