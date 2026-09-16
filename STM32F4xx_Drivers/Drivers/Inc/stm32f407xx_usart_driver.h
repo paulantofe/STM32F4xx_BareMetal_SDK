@@ -53,7 +53,7 @@
  * @{
  */
 #define USART_WORD_8BITS           0
-#define USART_WORK_9BITS           1
+#define USART_WORD_9BITS           1
 /** @} */
 
 /**
@@ -75,6 +75,8 @@
 #define USART_HW_FLOW_RTS          2
 #define USART_HW_FLOW_CTS_RTS      3
 /** @} */
+
+
 
 /* -------------------------------------------------------------------- */
 
