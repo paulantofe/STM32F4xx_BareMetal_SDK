@@ -76,7 +76,21 @@
 #define USART_HW_FLOW_CTS_RTS      3
 /** @} */
 
-
+/**
+ * @defgroup USART_FLAGS           Status Flags
+ * @{
+ */
+#define USART_FLAG_PE              (1 << USART_SR_PE_POS)    // Parity Error
+#define USART_FLAG_FE              (1 << USART_SR_FE_POS)    // Framing Error
+#define USART_FLAG_NF              (1 << USART_SR_NF_POS)    // Noise Flag
+#define USART_FLAG_ORE             (1 << USART_SR_ORE_POS)   // Overrun Error
+#define USART_FLAG_IDLE            (1 << USART_SR_IDLE_POS)  // IDLE Line Detected
+#define USART_FLAG_RXNE            (1 << USART_SR_RXNE_POS)  // Read Data Register Not Empty
+#define USART_FLAG_TC              (1 << USART_SR_TC_POS)    // Transmission Complete
+#define USART_FLAG_TXE             (1 << USART_SR_TXE_POS)   // Transmit Data Register Empty
+#define USART_FLAG_LBD             (1 << USART_SR_LBD_POS)   // LIN Break Detection
+#define USART_FLAG_CTS             (1 << USART_SR_CTS_POS)   // CTS Flag
+/** @} */
 
 /* -------------------------------------------------------------------- */
 
