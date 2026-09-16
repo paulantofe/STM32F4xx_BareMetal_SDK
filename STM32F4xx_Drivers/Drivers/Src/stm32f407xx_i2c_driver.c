@@ -521,8 +521,8 @@ uint8_t I2C_SlaveReceiveData(I2C_RegDef_t *pI2Cx) {
 
 /**
  * @brief  Configure an interrupt for I2C peripheral
- * @param  Number of the interrupt request from IRQn_Type enum
- * @param  ENABLE/DISABLE macro
+ * @param  IRQNumber    Number of the interrupt request from IRQn_Type enum
+ * @param  EnorDi       ENABLE/DISABLE macro
  * @retval None
  */
 void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
@@ -538,8 +538,8 @@ void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 
 /**
  * @brief  Set interrupt priority for I2C interrupt
- * @param  Number of the interrupt request from IRQn_Type enum
- * @param  Priority of the interrupt
+ * @param  IRQNumber     Number of the interrupt request from IRQn_Type enum
+ * @param  IRQPriority   Priority of the interrupt
  * @retval None
  */
 void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
