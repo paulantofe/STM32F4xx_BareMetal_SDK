@@ -340,8 +340,6 @@ typedef struct {
 
 #define UART4_PCLK_EN()        (RCC->APB1ENR |= (1 << 19))
 #define UART5_PCLK_EN()        (RCC->APB1ENR |= (1 << 20))
-#define UART7_PCLK_EN()        (RCC->APB1ENR |= (1 << 30))
-#define UART8_PCLK_EN()        (RCC->APB1ENR |= (1 << 31))
 
 #define USART1_PCLK_EN()       (RCC->APB2ENR |= (1 << 4))
 #define USART2_PCLK_EN()       (RCC->APB1ENR |= (1 << 17))
@@ -365,8 +363,6 @@ typedef struct {
 
 #define UART4_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 19))
 #define UART5_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 20))
-#define UART7_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 30))
-#define UART8_PCLK_DI()        (RCC->APB1ENR &= ~(1 << 31))
 
 #define USART1_PCLK_DI()       (RCC->APB2ENR &= ~(1 << 4))
 #define USART2_PCLK_DI()       (RCC->APB1ENR &= ~(1 << 17))
