@@ -57,14 +57,16 @@
 #define I2C_BUSY_FLAG          (1 << I2C_SR2_BUSY_POS)
 /** @} */
 
-/** @defgroup I2C_SR_CTRL      Enable/Disable Repeated Start
+/**
+ * @defgroup I2C_SR_CTRL      Enable/Disable Repeated Start
  * @{
  */
 #define I2C_SR_EN              1
 #define I2C_SR_DI              0
 /** @} */
 
-/** @defgroup I2C_STATES       I2C Application States
+/**
+ * @defgroup I2C_STATES       I2C Application States
  * @{
  */
 #define I2C_READY              0
@@ -72,7 +74,7 @@
 #define I2C_BUSY_IN_TX         2
 /** @} */
 
-/*
+/**
  * @defgroup I2C_EVENTS        I2C Application Events
  * @{
  */
@@ -83,7 +85,7 @@
 #define I2C_EVENT_DATA_RCV     4
 /** @} */
 
-/*
+/**
  * @defgroup I2C_ERRORS        I2C Application Errors
  * @{
  */
