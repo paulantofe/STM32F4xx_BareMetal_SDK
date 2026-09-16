@@ -97,7 +97,23 @@ void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
 	}
 }
 
-void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi);
+/**
+ * @brief  Configure an interrupt for USART peripheral
+ * @param  IRQNumber   Number of the interrupt request from IRQn_Type enum
+ * @param  EnorDi      ENABLE/DISABLE macro
+ * @retval None
+ */
+void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
+	if (IRQNumber > 81) { return; }
+
+	if (EnorDi == ENABLE) {
+		NVIC_ISER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+	else {
+		NVIC_ICER_BASEADDR[IRQNumber / 32] = (1 << (IRQNumber % 32));
+	}
+}
+
 void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority);
 
 /* ----------------------------------------------------------------------------------- */
