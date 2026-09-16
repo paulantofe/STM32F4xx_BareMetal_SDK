@@ -11,6 +11,71 @@
 #include "stm32f407xx.h"
 
 /* -------------------------- GENERIC MACROS -------------------------- */
+
+/**
+ * @defgroup USART_MODES          Mode Of USART Peripheral
+ * @{
+ */
+#define USART_MODE_TX_ONLY         0
+#define USART_MODE_RX_ONLY         1
+#define USART_MODE_FD              2
+/** @} */
+
+/**
+ * @defgroup USART_BAUDRATE        Standard Baud Rates of Peripheral (bps)
+ * @{
+ */
+#define USART_STD_BAUD_1200        1200
+#define USART_STD_BAUD_2400        2400
+#define USART_STD_BAUD_9600        9600
+#define USART_STD_BAUD_19200       19200
+#define USART_STD_BAUD_38400       38400
+#define USART_STD_BAUD_57600       57600
+#define USART_STD_BAUD_115200      115200
+#define USART_STD_BAUD_230400      230400
+#define USART_STD_BAUD_460800      460800
+#define USART_STD_BAUD_921600      921600
+#define USART_STD_BAUD_2000000     2000000
+#define USART_STD_BAUD_3000000     3000000
+/** @} */
+
+/**
+ * @defgroup USART_PAR_CTLR        Parity Control
+ * @{
+ */
+#define USART_PAR_DI               0
+#define USART_PAR_EN_EVEN          1
+#define USART_PAR_EN_ODD           2
+/** @} */
+
+/**
+ * @defgroup USART_WORD_LEN        Word Length
+ * @{
+ */
+#define USART_WORD_8BITS           0
+#define USART_WORK_9BITS           1
+/** @} */
+
+/**
+ * @defgroup USART_STOP_BITS       Number of Stop Bits
+ * @{
+ */
+#define USART_STOP_BITS_1          0
+#define USART_STOP_BITS_0_5        1
+#define USART_STOP_BITS_2          2
+#define USART_STOP_BITS_1_5        3
+/** @} */
+
+/**
+ * @defgroup USART_HW_FLOW_CTRL    Hardware Flow Control
+ * @{
+ */
+#define USART_HW_FLOW_NONE         0
+#define USART_HW_FLOW_CTS          1
+#define USART_HW_FLOW_RTS          2
+#define USART_HW_FLOW_CTS_RTS      3
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
@@ -18,12 +83,12 @@
 
 /** @brief Configuration structure for USART */
 typedef struct {
-	uint32_t USART_Baudrate;
-	uint8_t  USART_Mode;
-	uint8_t  USART_NoOfStopBits;
-	uint8_t  USART_WordLen;
-	uint8_t  USART_ParityControl;
-	uint8_t  USART_HWFlowControl;
+	uint32_t USART_Baudrate;            /**< possible values from @ref USART_BAUDRATE      */
+	uint8_t  USART_Mode;                /**< possible values from @ref USART_MODES         */
+	uint8_t  USART_NoOfStopBits;        /**< possible values from @ref USART_STOP_BITS     */
+	uint8_t  USART_WordLen;             /**< possible values from @ref USART_WORD_LEN      */
+	uint8_t  USART_ParityControl;       /**< possible values from @ref USART_PAR_CTLR      */
+	uint8_t  USART_HWFlowControl;       /**< possible values from @ref USART_HW_FLOW_CTRL  */
 } USART_Config_t;
 
 /** @brief Handle structure for USART */
