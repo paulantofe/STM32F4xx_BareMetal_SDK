@@ -2,7 +2,9 @@
  * @file 		stm32f407xx_usart_driver.h
  * @brief 		Header file for USART peripheral support
  *
- * @details
+ * @details     This header file provides the configuration and handle structures for the USART and UART peripherals on the MCU. It includes user macros for
+ *              device modes, baud rates, word lengths, stop bits, parity control and hardware flow control, along with API function prototypes
+ *              for USART initialization, data transmission and interrupt handling.
  */
 
 #ifndef INC_STM32F407XX_USART_DRIVER_H_
