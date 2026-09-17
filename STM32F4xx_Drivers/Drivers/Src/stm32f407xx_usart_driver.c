@@ -14,6 +14,18 @@
 
 
 /* -------------------------- APPLICATION CALL BACKS WEAK IMPLEMENTATION -------------------------- */
+
+/**
+ * @brief  Application event callback function
+ * @param  pUSARTHandle   Pointer to the USART handle structure
+ * @param  AppEv          Application event type macro
+ * @retval None
+ */
+__weak void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv) {
+	// This is a weak implementation. The application may override this function
+}
+
+
 /* ------------------------------------------------------------------------------ */
 
 
