@@ -210,8 +210,42 @@ void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t L
 		}
 	}
 
-	// Wait until transission is completed
+	// Wait until transmission is completed
 	while (USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TC) == FLAG_RESET);
+}
+
+/**
+ * @brief  Receive data using USART protocol
+ * @param  pUSARTHandle    Handle structure
+ * @param  pRxBuffer       Pointer to reception buffer
+ * @param  Len             Number of data frames (words)
+ * @retval None
+ */
+void USART_ReceiveData(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t Len) {
+	for (uint32_t i = 0; i < Len; i++) {
+		// Wait until RXNE is set
+		while (USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_RXNE) == FLAG_RESET);
+
+		if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
+			if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+				*((uint16_t*) pRxBuffer) = (uint16_t) (pUSARTHandle->pUSARTx->DR & 0x01FF);
+				pRxBuffer += 2;
+			}
+			else {
+				*pRxBuffer =  (uint8_t) (pUSARTHandle->pUSARTx->DR  & 0xFF);
+				pRxBuffer++;
+			}
+		}
+		else {
+			if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+				*pRxBuffer = pUSARTHandle->pUSARTx->DR;
+			}
+			else {
+				*pRxBuffer = (uint8_t) (pUSARTHandle->pUSARTx->DR & 0x7F);
+			}
+			pRxBuffer++;
+		}
+	}
 }
 
 /**
