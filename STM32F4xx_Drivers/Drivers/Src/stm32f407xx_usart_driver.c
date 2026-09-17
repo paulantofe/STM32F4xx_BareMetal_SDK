@@ -25,7 +25,6 @@ __weak void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t
 	// This is a weak implementation. The application may override this function
 }
 
-
 /* ------------------------------------------------------------------------------ */
 
 
@@ -109,6 +108,73 @@ void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
 			USART6_PCLK_DI();
 		}
 	}
+}
+
+/**
+ * @brief  Initialize a USART peripheral with the given settings
+ * @param  pUSARTHandle   Handle structure with desired settings
+ * @retval None
+ */
+void USART_Init(USART_Handle_t *pUSARTHandle) {
+	if (pUSARTHandle->pUSARTx == NULL) { return; }
+
+	uint32_t temp_reg = 0x0000;
+
+	// Mode Configuration
+	if (pUSARTHandle->USART_Config.USART_Mode == USART_MODE_TX_ONLY) {
+		temp_reg |= (1 << USART_CR1_TE_POS);
+	}
+	else if (pUSARTHandle->USART_Config.USART_Mode == USART_MODE_RX_ONLY) {
+		temp_reg |= (1 << USART_CR1_RE_POS);
+	}
+	else if (pUSARTHandle->USART_Config.USART_Mode == USART_MODE_FD) {
+		temp_reg |= (1 << USART_CR1_TE_POS);
+		temp_reg |= (1 << USART_CR1_RE_POS);
+	}
+
+	// Parity Control Configuration
+	if (pUSARTHandle->USART_Config.USART_ParityControl != USART_PAR_DI) {
+		temp_reg |= (1 << USART_CR1_PCE_POS);
+		if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_EN_EVEN) {
+			// PS bit is reset
+			// This is already true since temp_reg is initialized with 0
+		}
+		else if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_EN_ODD) {
+			temp_reg |= (1 << USART_CR1_PS_POS);
+		}
+	}
+
+	// Word Length Configuration
+	if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
+		// If word length is 8 bits then M bit is reset
+		temp_reg |= (1 << USART_CR1_M_POS);
+	}
+
+	// Configure USART_CR1 Register
+	pUSARTHandle->pUSARTx->CR1 = temp_reg;
+
+	// Stop Bits Configuration
+	temp_reg = pUSARTHandle->pUSARTx->CR2;
+	temp_reg &= ~(0x3 << USART_CR2_STOP_POS);
+	temp_reg |= (pUSARTHandle->USART_Config.USART_NoOfStopBits << USART_CR2_STOP_POS);
+	pUSARTHandle->pUSARTx->CR2 = temp_reg;
+
+	// Hardware Flow Control Configuration
+	temp_reg = pUSARTHandle->pUSARTx->CR3;
+	temp_reg &= ~(1 << USART_CR3_CTSE_POS);
+	temp_reg &= ~(1 << USART_CR3_RTSE_POS);
+	if (pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTS ||
+	    pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTS_RTS) {
+		temp_reg |= (1 << USART_CR3_CTSE_POS);
+	}
+	if (pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_RTS ||
+	         pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTS_RTS) {
+		temp_reg |= (1 << USART_CR3_RTSE_POS);
+	}
+	pUSARTHandle->pUSARTx->CR3 = temp_reg;
+
+	// Baud Rate Configuration
+	// to be continued
 }
 
 /**
