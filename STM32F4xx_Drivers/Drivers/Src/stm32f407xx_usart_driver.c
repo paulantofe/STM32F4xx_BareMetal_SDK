@@ -178,6 +178,43 @@ void USART_Init(USART_Handle_t *pUSARTHandle) {
 }
 
 /**
+ * @brief  Transmit data using USART/UART protocol
+ * @param  pUSARTHandle    Handle structure
+ * @param  pTxBuffer       Pointer to transmission buffer
+ * @param  Len             Number of data frames (words)
+ * @retval None
+ */
+void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t Len) {
+	uint16_t *pData;
+
+	for (uint32_t i = 0; i < Len; i++) {
+		// Wait until TXE is set
+		while (USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TXE) == FLAG_RESET);
+
+		if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
+			// Load USART_DR with 2 bytes masking the bits other than the first 9 bits
+			pData = (uint16_t*) pTxBuffer;
+			pUSARTHandle->pUSARTx->DR = (*pData & (uint16_t) 0x01FF);
+
+			if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+				pTxBuffer += 2;
+			}
+			else {
+				pTxBuffer++;
+			}
+		}
+		else {
+			// 8-bit data format
+			pUSARTHandle->pUSARTx->DR = *pTxBuffer;
+			pTxBuffer++;
+		}
+	}
+
+	// Wait until transission is completed
+	while (USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TC) == FLAG_RESET);
+}
+
+/**
  * @brief  Configure an interrupt for USART peripheral
  * @param  IRQNumber   Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi      ENABLE/DISABLE macro
