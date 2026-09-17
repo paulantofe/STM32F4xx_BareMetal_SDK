@@ -2,7 +2,9 @@
  * @file 		stm32f407xx_usart_driver.c
  * @brief 		Source file for USART peripheral support
  *
- * @details
+ * @details     This source file contains the implementation of the APIs for the USART/UART peripherals on the MCU. It includes the functional
+ *              code for peripheral clock control, USART initialization and de-initialization, data transmission, as well as interrupt
+ *              configuration and handling.
  */
 
 #include "stm32f407xx_usart_driver.h"
