@@ -11,52 +11,6 @@
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
-static uint16_t AHB_Prescaler[] = { 2, 4, 8, 16, 64, 128, 256, 512 };
-static uint8_t  APB_Prescaler[] = { 2, 4, 8, 16 };
-
-static uint32_t rcc_get_pclk1_value(void) {
-	uint32_t pclk1, system_clk;
-	uint8_t clk_source, temp, apb_pre;
-	uint16_t ahb_pre;
-
-	clk_source = (RCC->CFGR >> 2) & 0x3;
-
-	if (clk_source == 0) {
-		// HSI selected
-		system_clk = 16000000;
-	}
-	else if (clk_source == 1) {
-		// HSE selected
-		system_clk = 8000000;
-	}
-	else if (clk_source == 2) {
-		// PLL selected
-		// Not supported by the custom driver layer
-	}
-
-	// AHB Clock Prescaler
-	temp = (RCC->CFGR >> 4) & 0xF;
-	if (temp < 8) {
-		ahb_pre = 1;
-	}
-	else {
-		ahb_pre = AHB_Prescaler[temp - 8];
-	}
-
-	// APB Clock Prescaler
-	temp = (RCC->CFGR >> 10) & 0x7;
-	if (temp < 4) {
-		apb_pre = 1;
-	}
-	else {
-		apb_pre = APB_Prescaler[temp - 4];
-	}
-
-	pclk1 = (system_clk / ahb_pre) / apb_pre;
-
-	return pclk1;
-}
-
 static void i2c_execute_address_phase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddress, uint8_t RnW) {
 	SlaveAddress = SlaveAddress << 1;
 
@@ -244,7 +198,7 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 
 	// FREQ Field of CR1
 	temp_reg = 0;
-	temp_reg |= rcc_get_pclk1_value() / 1000000U;
+	temp_reg |= RCC_GetPCLK1Value() / 1000000U;
 	pI2CHandle->pI2Cx->CR2 = (temp_reg & 0x3F);
 
 	// Device Own Address
@@ -258,7 +212,7 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	temp_reg = 0;
 	if (pI2CHandle->I2C_Config.I2C_SclSpeed == I2C_SCL_SPEED_SM) {
 		// Standard Mode
-		ccr_value = rcc_get_pclk1_value() / (2 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+		ccr_value = RCC_GetPCLK1Value() / (2 * pI2CHandle->I2C_Config.I2C_SclSpeed);
 		temp_reg = (ccr_value & 0xFFF);
 	}
 	else {
@@ -267,10 +221,10 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 		temp_reg |= (pI2CHandle->I2C_Config.I2C_FMDutyCycle << I2C_CCR_DUTY_POS);
 
 		if (pI2CHandle->I2C_Config.I2C_FMDutyCycle == I2C_FM_DUTY_2) {
-			ccr_value = rcc_get_pclk1_value() / (3 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+			ccr_value = RCC_GetPCLK1Value() / (3 * pI2CHandle->I2C_Config.I2C_SclSpeed);
 		}
 		else {
-			ccr_value = rcc_get_pclk1_value() / (25 * pI2CHandle->I2C_Config.I2C_SclSpeed);
+			ccr_value = RCC_GetPCLK1Value() / (25 * pI2CHandle->I2C_Config.I2C_SclSpeed);
 		}
 
 		temp_reg |= (ccr_value & 0xFFF);
@@ -280,11 +234,11 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	// TRISE Configuration
 	if (pI2CHandle->I2C_Config.I2C_SclSpeed == I2C_SCL_SPEED_SM) {
 		// Standard Mode: maximum rise time is 1000 ns
-		temp_reg = (rcc_get_pclk1_value() / 1000000U) + 1;
+		temp_reg = (RCC_GetPCLK1Value() / 1000000U) + 1;
 	}
 	else {
 		// Fast Mode: maximum rise time is 300 ns
-		temp_reg = ((rcc_get_pclk1_value() / 1000000U) * 300) / 1000 +  1;
+		temp_reg = ((RCC_GetPCLK1Value() / 1000000U) * 300) / 1000 +  1;
 	}
 	pI2CHandle->pI2Cx->TRISE = (temp_reg & 0x3F);
 }
