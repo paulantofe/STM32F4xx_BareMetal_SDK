@@ -17,6 +17,10 @@ static uint8_t  APB_Prescaler[] = { 2, 4, 8, 16 };
 
 /* -------------------------- SUPPORTED APIs IMPLEMENTATION -------------------------- */
 
+/**
+ * @brief  Get the frequency of the APB1 bus
+ * @retval Frequency of APB1 bus
+ */
 uint32_t RCC_GetPCLK1Value(void) {
 	uint32_t pclk1, system_clk;
 	uint8_t clk_source, temp, apb_pre;
@@ -60,6 +64,10 @@ uint32_t RCC_GetPCLK1Value(void) {
 	return pclk1;
 }
 
+/**
+ * @brief  Get the frequency of the APB2 bus
+ * @retval Frequency of APB2 bus
+ */
 uint32_t RCC_GetPCLK2Value(void) {
 	uint32_t pclk2, system_clk;
 	uint8_t clk_source, temp, apb_pre;
