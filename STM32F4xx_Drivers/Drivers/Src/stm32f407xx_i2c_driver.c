@@ -324,13 +324,13 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
 	// Wait until Start Condition is generated
-	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_SB_FLAG, FLAG_RESET);
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_SB, FLAG_RESET);
 
 	// Send Slave Address along with R/nW bit set to 0 (8 bits in total)
     i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr, 0);
 
     // Wait until Address Phase is over
-    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_ADDR_FLAG, FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_ADDR, FLAG_RESET);
 
     // Clear ADDR Flag. Note: SCL is stretched until ADDR Flag is cleared
     i2c_clear_addr_flag(pI2CHandle->pI2Cx);
@@ -338,7 +338,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
     // Send data until Len is 0
     while (Len > 0) {
     	// Wait until Tx buffer is empty
-    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_TXE_FLAG, FLAG_RESET);
+    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_TXE, FLAG_RESET);
 
     	pI2CHandle->pI2Cx->DR = *pTxBuffer;
     	pTxBuffer++;
@@ -346,8 +346,8 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
     }
 
     // Wait until Tx buffer is empty and BTF Flag is set (Byte Transfer Finished)
-    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_TXE_FLAG, FLAG_RESET);
-    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_BTF_FLAG, FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_TXE, FLAG_RESET);
+    i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_BTF, FLAG_RESET);
 
     if (Sr == I2C_SR_DI) {
     	// Repeated Start is deactivated. Generate stop condition
@@ -371,13 +371,13 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 	pI2CHandle->pI2Cx->CR1 |= (1 << I2C_CR1_START_POS);
 
 	// Wait until Start Condition is generated
-	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_SB_FLAG, FLAG_RESET);
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_SB, FLAG_RESET);
 
 	// Send Slave Address along with R/nW bit set to 1 (8 bits in total)
 	i2c_execute_address_phase(pI2CHandle->pI2Cx, SlaveAddr, 1);
 
 	// Wait until Address Phase is over
-	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_ADDR_FLAG, FLAG_RESET);
+	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_ADDR, FLAG_RESET);
 
 	// Procedure to read only one byte of data from slave
 	if (Len == 1) {
@@ -393,7 +393,7 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 		}
 
 		// Wait until Rx buffer is not empty
-		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
+		i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_RXNE, FLAG_RESET);
 
 		// Read data into pRxBuffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
@@ -404,7 +404,7 @@ void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_
 	    i2c_clear_addr_flag(pI2CHandle->pI2Cx);
 
 	    while (Len > 0) {
-	    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_RXNE_FLAG, FLAG_RESET);
+	    	i2c_wait_on_flag_timeout(pI2CHandle->pI2Cx, I2C_FLAG_RXNE, FLAG_RESET);
 
 	    	if (Len == 2) {
 	    		// Disable Acking

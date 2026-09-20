@@ -131,9 +131,9 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 		pSPIx->CR1 |= (1 << SPI_CR1_SPE_POS);
 	}
 	else {
-		spi_wait_on_flag_timeout(pSPIx, SPI_TXE_FLAG, FLAG_RESET);
+		spi_wait_on_flag_timeout(pSPIx, SPI_FLAG_TXE, FLAG_RESET);
 
-		spi_wait_on_flag_timeout(pSPIx, SPI_BSY_FLAG, FLAG_SET);
+		spi_wait_on_flag_timeout(pSPIx, SPI_FLAG_BSY, FLAG_SET);
 
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE_POS);
 	}
@@ -263,7 +263,7 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
 
 	while (Len > 0) {
 		// Transmission
-		spi_wait_on_flag_timeout(pSPIx, SPI_TXE_FLAG, FLAG_RESET);
+		spi_wait_on_flag_timeout(pSPIx, SPI_FLAG_TXE, FLAG_RESET);
 		if (pTxBuffer != NULL) {
 			if (data_frame == 0) {
 				pSPIx->DR = *pTxBuffer;
@@ -284,7 +284,7 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
 		}
 
 		// Reception
-		spi_wait_on_flag_timeout(pSPIx, SPI_RXNE_FLAG, FLAG_RESET);
+		spi_wait_on_flag_timeout(pSPIx, SPI_FLAG_RXNE, FLAG_RESET);
 		if (pRxBuffer != NULL) { // 8-bit Format
 			if (data_frame == 0) {
 				*pRxBuffer = pSPIx->DR;
