@@ -10,6 +10,14 @@
 
 #include "stm32f407xx.h"
 
+/* -------------------------- GENERIC MACROS -------------------------- */
+
+#define HSI_VALUE              16000000U
+#define HSE_VALUE              8000000U
+
+/* -------------------------------------------------------------------- */
+
+
 /* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
 
 uint32_t RCC_GetPCLK1Value(void);
