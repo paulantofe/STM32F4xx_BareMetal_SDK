@@ -13,7 +13,42 @@
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
 static void usart_set_baud_rate(USART_RegDef_t *pUSARTx, uint32_t BaudRate) {
+	uint32_t temp_reg = 0;
 
+	// Get value of APBx bus clock
+	uint32_t PCLKx;
+	if (pUSARTx == USART1 || pUSARTx == USART6) {
+		PCLKx = RCC_GetPCLK2Value();
+	}
+	else {
+		PCLKx = RCC_GetPCLK1Value();
+	}
+
+	// Check for oversampling rate
+	uint32_t usartdiv;
+	if (pUSARTx->CR1 & (1 << USART_CR1_OVER8_POS)) {
+		// OVER8 bit is set
+		usartdiv = ((25 * PCLKx) / (2 * BaudRate));
+	}
+	else {
+		// OVER8 bit is reset. Oversampling by 16
+		usartdiv = ((25 * PCLKx) / (4 * BaudRate));
+	}
+
+	// Calculate and place mantisa and fractional part
+	uint32_t M_part, F_part;
+	M_part = usartdiv / 100;
+	temp_reg |= (M_part << 4);
+	F_part = (usartdiv - (M_part * 100));
+	if (pUSARTx->CR1 & (1 << USART_CR1_OVER8_POS)) {
+		F_part = (((F_part * 8) + 50) / 100) & ((uint8_t)0x07);
+	}
+	else {
+		F_part = (((F_part * 16) + 50) / 100) & ((uint8_t)0x0F);
+	}
+	temp_reg |= F_part;
+
+	pUSARTx->BRR = temp_reg;
 }
 
 /* ----------------------------------------------------------------------------------- */
