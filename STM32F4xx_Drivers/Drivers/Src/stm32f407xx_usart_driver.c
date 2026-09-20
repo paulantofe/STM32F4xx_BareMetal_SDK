@@ -215,7 +215,7 @@ void USART_Init(USART_Handle_t *pUSARTHandle) {
 	pUSARTHandle->pUSARTx->CR3 = temp_reg;
 
 	// Baud Rate Configuration
-	// to be continued
+	usart_set_baud_rate(pUSARTHandle->pUSARTx, pUSARTHandle->USART_Config.USART_Baudrate);
 }
 
 /**
