@@ -94,6 +94,15 @@
 #define USART_FLAG_CTS             (1 << USART_SR_CTS_POS)   // CTS Flag
 /** @} */
 
+/**
+ * @defgroup USART_STATES          USART Application States
+ * @{
+ */
+#define USART_READY                0
+#define USART_BUSY_IN_RX           1
+#define USART_BUSY_IN_TX           2
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
@@ -113,6 +122,13 @@ typedef struct {
 typedef struct {
 	USART_Config_t USART_Config;
 	USART_RegDef_t *pUSARTx;
+
+	uint8_t        *pTxBuffer;
+	uint8_t        *pRxBuffer;
+	uint32_t       TxLen;
+	uint32_t       RxLen;
+	uint8_t        TxState;
+    uint8_t        RxState;
 } USART_Handle_t;
 
 /* ------------------------------------------------------------------------------ */
