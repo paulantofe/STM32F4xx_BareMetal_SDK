@@ -164,6 +164,14 @@ static void usart_cts_it_handle(USART_Handle_t *pUSARTHandle) {
 	USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_CTS);
 }
 
+static void usart_idle_it_handle(USART_Handle_t *pUSARTHandle) {
+	// Clear Idle Flag
+	(void) pUSARTHandle->pUSARTx->SR;
+	(void) pUSARTHandle->pUSARTx->DR;
+
+	USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_IDLE);
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -534,7 +542,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_IDLE;
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_IDLEIE_POS);
 	if (temp1 && temp2) {
-		usart_idle_it_handle();
+		usart_idle_it_handle(pUSARTHandle);
 	}
 
 	// Check for Overrun Error interrupt
