@@ -109,16 +109,18 @@
  */
 #define USART_EVENT_TX_CMPLT        0
 #define USART_EVENT_RX_CMPLT        1
+#define USART_EVENT_IDLE            2
+#define USART_EVENT_CTS             3
 /** @} */
 
 /**
  * @defgroup USART_ERRORS           USART Application Errors
  * @{
  */
-#define USART_ERROR_ORE             2    // Overrun Error
-#define USART_ERROR_FE              3    // Framing Error
-#define USART_ERROR_NE              4    // Noise Error
-#define USART_ERROR_PE              5    // Parity Error
+#define USART_ERROR_ORE             4    // Overrun Error
+#define USART_ERROR_FE              5    // Framing Error
+#define USART_ERROR_NE              6    // Noise Error
+#define USART_ERROR_PE              7    // Parity Error
 /** @} */
 
 /* -------------------------------------------------------------------- */
