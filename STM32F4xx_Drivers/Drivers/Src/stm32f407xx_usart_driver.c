@@ -172,6 +172,14 @@ static void usart_idle_it_handle(USART_Handle_t *pUSARTHandle) {
 	USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_IDLE);
 }
 
+static void usart_ore_it_handle(USART_Handle_t *pUSARTHandle) {
+	// Clear ORE Flag
+	(void) pUSARTHandle->pUSARTx->SR;
+	(void) pUSARTHandle->pUSARTx->DR;
+
+	USART_ApplicationEventCallback(pUSARTHandle, USART_ERROR_ORE);
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -549,7 +557,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_ORE;
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_RXNEIE_POS);
 	if (temp1 && temp2) {
-		usart_ore_it_handle();
+		usart_ore_it_handle(pUSARTHandle);
 	}
 
 	// Check for Error interrupt
