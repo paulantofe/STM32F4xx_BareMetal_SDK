@@ -37,15 +37,32 @@ static void usart_set_baud_rate(USART_RegDef_t *pUSARTx, uint32_t BaudRate) {
 
 	// Calculate and place mantisa and fractional part
 	uint32_t M_part, F_part;
+
 	M_part = usartdiv / 100;
-	temp_reg |= (M_part << 4);
 	F_part = (usartdiv - (M_part * 100));
+
 	if (pUSARTx->CR1 & (1 << USART_CR1_OVER8_POS)) {
-		F_part = (((F_part * 8) + 50) / 100) & ((uint8_t)0x07);
+		F_part = (((F_part * 8) + 50) / 100);
+
+		if (F_part == 8) {
+			M_part++;
+			F_part = 0;
+		}
+
+		F_part &= (uint8_t) 0x07;
 	}
 	else {
-		F_part = (((F_part * 16) + 50) / 100) & ((uint8_t)0x0F);
+		F_part = (((F_part * 16) + 50) / 100);
+
+		if (F_part == 16) {
+			M_part++;
+			F_part = 0;
+		}
+
+		F_part &= (uint8_t)0x0F;
 	}
+
+	temp_reg |= (M_part << 4);
 	temp_reg |= F_part;
 
 	pUSARTx->BRR = temp_reg;
@@ -289,6 +306,32 @@ void USART_ReceiveData(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_
 			pRxBuffer++;
 		}
 	}
+}
+
+/**
+ * @brief  Transmit data using USART protocol (non-blocking mode)
+ * @param  pUSARTHandle    Handle structure
+ * @param  pTxBuffer       Pointer to transmission buffer
+ * @param  Len             Number of data frames (words)
+ * @retval USART Peripheral state before API call:
+ *         - USART_READY: transmission started
+ *         - USART_BUSY_IN_TX: peripheral was busy. Data is not transmitted
+ */
+uint8_t USART_SendDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t Len) {
+	if (pUSARTHandle->pUSARTx == NULL) { return -1; }
+
+	uint8_t state = pUSARTHandle->TxState;
+
+	if (state != USART_BUSY_IN_TX) {
+		pUSARTHandle->pTxBuffer = pTxBuffer;
+		pUSARTHandle->TxLen = Len;
+
+		pUSARTHandle->TxState = USART_BUSY_IN_TX;
+
+		pUSARTHandle->pUSARTx->CR1 |= (1 << USART_CR1_TXEIE_POS);
+	}
+
+	return state;
 }
 
 /**
