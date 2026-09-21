@@ -233,19 +233,21 @@ void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t L
 		while (USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TXE) == FLAG_RESET);
 
 		if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
-			// Load USART_DR with 2 bytes masking the bits other than the first 9 bits
-			pData = (uint16_t*) pTxBuffer;
-			pUSARTHandle->pUSARTx->DR = (*pData & (uint16_t) 0x01FF);
-
+			// 9-bit format
 			if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+				// 9-bit payload. Load DR with 2 bytes
+				pData = (uint16_t*) pTxBuffer;
+				pUSARTHandle->pUSARTx->DR = (*pData & (uint16_t) 0x01FF);
 				pTxBuffer += 2;
 			}
 			else {
+				// 8-bit payload. Hardware adds the 9th parity bit
+				pUSARTHandle->pUSARTx->DR = (*pTxBuffer & (uint8_t) 0xFF);
 				pTxBuffer++;
 			}
 		}
 		else {
-			// 8-bit data format
+			// 8-bit payload
 			pUSARTHandle->pUSARTx->DR = *pTxBuffer;
 			pTxBuffer++;
 		}
