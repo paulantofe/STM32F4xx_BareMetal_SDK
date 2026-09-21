@@ -395,4 +395,64 @@ void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	NVIC_IPR_BASEADDR[iprx] |= (IRQPriority << shiftAmount);
 }
 
+/**
+ * @brief  Manage interrupt events of USART peripheral
+ * @param  pUSARTHandle  Handle structure of USART
+ * @retval None
+ */
+void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
+	if (pUSARTHandle->pUSARTx == NULL) { return; }
+
+	uint32_t temp1, temp2, temp3;
+
+	// Check for Transmission Complete (TC) interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_TC;
+	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_TCIE_POS);
+	if (temp1 && temp2) {
+		usart_tc_it_handle();
+	}
+
+	// Check for TXE interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_TXE;
+	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_TXEIE_POS);
+	if (temp1 && temp2) {
+		usart_txe_it_handle();
+	}
+
+	// Check for RXNE interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_RXNE;
+	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_RXNEIE_POS);
+	if (temp1 && temp2) {
+		usart_rxne_it_handle();
+	}
+
+	// Check for CTS interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_CTS;
+	temp2 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_CTSE_POS);
+	temp3 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_CTSIE_POS);
+	if (temp1 && temp2 && temp3) {
+		usart_cts_it_handle();
+	}
+
+	// Check for Idle Detection interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_IDLE;
+	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_IDLEIE_POS);
+	if (temp1 && temp2) {
+		usart_idle_it_handle();
+	}
+
+	// Check for Overrun Error interrupt
+	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_ORE;
+	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_RXNEIE_POS);
+	if (temp1 && temp2) {
+		usart_ore_it_handle();
+	}
+
+	// Check for Error interrupt
+	temp1 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_EIE_POS);
+	if (temp1) {
+		usart_err_it_handle();
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
