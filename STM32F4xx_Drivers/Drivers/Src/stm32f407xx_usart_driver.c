@@ -118,6 +118,45 @@ static void usart_txe_it_handle(USART_Handle_t *pUSARTHandle) {
 	}
 }
 
+static void usart_rxne_it_handle(USART_Handle_t *pUSARTHandle) {
+	if (pUSARTHandle->RxState == USART_BUSY_IN_RX) {
+		if (pUSARTHandle->RxLen > 0) {
+			if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
+				// 9-bit data frame
+				if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+					*((uint16_t*) pUSARTHandle->pRxBuffer) = (pUSARTHandle->pUSARTx->DR & (uint16_t) 0x01FF);
+					pUSARTHandle->pRxBuffer += 2;
+				}
+				else {
+					*(pUSARTHandle->pRxBuffer) = (pUSARTHandle->pUSARTx->DR & (uint8_t) 0xFF);
+					pUSARTHandle->pRxBuffer++;
+				}
+			}
+			else {
+				// 8-bit data frame
+				if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+					*(pUSARTHandle->pRxBuffer) = (pUSARTHandle->pUSARTx->DR & (uint8_t) 0xFF);
+				}
+				else {
+					*(pUSARTHandle->pRxBuffer) = (pUSARTHandle->pUSARTx->DR & (uint8_t) 0x7F);
+				}
+
+				pUSARTHandle->pRxBuffer++;
+			}
+			pUSARTHandle->RxLen--;
+		}
+		if (pUSARTHandle->RxLen == 0) {
+			// Disable RXNEIE
+			pUSARTHandle->pUSARTx->CR1 &= ~(1 << USART_CR1_RXNEIE_POS);
+
+			// Update USART State
+			pUSARTHandle->RxState = USART_READY;
+
+			USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_RX_CMPLT);
+		}
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -410,7 +449,6 @@ uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, ui
 	return state;
 }
 
-
 /**
  * @brief  Configure an interrupt for USART peripheral
  * @param  IRQNumber   Number of the interrupt request from IRQn_Type enum
@@ -473,7 +511,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_RXNE;
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_RXNEIE_POS);
 	if (temp1 && temp2) {
-		usart_rxne_it_handle();
+		usart_rxne_it_handle(pUSARTHandle);
 	}
 
 	// Check for CTS interrupt
