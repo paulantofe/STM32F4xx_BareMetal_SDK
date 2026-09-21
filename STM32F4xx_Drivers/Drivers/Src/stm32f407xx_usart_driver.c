@@ -86,6 +86,38 @@ static void usart_tc_it_handle(USART_Handle_t *pUSARTHandle) {
 	}
 }
 
+static void usart_txe_it_handle(USART_Handle_t *pUSARTHandle) {
+	if (pUSARTHandle->TxState == USART_BUSY_IN_TX) {
+		if (pUSARTHandle->TxLen > 0) {
+			if (pUSARTHandle->USART_Config.USART_WordLen == USART_WORD_9BITS) {
+				// 9-bit data frame
+				if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+					pUSARTHandle->pUSARTx->DR = *((uint16_t*) pUSARTHandle->pTxBuffer) & (uint16_t) 0x1FF;
+					pUSARTHandle->pTxBuffer += 2;
+				}
+				else {
+					pUSARTHandle->pUSARTx->DR = *(pUSARTHandle->pTxBuffer);
+					pUSARTHandle->pTxBuffer++;
+				}
+			}
+			else {
+				// 8-bit data frame
+				pUSARTHandle->pUSARTx->DR = (*(pUSARTHandle->pTxBuffer) & (uint8_t) 0xFF);
+			    pUSARTHandle->pTxBuffer++;
+
+			}
+			pUSARTHandle->TxLen--;
+		}
+		if (pUSARTHandle->TxLen == 0) {
+			// Disable TXEIE
+			pUSARTHandle->pUSARTx->CR1 &= ~(1 << USART_CR1_TXEIE_POS);
+
+			// Enable TC interrupt
+			pUSARTHandle->pUSARTx->CR1 |= (1 << USART_CR1_TCIE_POS);
+		}
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -434,7 +466,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_TXE;
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_TXEIE_POS);
 	if (temp1 && temp2) {
-		usart_txe_it_handle();
+		usart_txe_it_handle(pUSARTHandle);
 	}
 
 	// Check for RXNE interrupt
