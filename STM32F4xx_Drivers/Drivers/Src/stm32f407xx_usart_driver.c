@@ -335,6 +335,33 @@ uint8_t USART_SendDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint3
 }
 
 /**
+ * @brief  Receive data using USART protocol (non-blocking mode)
+ * @param  pUSARTHandle    Handle structure
+ * @param  pRxBuffer       Pointer to reception buffer
+ * @param  Len             Number of data frames (words)
+ * @retval USART Peripheral state before API call:
+ *         - USART_READY: transmission started
+ *         - USART_BUSY_IN_RX: peripheral was busy. Data is not transmitted
+ */
+uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t Len) {
+	if (pUSARTHandle->pUSARTx == NULL) { return -1; }
+
+	uint8_t state = pUSARTHandle->RxState;
+
+	if (state != USART_BUSY_IN_RX) {
+		pUSARTHandle->pRxBuffer = pRxBuffer;
+		pUSARTHandle->RxLen = Len;
+
+		pUSARTHandle->RxState = USART_BUSY_IN_RX;
+
+		pUSARTHandle->pUSARTx->CR1 |= (1 << USART_CR1_RXNEIE_POS);
+	}
+
+	return state;
+}
+
+
+/**
  * @brief  Configure an interrupt for USART peripheral
  * @param  IRQNumber   Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi      ENABLE/DISABLE macro
