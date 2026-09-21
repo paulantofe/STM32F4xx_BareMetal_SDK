@@ -157,6 +157,13 @@ static void usart_rxne_it_handle(USART_Handle_t *pUSARTHandle) {
 	}
 }
 
+static void usart_cts_it_handle(USART_Handle_t *pUSARTHandle) {
+	// Clear CTS Flag
+	pUSARTHandle->pUSARTx->SR &= ~(1 << USART_SR_CTS_POS);
+
+	USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_CTS);
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -515,11 +522,12 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	}
 
 	// Check for CTS interrupt
+	// Note: N/A for USART4 and USART5
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_CTS;
 	temp2 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_CTSE_POS);
 	temp3 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_CTSIE_POS);
 	if (temp1 && temp2 && temp3) {
-		usart_cts_it_handle();
+		usart_cts_it_handle(pUSARTHandle);
 	}
 
 	// Check for Idle Detection interrupt
