@@ -68,6 +68,24 @@ static void usart_set_baud_rate(USART_RegDef_t *pUSARTx, uint32_t BaudRate) {
 	pUSARTx->BRR = temp_reg;
 }
 
+static void usart_tc_it_handle(USART_Handle_t *pUSARTHandle) {
+	if (pUSARTHandle->TxState == USART_BUSY_IN_TX) {
+		if (pUSARTHandle->TxLen == 0) {
+			// Clear TC bit
+			pUSARTHandle->pUSARTx->SR &= ~(1 << USART_SR_TC_POS);
+
+			// Clear TCIE bit
+			pUSARTHandle->pUSARTx->CR1 &= ~(1 << USART_CR1_TCIE_POS);
+
+			pUSARTHandle->TxState = USART_READY;
+			pUSARTHandle->TxLen = 0;
+			pUSARTHandle->pTxBuffer = NULL;
+
+			USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_TX_CMPLT);
+		}
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -409,7 +427,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_FLAG_TC;
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (1 << USART_CR1_TCIE_POS);
 	if (temp1 && temp2) {
-		usart_tc_it_handle();
+		usart_tc_it_handle(pUSARTHandle);
 	}
 
 	// Check for TXE interrupt

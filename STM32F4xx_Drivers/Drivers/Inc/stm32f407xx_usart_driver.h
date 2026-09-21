@@ -154,7 +154,7 @@ typedef struct {
 
 /* -------------------------- APPLICATION CALL BACKS -------------------------- */
 
-void USART_ApplicationCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv);
+void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv);
 
 /* ------------------------------------------------------------------------------ */
 
