@@ -103,6 +103,24 @@
 #define USART_BUSY_IN_TX           2
 /** @} */
 
+/**
+ * @defgroup USART_EVENTS          USART Application Events
+ * @{
+ */
+#define USART_EVENT_TX_CMPLT        0
+#define USART_EVENT_RX_CMPLT        1
+/** @} */
+
+/**
+ * @defgroup USART_ERRORS           USART Application Errors
+ * @{
+ */
+#define USART_ERROR_ORE             2    // Overrun Error
+#define USART_ERROR_FE              3    // Framing Error
+#define USART_ERROR_NE              4    // Noise Error
+#define USART_ERROR_PE              5    // Parity Error
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
