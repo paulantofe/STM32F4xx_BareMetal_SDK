@@ -102,9 +102,14 @@ static void usart_txe_it_handle(USART_Handle_t *pUSARTHandle) {
 			}
 			else {
 				// 8-bit data frame
-				pUSARTHandle->pUSARTx->DR = (*(pUSARTHandle->pTxBuffer) & (uint8_t) 0xFF);
-			    pUSARTHandle->pTxBuffer++;
+				if (pUSARTHandle->USART_Config.USART_ParityControl == USART_PAR_DI) {
+					pUSARTHandle->pUSARTx->DR = (*(pUSARTHandle->pTxBuffer) & (uint8_t) 0xFF);
+				}
+				else {
+					pUSARTHandle->pUSARTx->DR = (*(pUSARTHandle->pTxBuffer) & (uint8_t) 0x7F);
+				}
 
+				pUSARTHandle->pTxBuffer++;
 			}
 			pUSARTHandle->TxLen--;
 		}
