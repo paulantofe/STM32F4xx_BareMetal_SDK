@@ -180,6 +180,37 @@ static void usart_ore_it_handle(USART_Handle_t *pUSARTHandle) {
 	USART_ApplicationEventCallback(pUSARTHandle, USART_ERROR_ORE);
 }
 
+static void usart_err_it_handle(USART_Handle_t *pUSARTHandle) {
+	uint32_t temp = pUSARTHandle->pUSARTx->SR;
+
+	// Check for Frame Error
+	if (temp & USART_FLAG_FE) {
+		// Clear FE Flag
+		(void) pUSARTHandle->pUSARTx->SR;
+		(void) pUSARTHandle->pUSARTx->DR;
+
+		USART_ApplicationEventCallback(pUSARTHandle, USART_ERROR_FE);
+	}
+
+	// Check for Noise Detected Flag
+	if (temp & USART_FLAG_NF) {
+		// Clear NF Flag
+		(void) pUSARTHandle->pUSARTx->SR;
+		(void) pUSARTHandle->pUSARTx->DR;
+
+		USART_ApplicationEventCallback(pUSARTHandle, USART_ERROR_NE);
+	}
+
+	// Check for Overrun Error
+	if (temp & USART_FLAG_ORE) {
+		// Clear ORE Flag
+		(void) pUSARTHandle->pUSARTx->SR;
+		(void) pUSARTHandle->pUSARTx->DR;
+
+		USART_ApplicationEventCallback(pUSARTHandle, USART_ERROR_ORE);
+	}
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
@@ -563,7 +594,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	// Check for Error interrupt
 	temp1 = pUSARTHandle->pUSARTx->CR3 & (1 << USART_CR3_EIE_POS);
 	if (temp1) {
-		usart_err_it_handle();
+		usart_err_it_handle(pUSARTHandle);
 	}
 }
 
