@@ -16,6 +16,13 @@
 /* -------------------------- GENERIC MACROS -------------------------- */
 
 /**
+ * @defgroup DS1307_I2C_ADDR   I2C address of DS1307
+ * @{
+ */
+#define DS1307_I2C_ADDR        0x68
+/** @} */
+
+/**
  * @defgroup DS1307_REG        Registers Addresses of DS1307 chip
  * @{
  */
@@ -33,7 +40,6 @@
  * @defgroup DS1307_CONFIG     Configuration Macros
  * @{
  */
-#define DS1307_I2C_ADDR        0x68
 #define DS1307_TIME_FORMAT_12H 1
 #define DS1307_TIME_FORMAT_24H 0
 /** @} */
@@ -54,5 +60,22 @@ typedef enum {
 /** @} */
 
 /* -------------------------------------------------------------------- */
+
+
+/* -------------------------- DATA STRUCTURES -------------------------- */
+
+/** @brief Structure to hold the decoded date and time */
+typedef struct {
+    uint8_t date;
+    uint8_t month;
+    uint8_t year;
+    uint8_t day;               /**< possible values from @ref DS1307_DAYS         */
+    uint8_t hours;
+    uint8_t minutes;
+    uint8_t seconds;
+    uint8_t time_format;       /**< possible values from @ref DS1307_CONFIG       */
+} RTC_Date_Time_t;
+
+/* ------------------------------------------------------------------------------ */
 
 #endif
