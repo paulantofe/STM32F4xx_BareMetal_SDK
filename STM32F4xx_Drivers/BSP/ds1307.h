@@ -18,7 +18,8 @@
 /* -------------------------- GENERIC MACROS -------------------------- */
 
 /**
- * @note PB6 and PB9 have on board 4.7kΩ pull-up resistors
+ * @note PB6 and PB9 have on board 4.7kΩ pull-up resistors.
+ *       Maximum I2C speed supported by DS1307 is 100 kHz (standard mode)
  * @defgroup DS1307_APP_CFG    Application Configurable Items
  * @{
  */
