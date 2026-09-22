@@ -11,9 +11,24 @@
 #ifndef INC_DS1307_H_
 #define INC_DS1307_H_
 
+#include "stm32f407xx.h"
+#include "stm32f407xx_gpio_driver.h"
 #include "stm32f407xx_i2c_driver.h"
 
 /* -------------------------- GENERIC MACROS -------------------------- */
+
+/**
+ * @note PB6 and PB9 have on board 4.7kΩ pull-up resistors
+ * @defgroup DS1307_APP_CFG    Application Configurable Items
+ * @{
+ */
+#define DS1307_I2C             I2C1
+#define DS1307_I2C_GPIO_PORT   GPIOB
+#define DS1307_I2C_SDA_PIN     GPIO_PIN_NO_9
+#define DS1307_I2C_SCL_PIN     GPIO_PIN_NO_6
+#define DS1307_I2C_SPEED       I2C_SCL_SPEED_SM
+#define DS1307_I2C_PUPD        GPIO_NO_PUPD
+/** @} */
 
 /**
  * @defgroup DS1307_I2C_ADDR   I2C address of DS1307
