@@ -23,7 +23,7 @@ static void ds1307_i2c_pins_init() {
 	i2c_pin.GPIO_PinConfig.GPIO_PinAFMode = GPIO_AF4;
 	i2c_pin.GPIO_PinConfig.GPIO_PinOType = GPIO_OP_TYPE_OD;
 	i2c_pin.GPIO_PinConfig.GPIO_PinPuPdControl = DS1307_I2C_PUPD;
-	i2c_pin.GPIO_PinConfig.GPIO_PinSpeed = DS1307_I2C_SPEED;
+	i2c_pin.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 
 	// SDA Initialization
 	i2c_pin.GPIO_PinConfig.GPIO_PinNumber = DS1307_I2C_SDA_PIN;
