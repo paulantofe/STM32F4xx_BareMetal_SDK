@@ -78,4 +78,16 @@ typedef struct {
 
 /* ------------------------------------------------------------------------------ */
 
+
+/* -------------------------- SUPPORTED APIs (for more information check the function definitions) -------------------------- */
+
+uint8_t DS1307_Init(void);
+void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time);
+void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date);
+
+void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time);
+void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date);
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
 #endif
