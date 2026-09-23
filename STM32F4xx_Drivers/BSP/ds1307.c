@@ -199,4 +199,38 @@ void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date) {
 	pRTC_Date->year = bcd_to_binary(ds1307_read(DS1307_ADDR_YEAR));
 }
 
+/**
+ * @brief  Enable/Disable Square Wave output
+ * @param  EnorDi   ENABLE/DISABLE macros
+ * @retval None
+ */
+void DS1307_ManageSquareWave(uint8_t EnorDi) {
+	uint8_t ctrl_reg;
+
+	ctrl_reg = ds1307_read(DS1307_ADDR_CTRL);
+
+	if (EnorDi == ENABLE) {
+		ctrl_reg |= (1 << DS1307_CTRL_SQWE_POS);
+	}
+	else {
+		ctrl_reg &= ~(1 << DS1307_CTRL_SQWE_POS);
+	}
+
+	ds1307_write(ctrl_reg, DS1307_ADDR_CTRL);
+}
+
+/**
+ * @brief  Set frequency of the square wave output
+ * @param  Freq   Frequency macro @ref DS1307_SQ_FREQ
+ * @retval None
+ */
+void DS1307_SquareWaveFrequency(uint8_t Freq) {
+	uint8_t ctrl_reg = ds1307_read(DS1307_ADDR_CTRL);
+
+	ctrl_reg &= ~(0x3 << DS1307_CTRL_RS0_POS);
+	ctrl_reg |= (Freq << DS1307_CTRL_RS0_POS);
+
+	ds1307_write(ctrl_reg, DS1307_ADDR_CTRL);
+}
+
 /* ----------------------------------------------------------------------------------- */
