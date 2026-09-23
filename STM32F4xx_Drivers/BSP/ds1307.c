@@ -116,5 +116,19 @@ void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
 	ds1307_write(time_unit, DS1307_ADDR_HRS);
 }
 
+/**
+ * @brief  Set current date
+ * @retval None
+ */
+void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
+	ds1307_write(binary_to_bcd(pRTC_Date->date), DS1307_ADDR_DATE);
+
+	ds1307_write(binary_to_bcd(pRTC_Date->day), DS1307_ADDR_DAY);
+
+	ds1307_write(binary_to_bcd(pRTC_Date->month), DS1307_ADDR_MONTH);
+
+	ds1307_write(binary_to_bcd(pRTC_Date->year), DS1307_ADDR_YEAR);
+}
+
 
 /* ----------------------------------------------------------------------------------- */
