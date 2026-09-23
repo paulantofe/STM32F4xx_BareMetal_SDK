@@ -84,6 +84,8 @@ void DS1307_Init(void) {
 
 /**
  * @brief  Set current time
+ * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ *                     with desired configuration
  * @retval None
  */
 void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
@@ -118,6 +120,8 @@ void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
 
 /**
  * @brief  Set current date
+ * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ *                     with desired configuration
  * @retval None
  */
 void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
@@ -130,5 +134,45 @@ void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
 	ds1307_write(binary_to_bcd(pRTC_Date->year), DS1307_ADDR_YEAR);
 }
 
+/**
+ * @brief  Get current time
+ * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ *                     with desired configuration
+ * @retval None
+ */
+void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time) {
+	uint8_t time_unit;
+
+	// Read seconds
+	time_unit = ds1307_read(DS1307_ADDR_SEC);
+	// Clear CH bit as it`s not relevant for seconds
+	time_unit &= ~(1 << DS1307_SEC_CH_POS);
+	pRTC_Time->seconds = bcd_to_binary(time_unit);
+
+	// Read minutes
+	time_unit = ds1307_read(DS1307_ADDR_MIN);
+	pRTC_Time->minutes = bcd_to_binary(time_unit);
+
+	// Read hours
+	time_unit = ds1307_read(DS1307_ADDR_HRS);
+	if (time_unit & (1 << DS1307_HRS_FORMAT_POS)) {
+		// 12 hr format
+		if (time_unit & (1 << DS1307_HRS_AM_PM_POS)) {
+			// pm
+			pRTC_Time->time_format = DS1307_TIME_FORMAT_12H_PM;
+		}
+		else {
+			// am
+			pRTC_Time->time_format = DS1307_TIME_FORMAT_12H_AM;
+		}
+		// Clear time format bit and am/pm bit
+		time_unit &= ~(0x3 << DS1307_HRS_AM_PM_POS);
+	}
+	else {
+		// 24 hr format
+		pRTC_Time->time_format = DS1307_TIME_FORMAT_24H;
+	}
+	pRTC_Time->hours = bcd_to_binary(time_unit);
+}
 
 /* ----------------------------------------------------------------------------------- */
