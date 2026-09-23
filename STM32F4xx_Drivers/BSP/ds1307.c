@@ -78,8 +78,43 @@ void DS1307_Init(void) {
 
 	// Enable crystal oscillator in DS1307 chip
 	uint8_t clock_state = ds1307_read(DS1307_ADDR_SEC);
-	clock_state &= ~(1 << 7);
+	clock_state &= ~(1 << DS1307_SEC_CH_POS);
 	ds1307_write(clock_state, DS1307_ADDR_SEC);
 }
+
+/**
+ * @brief  Set current time
+ * @retval None
+ */
+void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
+	uint8_t time_unit;
+
+	// Set seconds
+	time_unit = binary_to_bcd(pRTC_Time->seconds);
+	// Make sure RTC clock is not halted
+	time_unit &= ~(1 << DS1307_SEC_CH_POS);
+	ds1307_write(time_unit, DS1307_ADDR_SEC);
+
+	// Set minutes
+	time_unit = binary_to_bcd(pRTC_Time->minutes);
+	ds1307_write(time_unit, DS1307_ADDR_MIN);
+
+	// Set hours
+	time_unit = binary_to_bcd(pRTC_Time->hours);
+	if (pRTC_Time->time_format == DS1307_TIME_FORMAT_24H) {
+		time_unit &= ~(1 << DS1307_HRS_FORMAT_POS);
+	}
+	else {
+		time_unit |= (1 << DS1307_HRS_FORMAT_POS);
+		if (pRTC_Time->time_format == DS1307_TIME_FORMAT_12H_PM) {
+			time_unit |= (1 << DS1307_HRS_AM_PM_POS);
+		}
+		else {
+			time_unit &= ~(1 << DS1307_HRS_AM_PM_POS);
+		}
+	}
+	ds1307_write(time_unit, DS1307_ADDR_HRS);
+}
+
 
 /* ----------------------------------------------------------------------------------- */
