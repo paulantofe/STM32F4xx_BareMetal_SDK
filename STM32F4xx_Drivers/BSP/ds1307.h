@@ -83,6 +83,19 @@ typedef enum {
 #define DS1307_SEC_CH_POS      7
 #define DS1307_HRS_FORMAT_POS  6
 #define DS1307_HRS_AM_PM_POS   5
+#define DS1307_CTRL_SQWE_POS   4
+#define DS1307_CTRL_RS0_POS    0
+#define DS1307_CTRL_RS1_POS    1
+/** @} */
+
+/**
+ * @defgroup DS1307_SQ_FREQ    Frequency of the square wave output
+ * @{
+ */
+#define DS1307_SQ_1HZ          0
+#define DS1307_SQ_4_096KHZ     1
+#define DS1307_SQ_8_192KHZ     2
+#define DS1307_SQ_32_768KHZ    3
 /** @} */
 
 /* -------------------------------------------------------------------- */
@@ -113,6 +126,9 @@ void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date);
 
 void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time);
 void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date);
+
+void DS1307_ManageSquareWave(uint8_t EnorDi);
+void DS1307_SquareWaveFrequency(uint8_t Freq);
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
