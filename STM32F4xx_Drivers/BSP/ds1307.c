@@ -137,7 +137,7 @@ void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
 /**
  * @brief  Get current time
  * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
- *                     with desired configuration
+ *                     to get info into
  * @retval None
  */
 void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time) {
@@ -173,6 +173,22 @@ void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time) {
 		pRTC_Time->time_format = DS1307_TIME_FORMAT_24H;
 	}
 	pRTC_Time->hours = bcd_to_binary(time_unit);
+}
+
+/**
+ * @brief  Get current date
+ * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ *                     to get info into
+ * @retval None
+ */
+void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date) {
+	pRTC_Date->day = bcd_to_binary(ds1307_read(DS1307_ADDR_DAY));
+
+	pRTC_Date->date = bcd_to_binary(ds1307_read(DS1307_ADDR_DATE));
+
+	pRTC_Date->month = bcd_to_binary(ds1307_read(DS1307_ADDR_MONTH));
+
+	pRTC_Date->year = bcd_to_binary(ds1307_read(DS1307_ADDR_YEAR));
 }
 
 /* ----------------------------------------------------------------------------------- */
