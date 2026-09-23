@@ -62,6 +62,14 @@ static uint8_t ds1307_read(uint8_t reg_addr) {
 	return data;
 }
 
+static uint8_t binary_to_bcd(uint8_t bin_value) {
+	return (uint8_t) ((bin_value / 10 << 4) | (bin_value % 10));
+}
+
+static uint8_t bcd_to_binary(uint8_t bcd_value) {
+	return (uint8_t) (((bcd_value >> 4) * 10) + (bcd_value & 0x0F));
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 
