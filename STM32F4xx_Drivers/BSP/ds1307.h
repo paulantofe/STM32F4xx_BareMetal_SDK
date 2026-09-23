@@ -56,8 +56,9 @@
  * @defgroup DS1307_CONFIG     Configuration Macros
  * @{
  */
-#define DS1307_TIME_FORMAT_12H 1
-#define DS1307_TIME_FORMAT_24H 0
+#define DS1307_TIME_FORMAT_12H_AM   0
+#define DS1307_TIME_FORMAT_12H_PM   1
+#define DS1307_TIME_FORMAT_24H      2
 /** @} */
 
 /**
@@ -73,6 +74,15 @@ typedef enum {
 	FRIDAY    = 6,
 	SATURDAY  = 7
 } DS1307_Days_t;
+/** @} */
+
+/**
+ * @defgroup DS1307_BIT_POS    Bit position definitions for DS1307 registers
+ * @{
+ */
+#define DS1307_SEC_CH_POS      7
+#define DS1307_HRS_FORMAT_POS  6
+#define DS1307_HRS_AM_PM_POS   5
 /** @} */
 
 /* -------------------------------------------------------------------- */
