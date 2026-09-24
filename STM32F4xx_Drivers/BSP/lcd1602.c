@@ -156,5 +156,26 @@ void LCD1602_SendString(char *str) {
 	}
 }
 
+/**
+ * @brief  Set cursor on LCD1602 display
+ * @retval None
+ */
+void LCD1602_SetCursor(uint8_t row, uint8_t col) {
+	col--;
+
+	switch (row) {
+	case 1:
+		LCD1602_SendCommand(col |= 0x80);
+		break;
+
+	case 2:
+		LCD1602_SendCommand(col |= 0xC0);
+		break;
+
+	default:
+		break;
+	}
+}
+
 
 /* ----------------------------------------------------------------------------------- */

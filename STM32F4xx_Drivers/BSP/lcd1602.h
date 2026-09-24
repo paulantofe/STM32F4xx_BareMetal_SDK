@@ -60,6 +60,14 @@
 #define LCD1602_CMD_DDRAM_ADDR          0x80  // Base command for Display Data RAM
 /** @} */
 
+/**
+ * @defgroup LCD1602_ROW_ADDR          Row Start Address
+ * @{
+ */
+#define LCD1602_ROW_1_ADDR              0x00
+#define LCD1602_ROW_2_ADDR              0x40
+/** @} */
+
 /* -------------------------------------------------------------------- */
 
 
@@ -72,6 +80,8 @@ void LCD1602_SendCommand(uint8_t cmd);
 void LCD1602_SendChar(uint8_t ch);
 
 void LCD1602_SendString(char *str);
+
+void LCD1602_SetCursor(uint8_t row, uint8_t col);
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
