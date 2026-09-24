@@ -9,16 +9,22 @@
 
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
-static void lcd1602_enable(void) {
-
-}
-
 static void delay_ms(uint32_t ms) {
 
 }
 
 static void delay_us(uint32_t us) {
 
+}
+
+static void lcd1602_enable(void) {
+	GPIO_WriteToOutputPin(LCD1602_GPIO_PORT, LCD1602_GPIO_E , GPIO_PIN_SET);
+
+	delay_us(10);
+
+	GPIO_WriteToOutputPin(LCD1602_GPIO_PORT, LCD1602_GPIO_E , GPIO_PIN_RESET);
+
+	delay_us(100);
 }
 
 static void lcd1602_gpio_pins_init(void) {
@@ -116,6 +122,11 @@ void LCD1602_SendCommand(uint8_t cmd) {
 
 	// Send lower nibble of the command
 	lcd1602_write_to_data_pins(cmd & 0x0F);
+
+	// Extra time for slow screen commands
+	if (cmd == 0x01 || cmd == 0x02) {
+		delay_ms(2);
+	}
 }
 
 /* ----------------------------------------------------------------------------------- */
