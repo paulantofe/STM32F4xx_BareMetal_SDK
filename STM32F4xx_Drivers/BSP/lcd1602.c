@@ -115,6 +115,7 @@ void LCD1602_Init(void) {
 
 /**
  * @brief  Send a command to LCD1602 display
+ * @param  cmd     Desired command @ref LCD1602_CMDS
  * @retval None
  */
 void LCD1602_SendCommand(uint8_t cmd) {
@@ -134,6 +135,7 @@ void LCD1602_SendCommand(uint8_t cmd) {
 
 /**
  * @brief  Send a character to LCD1602 display
+ * @param  ch     Desired character to send
  * @retval None
  */
 void LCD1602_SendChar(uint8_t ch) {
@@ -148,6 +150,7 @@ void LCD1602_SendChar(uint8_t ch) {
 
 /**
  * @brief  Send a string to LCD1602 display
+ * @param  str    Pointer to the desired string to send
  * @retval None
  */
 void LCD1602_SendString(char *str) {
@@ -158,6 +161,8 @@ void LCD1602_SendString(char *str) {
 
 /**
  * @brief  Set cursor on LCD1602 display
+ * @param  row    Desired row (1 for first row, 2 for second row)
+ * @param  col    Desired column (from 1 to 16)
  * @retval None
  */
 void LCD1602_SetCursor(uint8_t row, uint8_t col) {
@@ -165,11 +170,11 @@ void LCD1602_SetCursor(uint8_t row, uint8_t col) {
 
 	switch (row) {
 	case 1:
-		LCD1602_SendCommand(col |= 0x80);
+		LCD1602_SendCommand(col | 0x80);
 		break;
 
 	case 2:
-		LCD1602_SendCommand(col |= 0xC0);
+		LCD1602_SendCommand(col | 0xC0);
 		break;
 
 	default:
