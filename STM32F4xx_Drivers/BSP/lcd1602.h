@@ -14,12 +14,12 @@
 /* -------------------------- GENERIC MACROS -------------------------- */
 
 /**
+ * @note     RW pin is always grounded
  * @defgroup LCD1602_APP_CFG   Application Configurable Items
  * @{
  */
 #define LCD1602_GPIO_PORT      GPIOD
 #define LCD1602_GPIO_RS        GPIO_PIN_NO_0
-#define LCD1602_GPIO_RW        GPIO_PIN_NO_1
 #define LCD1602_GPIO_EN        GPIO_PIN_NO_2
 #define LCD1602_GPIO_D4        GPIO_PIN_NO_3
 #define LCD1602_GPIO_D5        GPIO_PIN_NO_4
