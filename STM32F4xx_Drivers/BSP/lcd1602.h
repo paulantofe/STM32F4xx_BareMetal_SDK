@@ -20,7 +20,7 @@
  */
 #define LCD1602_GPIO_PORT      GPIOD
 #define LCD1602_GPIO_RS        GPIO_PIN_NO_0
-#define LCD1602_GPIO_EN        GPIO_PIN_NO_2
+#define LCD1602_GPIO_E         GPIO_PIN_NO_2
 #define LCD1602_GPIO_D4        GPIO_PIN_NO_3
 #define LCD1602_GPIO_D5        GPIO_PIN_NO_4
 #define LCD1602_GPIO_D6        GPIO_PIN_NO_5
@@ -73,4 +73,4 @@ void LCD1602_SendData(uint8_t data);
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
-#endif  INC_LCD1602_H_
+#endif

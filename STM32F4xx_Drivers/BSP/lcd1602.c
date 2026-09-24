@@ -90,24 +90,27 @@ static void lcd1602_write_to_data_pins(uint8_t hex_value) {
 void LCD1602_Init(void) {
 	lcd1602_gpio_pins_init();
 
-    // LCD1602 initialization
-	delay_ms(40);
-
-	// Send RS 0, RW 0, D7 0, D6 0, D5 1, D4 1
-	lcd1602_write_to_data_pins(0x3);
-
+	// Hardware Wake-up and 4-bit mode lock
+    delay_ms(40);
+    lcd1602_write_to_data_pins(0x3);
 	delay_ms(5);
+    lcd1602_write_to_data_pins(0x3);
+    delay_us(150);
+    lcd1602_write_to_data_pins(0x3);
+    lcd1602_write_to_data_pins(0x2);
 
-	// Send RS 0, RW 0, D7 0, D6 0, D5 1, D4 1
-	lcd1602_write_to_data_pins(0x3);
+    // Display Configuration
+    // Set 4-bit mode, 2 lines, 5x8 font
+    LCD1602_SendCommand(LCD1602_CMD_FUNC_4BIT_2LINES);
 
-	delay_us(150);
+    // Turn display ON, Cursor OFF
+    LCD1602_SendCommand(LCD1602_CMD_DISP_ON_CUR_OFF);
 
-	// Send RS 0, RW 0, D7 0, D6 0, D5 1, D4 1
-	lcd1602_write_to_data_pins(0x3);
+    // Clear the display RAM
+    LCD1602_SendCommand(LCD1602_CMD_CLEAR);
 
-	// Send RS 0, RW 0, D7 0, D6 0, D5 1, D4 0
-	lcd1602_write_to_data_pins(0x2);
+    // Set entry mode (auto-increment cursor left-to-right)
+    LCD1602_SendCommand(LCD1602_CMD_ENTRY_DIR_RIGHT);
 }
 
 /**
