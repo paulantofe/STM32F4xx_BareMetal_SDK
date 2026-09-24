@@ -2,7 +2,10 @@
  * @file 		lcd1602.c
  * @brief 		Source file for the LCD1602 display driver.
  *
- * @details
+ * @details     This source file contains the implementation of the APIs for interfacing with the LCD1602
+ *              display module using GPIO pins in 4-bit mode. It includes functional code for device
+ *              initialization, sending commands and writing string data, as well as helper functions
+ *              for execution delays and byte-to-nibble conversions.
  */
 
 #include "lcd1602.h"

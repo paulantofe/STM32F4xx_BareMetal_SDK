@@ -2,7 +2,11 @@
  * @file 		lcd1602.h
  * @brief 		Board Support Package (BSP) driver header for the LCD1602 display.
  *
- * @details
+ * @details     This header file provides hardware pin mappings, application configuration
+ *              macros and standard HD44780 instruction codes specific to the LCD1602 display.
+ *              It also exposes the public API prototypes for initializing the module in 4-bit mode,
+ *              controlling the cursor position, and transmitting commands or character string data
+ *              via standard GPIO control.
  */
 
 #ifndef INC_LCD1602_H_
