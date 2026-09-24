@@ -129,4 +129,19 @@ void LCD1602_SendCommand(uint8_t cmd) {
 	}
 }
 
+/**
+ * @brief  Send a character to LCD1602 display
+ * @retval None
+ */
+void LCD1602_SendData(uint8_t data) {
+	GPIO_WriteToOutputPin(LCD1602_GPIO_PORT, LCD1602_GPIO_RS, GPIO_PIN_SET);
+
+	// Send higher nibble of the character
+	lcd1602_write_to_data_pins(data >> 4);
+
+	// Send lower nibble of the character
+	lcd1602_write_to_data_pins(data & 0x0F);
+}
+
+
 /* ----------------------------------------------------------------------------------- */

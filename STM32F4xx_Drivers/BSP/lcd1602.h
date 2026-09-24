@@ -36,6 +36,8 @@ void LCD1602_Init(void);
 
 void LCD1602_SendCommand(uint8_t cmd);
 
+void LCD1602_SendData(uint8_t data);
+
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
 #endif  INC_LCD1602_H_
