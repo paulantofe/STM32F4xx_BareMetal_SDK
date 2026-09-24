@@ -10,11 +10,11 @@
 /* -------------------------- PRIVATE HELPER FUNCTIONS -------------------------- */
 
 static void delay_ms(uint32_t ms) {
-
+	for (__vo uint32_t i = 0; i < (ms * 1000); i++);
 }
 
 static void delay_us(uint32_t us) {
-
+	for (__vo uint32_t i = 0; i < us; i++);
 }
 
 static void lcd1602_enable(void) {
