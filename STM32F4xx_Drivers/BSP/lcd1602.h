@@ -69,7 +69,9 @@ void LCD1602_Init(void);
 
 void LCD1602_SendCommand(uint8_t cmd);
 
-void LCD1602_SendData(uint8_t data);
+void LCD1602_SendChar(uint8_t ch);
+
+void LCD1602_SendString(char *str);
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
