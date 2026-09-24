@@ -124,7 +124,7 @@ void LCD1602_SendCommand(uint8_t cmd) {
 	lcd1602_write_to_data_pins(cmd & 0x0F);
 
 	// Extra time for slow screen commands
-	if (cmd == 0x01 || cmd == 0x02) {
+	if (cmd == LCD1602_CMD_CLEAR || cmd == LCD1602_CMD_RET_HOME) {
 		delay_ms(2);
 	}
 }
