@@ -104,4 +104,18 @@ void LCD1602_Init(void) {
 	lcd1602_write_to_data_pins(0x2);
 }
 
+/**
+ * @brief  Send a command to LCD1602 display
+ * @retval None
+ */
+void LCD1602_SendCommand(uint8_t cmd) {
+	GPIO_WriteToOutputPin(LCD1602_GPIO_PORT, LCD1602_GPIO_RS, GPIO_PIN_RESET);
+
+	// Send higher nibble of the command
+	lcd1602_write_to_data_pins(cmd >> 4);
+
+	// Send lower nibble of the command
+	lcd1602_write_to_data_pins(cmd & 0x0F);
+}
+
 /* ----------------------------------------------------------------------------------- */
