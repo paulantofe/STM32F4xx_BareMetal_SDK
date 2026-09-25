@@ -27,8 +27,10 @@ Feel free to check the *Media* section to see some photos/videos regarding the d
 ```text
 STM32F4xx_BareMetal_SDK/
 ├── .gitignore
+├── Doxyfile
 ├── LICENSE
 ├── README.md
+├── docs/
 └── STM32F4xx_Drivers/
     ├── .cproject
     ├── .project
