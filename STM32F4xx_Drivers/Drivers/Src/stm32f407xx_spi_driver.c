@@ -80,7 +80,6 @@ static void spi_ovr_err_it_handle(SPI_Handle_t *pSPIHandle) {
  * @brief  Application event callback function
  * @param  pSPIHandle   Pointer to the SPI handle structure
  * @param  AppEv        Application event type macro
- * @retval None
  */
 __weak void SPI_ApplicationEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv) {
 	// This is a weak implementation. The application may override this function
@@ -105,7 +104,6 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName) {
  * @brief  Configure the Internal Slave Select (SSI)
  * @param  pSPIx	Base address of the SPI peripheral
  * @param  EnorDi   ENABLE/DISABLE Macros
- * @retval None
  */
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
@@ -122,7 +120,6 @@ void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
  * @brief  Enable/Disable the given SPI peripheral
  * @param  pSPIx	Base address of the SPI peripheral
  * @param  EnorDi   ENABLE/DISABLE Macros
- * @retval None
  */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
@@ -143,7 +140,6 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
  * @brief  Enable/Disable peripheral clock for a given SPI peripheral
  * @param  pSPIx	Base address of the SPI peripheral
  * @param  EnorDi   ENABLE/DISABLE macros
- * @retval None
  */
 void SPI_PClkControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if (pSPIx == NULL) { return; }
@@ -174,7 +170,6 @@ void SPI_PClkControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 /**
  * @brief  Initialize a SPI peripheral with the given settings
  * @param  pSPIHandle	Handle structure with desired settings
- * @retval None
  */
 void SPI_Init(SPI_Handle_t *pSPIHandle) {
 	if (pSPIHandle == NULL || pSPIHandle->pSPIx == NULL) { return; }
@@ -226,7 +221,6 @@ void SPI_Init(SPI_Handle_t *pSPIHandle) {
 /**
  * @brief  De-initialize (reset) a SPI peripheral
  * @param  pSPIx	Base address of SPI peripheral
- * @retval None
  */
 void SPI_DeInit(SPI_RegDef_t *pSPIx) {
 	if (pSPIx == NULL) { return; }
@@ -248,7 +242,6 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx) {
  * @param  pTxBuffer   Pointer to transmission buffer
  * @param  pRxBuffer   Pointer to reception buffer
  * @param  Len         Length of the transmission/reception in bytes
- * @retval None
  * @note               Passing the NULL macro to any of the buffers
  *                     will disable the corresponding communication
  *                     direction. In this case, the API will send/receive
@@ -313,7 +306,6 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
  * @brief  Configure an interrupt for SPI peripheral
  * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi		ENABLE/DISABLE macros
- * @retval None
  */
 void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	if (IRQNumber > 81) { return; }
@@ -330,7 +322,6 @@ void SPI_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
  * @brief  Set interrupt priority for SPI interrupt
  * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
  * @param  IRQPriority	Priority of the interrupt
- * @retval None
  */
 void SPI_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	if (IRQNumber > 81 || IRQPriority > 15) { return; }
@@ -394,7 +385,6 @@ uint8_t SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len
 /**
  * @brief  Manage interrupt events of SPI peripheral
  * @param  pSPIHandle  Handle structure of SPI
- * @retval None
  */
 void SPI_IRQHandling(SPI_Handle_t *pSPIHandle) {
 	uint8_t temp1;

@@ -6,7 +6,7 @@
  *              The MCU fetches the current date and time every 1 second (1Hz provided by RTCs SQ Pin) and displays
  *              it on LCD Display.
  *
- * @note        TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
+ * @note        TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project's
  *              source path.
  *
  * Hardware Setup:

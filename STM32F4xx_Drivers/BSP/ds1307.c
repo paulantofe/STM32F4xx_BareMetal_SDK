@@ -77,7 +77,6 @@ static uint8_t bcd_to_binary(uint8_t bcd_value) {
 
 /**
  * @brief  Initialize DS1307 chip
- * @retval None
  */
 void DS1307_Init(void) {
 	ds1307_i2c_pins_init();
@@ -94,7 +93,6 @@ void DS1307_Init(void) {
  * @brief  Set current time
  * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
  *                     with desired configuration
- * @retval None
  */
 void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
 	uint8_t time_unit;
@@ -128,9 +126,8 @@ void DS1307_SetTime(RTC_Date_Time_t *pRTC_Time) {
 
 /**
  * @brief  Set current date
- * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ * @param  pRTC_Date   pointer to RTC_Date_Time_t data structure
  *                     with desired configuration
- * @retval None
  */
 void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
 	ds1307_write(binary_to_bcd(pRTC_Date->date), DS1307_ADDR_DATE);
@@ -146,7 +143,6 @@ void DS1307_SetDate(RTC_Date_Time_t *pRTC_Date) {
  * @brief  Get current time
  * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
  *                     to get info into
- * @retval None
  */
 void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time) {
 	uint8_t time_unit;
@@ -185,9 +181,8 @@ void DS1307_GetTime(RTC_Date_Time_t *pRTC_Time) {
 
 /**
  * @brief  Get current date
- * @param  pRTC_Time   pointer to RTC_Date_Time_t data structure
+ * @param  pRTC_Date   pointer to RTC_Date_Time_t data structure
  *                     to get info into
- * @retval None
  */
 void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date) {
 	pRTC_Date->day = bcd_to_binary(ds1307_read(DS1307_ADDR_DAY));
@@ -202,7 +197,6 @@ void DS1307_GetDate(RTC_Date_Time_t *pRTC_Date) {
 /**
  * @brief  Enable/Disable Square Wave output
  * @param  EnorDi   ENABLE/DISABLE macros
- * @retval None
  */
 void DS1307_ManageSquareWave(uint8_t EnorDi) {
 	uint8_t ctrl_reg;
@@ -222,7 +216,6 @@ void DS1307_ManageSquareWave(uint8_t EnorDi) {
 /**
  * @brief  Set frequency of the square wave output
  * @param  Freq   Frequency macro @ref DS1307_SQ_FREQ
- * @retval None
  */
 void DS1307_SquareWaveFrequency(uint8_t Freq) {
 	uint8_t ctrl_reg = ds1307_read(DS1307_ADDR_CTRL);

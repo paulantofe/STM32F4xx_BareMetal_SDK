@@ -7,7 +7,7 @@
  *              are echoed on LCD Display, among some other status messages (e.g. "Unknown command. Try again").
  *
  * @note        Arduino Board is used only because I do not have USART-to-USB/USB-to-TTY dedicated hardware
- *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
+ *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project's
  *              source path.
  *              Arduino Board is held in reset by keeping the RESET Pin wired to GND
  *

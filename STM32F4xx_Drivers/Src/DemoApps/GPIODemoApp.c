@@ -1,5 +1,5 @@
 /**
- * @file 		GPIODemoApp.c
+ * @file        GPIODemoApp.c
  * @brief 	    STM32F407xx Bare-Metal GPIO driver demo
  *
  * @details		This demo uses a software PWM to control the brightness of the LEDs.
@@ -7,7 +7,7 @@
  *              A secret LED pattern can be unlocked with 4 fast consecutive button presses.
  *
  * @note 		This demo does not use hardware TIMERS as, for the time being, they are not yet supported by the custom driver layer.
- *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
+ *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project's
  *              source path.
  *
  * Hardware Setup (On-board components):

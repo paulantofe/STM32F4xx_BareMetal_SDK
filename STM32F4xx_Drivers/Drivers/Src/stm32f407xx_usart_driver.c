@@ -225,7 +225,6 @@ static void usart_err_it_handle(USART_Handle_t *pUSARTHandle) {
  * @brief  Application event callback function
  * @param  pUSARTHandle   Pointer to the USART handle structure
  * @param  AppEv          Application event type macro
- * @retval None
  */
 __weak void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv) {
 	// This is a weak implementation. The application may override this function
@@ -252,7 +251,6 @@ uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint32_t FlagName) {
  * @brief  Enable/Disable the given USART peripheral
  * @param  pUSARTx    Base address of USART peripheral
  * @param  EnorDi     ENABLE/DISABLE macro
- * @retval None
  */
 void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
 	if (pUSARTx == NULL) { return; }
@@ -269,7 +267,6 @@ void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
  * @brief  Enable/Disable peripheral clock for a given USART peripheral
  * @param  pUSARTx   Base address of USART peripheral
  * @param  EnorDi    ENABLE/DISABLE macro
- * @retval None
  */
 void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
 	if (pUSARTx == NULL) { return; }
@@ -319,7 +316,6 @@ void USART_PClkControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi) {
 /**
  * @brief  Initialize a USART peripheral with the given settings
  * @param  pUSARTHandle   Handle structure with desired settings
- * @retval None
  */
 void USART_Init(USART_Handle_t *pUSARTHandle) {
 	if (pUSARTHandle->pUSARTx == NULL) { return; }
@@ -388,7 +384,6 @@ void USART_Init(USART_Handle_t *pUSARTHandle) {
  * @param  pUSARTHandle    Handle structure
  * @param  pTxBuffer       Pointer to transmission buffer
  * @param  Len             Number of data frames (words)
- * @retval None
  */
 void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t Len) {
 	uint16_t *pData;
@@ -427,7 +422,6 @@ void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t L
  * @param  pUSARTHandle    Handle structure
  * @param  pRxBuffer       Pointer to reception buffer
  * @param  Len             Number of data frames (words)
- * @retval None
  */
 void USART_ReceiveData(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t Len) {
 	for (uint32_t i = 0; i < Len; i++) {
@@ -512,7 +506,6 @@ uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, ui
  * @brief  Configure an interrupt for USART peripheral
  * @param  IRQNumber   Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi      ENABLE/DISABLE macro
- * @retval None
  */
 void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	if (IRQNumber > 81) { return; }
@@ -529,7 +522,6 @@ void USART_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
  * @brief  Set interrupt priority for USART interrupt
  * @param  IRQNumber     Number of the interrupt request from IRQn_Type enum
  * @param  IRQPriority   Priority of the interrupt
- * @retval None
  */
 void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	if (IRQNumber > 81 || IRQPriority > 15) { return; }
@@ -545,7 +537,6 @@ void USART_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 /**
  * @brief  Manage interrupt events of USART peripheral
  * @param  pUSARTHandle  Handle structure of USART
- * @retval None
  */
 void USART_IRQHandling(USART_Handle_t *pUSARTHandle) {
 	if (pUSARTHandle->pUSARTx == NULL) { return; }

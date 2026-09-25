@@ -99,7 +99,6 @@ static void i2c_handle_rxne_ev(I2C_Handle_t *pI2CHandle) {
  * @brief  Application event callback function
  * @param  pI2CHandle   Pointer to the I2C handle structure
  * @param  AppEv        Application event type macro
- * @retval None
  */
 __weak void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv) {
 	// This is a weak implementation. The application may override this function
@@ -124,9 +123,8 @@ uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName) {
 
 /**
  * @brief  Enable/Disable the given I2C peripheral
- * @param  pI2C    Base address of I2C peripheral
+ * @param  pI2Cx    Base address of I2C peripheral
  * @param  EnorDi  ENABLE/DISABLE macro
- * @retval None
  */
 void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 	if (pI2Cx == NULL) { return; }
@@ -143,7 +141,6 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
  * @brief  Enable/Disable peripheral clock for a given I2C peripheral
  * @param  pI2Cx   Base address of I2C peripheral
  * @param  EnorDi  ENABLE/DISABLE macro
- * @retval None
  */
 void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 	if (pI2Cx == NULL) { return; }
@@ -175,7 +172,6 @@ void I2C_PClkControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
  * @brief  Enable/Disable acking for a given I2C peripheral
  * @param  pI2Cx   Base address of I2C peripheral
  * @param  EnorDi  ENABLE/DISABLE macro
- * @retval None
  * @note   This API should be called AFTER I2C_PeripheralControl API as the hardware clears ACK bit when PE = 0
  */
 void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
@@ -190,7 +186,6 @@ void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 /**
  * @brief  Initialize a I2C peripheral with the given settings
  * @param  pI2CHandle   Handle structure with desired settings
- * @retval None
  */
 void I2C_Init(I2C_Handle_t *pI2CHandle) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }
@@ -247,7 +242,6 @@ void I2C_Init(I2C_Handle_t *pI2CHandle) {
 /**
  * @brief  De-initialize (reset) a I2C peripheral
  * @param  pI2Cx   Base address of I2C peripheral
- * @retval None
  */
 void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
 	if (pI2Cx == NULL) { return; }
@@ -270,7 +264,6 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx) {
  * @param  Len           Length of the transmission in bytes
  * @param  SlaveAddr     Address of the slave to transmit to
  * @param  Sr            I2C_SR_EN/I2C_SR_DI macro
- * @retval None
  */
 void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }
@@ -317,7 +310,6 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t L
  * @param  Len            Length of the reception in bytes
  * @param  SlaveAddr      Address of the slave to receive from
  * @param  Sr             I2C_SR_EN/I2C_SR_DI macro
- * @retval None
  */
 void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t Len, uint8_t SlaveAddr, uint8_t Sr) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }
@@ -459,7 +451,7 @@ uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, ui
 /**
  * @brief  Send data using I2C protocol (slave mode)
  * @param  pI2Cx   Base address of I2C peripheral
- * @retval None
+ * @param  data    Data to be sent
  */
 void I2C_SlaveSendData(I2C_RegDef_t *pI2Cx, uint8_t data) {
 	pI2Cx->DR = data;
@@ -478,7 +470,6 @@ uint8_t I2C_SlaveReceiveData(I2C_RegDef_t *pI2Cx) {
  * @brief  Configure an interrupt for I2C peripheral
  * @param  IRQNumber    Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi       ENABLE/DISABLE macro
- * @retval None
  */
 void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	if (IRQNumber > 81) { return; }
@@ -495,7 +486,6 @@ void I2C_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
  * @brief  Set interrupt priority for I2C interrupt
  * @param  IRQNumber     Number of the interrupt request from IRQn_Type enum
  * @param  IRQPriority   Priority of the interrupt
- * @retval None
  */
 void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	if (IRQNumber > 81 || IRQPriority > 15) { return; }
@@ -510,8 +500,7 @@ void I2C_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 
 /**
  * @brief  Manage interrupt events of I2C peripheral
- * @param  Handle structure
- * @retval None
+ * @param  pI2CHandle    Handle structure
  */
 void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }
@@ -639,8 +628,7 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle) {
 
 /**
  * @brief  Manage interrupt errors of I2C peripheral
- * @param  Handle structure
- * @retval None
+ * @param  pI2CHandle    Handle structure
  */
 void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle) {
 	if (pI2CHandle->pI2Cx == NULL) { return; }

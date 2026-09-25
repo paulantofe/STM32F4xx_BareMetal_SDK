@@ -103,7 +103,6 @@ static void gpio_configure_alt_fn(GPIO_Handle_t *pGPIOHandle) {
  * @brief  Enable/disable peripheral clock for the given GPIO port
  * @param  pGPIOx	Base address of the GPIO peripheral
  * @param  EnorDi	ENABLE or DISABLE macros
- * @retval None
  */
 void GPIO_PClkControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 	if (pGPIOx == NULL) { return; }
@@ -121,7 +120,6 @@ void GPIO_PClkControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 /**
  * @brief  Initialize a GPIO pin with the given settings
  * @param  pGPIOHandle	Handle structure with the desired settings
- * @retval None
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 	if (pGPIOHandle == NULL || pGPIOHandle->pGPIOx == NULL) { return; }
@@ -154,7 +152,6 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 /**
  * @brief  De-initialize (reset) and entire GPIO peripheral
  * @param  pGPIOx	Base address of the GPIO peripheral
- * @retval None
  */
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
 	if (pGPIOx == NULL) { return; }
@@ -192,7 +189,6 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
  * @param  pGPIOx		Base address of the GPIO peripheral
  * @param  PinNumber	Number of the output pin
  * @param  Value 		Value which is desired to be written to the pin
- * @retval None
  */
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value) {
 	if (pGPIOx == NULL || PinNumber > 15) { return; }
@@ -209,7 +205,6 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Val
  * @brief  Write values to an output port
  * @param  pGPIOx	Base address of the GPIO peripheral
  * @param  Value	Value which is desired to be written to the port
- * @retval None
  */
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
 	if (pGPIOx == NULL) { return; }
@@ -221,7 +216,6 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
  * @brief  Toggle an output pin
  * @param  pGPIOx		Base address of the GPIO peripheral
  * @param  PinNumber	Number of the output pin
- * @retval None
  */
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
 	if (pGPIOx == NULL || PinNumber > 15) { return; }
@@ -233,7 +227,6 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
  * @brief  Configure an interrupt on a GPIO pin
  * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
  * @param  EnorDi		ENABLE/DISABLE macros
- * @retval None
  */
 void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
 	if (IRQNumber > 81) { return; }
@@ -250,7 +243,6 @@ void GPIO_IRQInterruptConfig(IRQn_Type IRQNumber, uint8_t EnorDi) {
  * @brief  Set interrupt priority for a GPIO pin
  * @param  IRQNumber	Number of the interrupt request from IRQn_Type enum
  * @param  IRQPriority	Priority of the interrupt
- * @retval None
  */
 void GPIO_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 	if (IRQNumber > 81 || IRQPriority > 15) { return; }
@@ -266,7 +258,6 @@ void GPIO_IRQPriorityConfig(IRQn_Type IRQNumber, uint8_t IRQPriority) {
 /**
  * @brief  Clear the EXTI_PR bit corresponding to the PinNumber
  * @param  PinNumber	Number of the pin that triggered the interrupt
- * @retval None
  */
 void GPIO_IRQHandling(uint8_t PinNumber) {
 	if (PinNumber > 15) { return; }

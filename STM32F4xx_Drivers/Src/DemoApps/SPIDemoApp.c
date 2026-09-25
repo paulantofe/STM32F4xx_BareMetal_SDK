@@ -6,7 +6,7 @@
  *              Each button press cycles through the digits from 0 to 9.
  *
  * @note 		The hardware used in this demo is a custom PCB designed by me.
- *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
+ *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project's
  *              source path.
  *
  * Hardware Setup:
