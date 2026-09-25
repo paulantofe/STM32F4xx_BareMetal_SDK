@@ -94,10 +94,10 @@ void Rtc_Init(void) {
 	RTC_Date_Time_t current_date_time = { 0 };
 
 	// Set current time
-	current_date_time.time_format = DS1307_TIME_FORMAT_24H;
-	current_date_time.hours = 10;
-	current_date_time.minutes = 30;
-	current_date_time.seconds = 0;
+	current_date_time.time_format = DS1307_TIME_FORMAT_12H_AM;
+	current_date_time.hours = 11;
+	current_date_time.minutes = 25;
+	current_date_time.seconds = 40;
 	DS1307_SetTime(&current_date_time);
 
 	// Set current date
