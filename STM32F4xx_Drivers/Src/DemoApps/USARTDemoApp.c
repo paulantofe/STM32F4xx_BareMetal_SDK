@@ -97,11 +97,15 @@ void Parse_Command(void) {
 	if (strcasecmp((char*) cmd_buff, "LED ON") == 0) {
 		GPIO_WriteToOutputPin(GPIOD, GPIO_PIN_NO_12, GPIO_PIN_SET);
 		LCD1602_SendString("Led is now ON");
+		LCD1602_SetCursor(2, 1);
+		LCD1602_SendString("Waiting cmd...");
 		first_keypress = true;
 	}
 	else if (strcasecmp((char*) cmd_buff, "LED OFF") == 0) {
 		GPIO_WriteToOutputPin(GPIOD, GPIO_PIN_NO_12, GPIO_PIN_RESET);
 		LCD1602_SendString("Led is now OFF");
+		LCD1602_SetCursor(2, 1);
+		LCD1602_SendString("Waiting cmd...");
 	    first_keypress = true;
 	}
 	else {
