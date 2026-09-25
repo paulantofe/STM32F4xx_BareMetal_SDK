@@ -21,6 +21,11 @@
 #include "ds1307.h"
 #include "lcd1602.h"
 
+#define false      0
+#define true       1
+
+__vo uint8_t update_clock = false;
+
 char* Time_to_String(RTC_Date_Time_t *time) {
 	static char time_str[9];
 
@@ -108,12 +113,34 @@ void Display_Init(void) {
 	LCD1602_SendString(Date_to_String(&read_date_time));
 }
 
+void SQInterrupt_Config(void) {
+    // Set an interrupt on C12
+	// Note: on my RTC module the SQ pin has a pull-up resistor soldered, so no internal pull-up required
+
+	GPIO_PClkControl(GPIOC, ENABLE);
+
+	GPIO_Handle_t sq_it = { 0 };
+	sq_it.pGPIOx = GPIOC;
+	sq_it.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+	sq_it.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+
+	GPIO_Init(&sq_it);
+	GPIO_IRQInterruptConfig(EXTI15_10_IRQn, ENABLE);
+	GPIO_IRQPriorityConfig(EXTI15_10_IRQn, NVIC_IRQ_PR0);
+}
+
 int main(void) {
 
 
-	while (1) {
+	while (true) {
 
 	}
 
 	return 0;
+}
+
+void EXTI15_10_IRQHandler(void) {
+	GPIO_IRQHandling(GPIO_PIN_NO_12);
+
+	update_clock = true;
 }
