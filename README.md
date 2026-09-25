@@ -54,7 +54,9 @@ STM32F4xx_BareMetal_SDK/
     ├── Src/
     │   ├── DemoApps/
     │   │   ├── GPIODemoApp.c
-    │   │   └── SPIDemoApp.c
+    │   │   ├── I2CDemoApp.c
+    │   │   ├── SPIDemoApp.c
+    │   │   └── USARTDemoApp.c
     │   ├── main.c
     │   ├── syscalls.c
     │   └── sysmem.c
