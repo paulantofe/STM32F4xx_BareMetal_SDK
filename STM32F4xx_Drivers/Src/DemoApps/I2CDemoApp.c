@@ -21,7 +21,7 @@
 #include "ds1307.h"
 #include "lcd1602.h"
 
-char* time_to_string(RTC_Date_Time_t *time) {
+char* Time_to_String(RTC_Date_Time_t *time) {
 	static char time_str[9];
 
 	// Setting format
@@ -44,7 +44,7 @@ char* time_to_string(RTC_Date_Time_t *time) {
 	return time_str;
 }
 
-char* date_to_string(RTC_Date_Time_t *date) {
+char* Date_to_String(RTC_Date_Time_t *date) {
 	static char date_str[11];
 
 	// Setting format
@@ -69,7 +69,7 @@ char* date_to_string(RTC_Date_Time_t *date) {
     return date_str;
 }
 
-void DS1307_Initialization(void) {
+void Rtc_Init(void) {
 	DS1307_Init();
 
 	RTC_Date_Time_t current_date_time = { 0 };
@@ -93,20 +93,19 @@ void DS1307_Initialization(void) {
     DS1307_SquareWaveFrequency(DS1307_SQ_1HZ);
 }
 
-void LCD1602_Initialization(void) {
+void Display_Init(void) {
 	LCD1602_Init();
 
 	RTC_Date_Time_t read_date_time = { 0 };
-	char *date_time;
 
 	// Read and Display start time
 	DS1307_GetTime(&read_date_time);
-	LCD1602_SendString(time_to_string(&read_date_time));
+	LCD1602_SendString(Time_to_String(&read_date_time));
 
 	// Read and Display start date
 	DS1307_GetDate(&read_date_time);
 	LCD1602_SetCursor(1, 0);
-	LCD1602_SendString(date_to_string(&read_date_time));
+	LCD1602_SendString(Date_to_String(&read_date_time));
 }
 
 int main(void) {
