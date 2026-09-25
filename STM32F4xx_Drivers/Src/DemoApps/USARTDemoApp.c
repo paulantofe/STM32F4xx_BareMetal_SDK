@@ -2,15 +2,19 @@
  * @file 		USARTDemoApp.c
  * @brief 	    STM32F407xx Bare-Metal USART driver demo
  *
- * @details     This demo uses the USART Peripheral to communicate with terminal on PC
+ * @details     This demo uses the USART Peripheral to communicate with a terminal on PC (via Tera Term). Commands "led on"/"led off"
+ *              control the on-board green LED (PD12) - commands are not case sensitive. Characters entered on Tera Term terminal
+ *              are echoed on LCD Display, among some other status messages (e.g. "Unknown command. Try again").
  *
  * @note        Arduino Board is used only because I do not have USART-to-USB/USB-to-TTY dedicated hardware
  *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
  *              source path.
- *              Arduino Board is reseted by keeping the RESET Pin wired to GND
+ *              Arduino Board is held in reset by keeping the RESET Pin wired to GND
  *
  * Hardware Setup:
- * - Arduino Board (used for it`s USB-to-TTY converter)
+ * - Arduino Board (used for its USB-to-TTY converter)
+ *      - STM32 PB6 (USART1_TX) -> Arduino RX
+ *      - STM32 PB7 (USART1_RX) -> Arduino TX
  * - LCD1602 Display
  */
 
