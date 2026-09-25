@@ -21,17 +21,10 @@
 #include "stm32f407xx.h"
 #include "stm32f407xx_gpio_driver.h"
 
-/* -------------------------- PARAMETER CONFIGURATION -------------------------- */
-
 #define DEBOUNCE_DELAY         15000
 #define PATTERN_DELAY          50000
 #define TIMEOUT_THRESHOLD      100
 #define PWM_STEP_MULTIPLIER    10
-
-//* ---------------------------------------------------------------------------- */
-
-
-/* -------------------------- GLOBAL VARIABLES -------------------------- */
 
 static uint8_t ledPins[] = { GPIO_PIN_NO_12, GPIO_PIN_NO_13, GPIO_PIN_NO_14, GPIO_PIN_NO_15 };
 static uint8_t buttonPin = GPIO_PIN_NO_0;
@@ -41,11 +34,6 @@ static __vo uint8_t dutyCycle = 0;
 static __vo uint8_t secretCounter = 0;
 static __vo uint32_t inactivityTimer = 0;
 static __vo uint8_t secretModeActive = 0;
-
-/* ---------------------------------------------------------------------- */
-
-
-/* -------------------------- INITIALIZATION FUNCTIONS -------------------------- */
 
 void ledsInit(void) {
 	GPIO_PClkControl(GPIOD, ENABLE);
@@ -73,11 +61,6 @@ void buttonInit(void) {
 	GPIO_IRQInterruptConfig(EXTI0_IRQn, ENABLE);
 	GPIO_IRQPriorityConfig(EXTI0_IRQn, NVIC_IRQ_PR0);
 }
-
-/* ------------------------------------------------------------------------------ */
-
-
-/* -------------------------- MAIN APP -------------------------- */
 
 int main(void) {
 	ledsInit();
@@ -123,11 +106,6 @@ int main(void) {
 	}
 }
 
-/* -------------------------------------------------------------- */
-
-
-/* -------------------------- INTERRUPT SERVICE ROUTINE FOR EXTI0 -------------------------- */
-
 void EXTI0_IRQHandler(void) {
 	GPIO_IRQHandling(GPIO_PIN_NO_0);
 
@@ -150,6 +128,3 @@ void EXTI0_IRQHandler(void) {
 		}
 	}
 }
-
-/* ----------------------------------------------------------------------------------------- */
-
