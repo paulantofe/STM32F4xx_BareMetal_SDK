@@ -24,15 +24,14 @@
 #define false      0
 #define true       1
 
-__vo uint8_t update_clock = false;
+__vo uint8_t update_display = false;
 
 char* Time_to_String(RTC_Date_Time_t *time) {
-	static char time_str[9];
+	static char time_str[11];
 
 	// Setting format
 	time_str[2] = ':';
 	time_str[5] = ':';
-	time_str[8] = '\0';
 
 	// Setting hours
 	time_str[0] = (time->hours / 10) + '0';
@@ -45,6 +44,21 @@ char* Time_to_String(RTC_Date_Time_t *time) {
 	// Setting seconds
 	time_str[6] = (time->seconds / 10) + '0';
 	time_str[7] = (time->seconds % 10) + '0';
+
+	// Add AM/PM or terminate for 24H format
+	if (time->time_format == DS1307_TIME_FORMAT_24H) {
+		time_str[8] = '\0';
+	}
+	else if (time->time_format == DS1307_TIME_FORMAT_12H_AM) {
+		time_str[8] = 'A';
+		time_str[9] = 'M';
+		time_str[10] = '\0';
+	}
+	else if (time->time_format == DS1307_TIME_FORMAT_12H_PM) {
+		time_str[8] = 'P';
+		time_str[9] = 'M';
+		time_str[10] = '\0';
+	}
 
 	return time_str;
 }
@@ -105,11 +119,12 @@ void Display_Init(void) {
 
 	// Read and Display start time
 	DS1307_GetTime(&read_date_time);
+	LCD1602_SetCursor(1, 1);
 	LCD1602_SendString(Time_to_String(&read_date_time));
 
 	// Read and Display start date
 	DS1307_GetDate(&read_date_time);
-	LCD1602_SetCursor(1, 0);
+	LCD1602_SetCursor(2, 1);
 	LCD1602_SendString(Date_to_String(&read_date_time));
 }
 
@@ -129,11 +144,31 @@ void SQInterrupt_Config(void) {
 	GPIO_IRQPriorityConfig(EXTI15_10_IRQn, NVIC_IRQ_PR0);
 }
 
-int main(void) {
+void Update_Display(void) {
+	RTC_Date_Time_t read_date_time = { 0 };
 
+	// Read and Display start time
+	DS1307_GetTime(&read_date_time);
+	LCD1602_SetCursor(1, 1);
+	LCD1602_SendString(Time_to_String(&read_date_time));
+
+	// Read and Display start date
+	DS1307_GetDate(&read_date_time);
+	LCD1602_SetCursor(2, 1);
+	LCD1602_SendString(Date_to_String(&read_date_time));
+}
+
+int main(void) {
+    SQInterrupt_Config();
+	Rtc_Init();
+	Display_Init();
 
 	while (true) {
+		if (update_display == true) {
+			update_display = false;
 
+			Update_Display();
+		}
 	}
 
 	return 0;
@@ -142,5 +177,5 @@ int main(void) {
 void EXTI15_10_IRQHandler(void) {
 	GPIO_IRQHandling(GPIO_PIN_NO_12);
 
-	update_clock = true;
+	update_display = true;
 }
