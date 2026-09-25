@@ -60,3 +60,7 @@ dkms.conf
 Debug/
 Release/
 *.launch
+
+# Doxygen specific
+html/
+latex/
