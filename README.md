@@ -1,5 +1,7 @@
 # STM32F4xx Bare-Metal SDK
 
+[![Documentation](https://img.shields.io/badge/docs-online-blue.svg)](https://paulantofe.github.io/STM32F4xx_BareMetal_SDK/)
+
 This project is a library of drivers for the STM32F407xx microcontroller, written from scratch by accessing registers directly. This approach avoids using the standard ST HAL or LL libraries to achieve maximum performance and deep understanding of the hardware.
 
 ## Project Goal  
