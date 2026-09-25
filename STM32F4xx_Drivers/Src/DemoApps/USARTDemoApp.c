@@ -7,6 +7,7 @@
  * @note        Arduino Board is used only because I do not have USART-to-USB/USB-to-TTY dedicated hardware
  *              TO RUN THIS DEMO: Ensure that the default main.c is excluded from build and this file is included in the project`s
  *              source path.
+ *              Arduino Board is reseted by keeping the RESET Pin wired to GND
  *
  * Hardware Setup:
  * - Arduino Board (used for it`s USB-to-TTY converter)
@@ -74,6 +75,19 @@ void Lcd1602_Initialization(void) {
 	LCD1602_SendString("on the TTY...");
 }
 
+void Led_Initialization(void) {
+	// GPIOD Clock already enabled by lcd1602 driver
+	GPIO_Handle_t led = { 0 };
+
+	led.pGPIOx = GPIOD;
+	led.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUTPUT;
+	led.GPIO_PinConfig.GPIO_PinOType = GPIO_OP_TYPE_PP;
+	led.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	led.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_MEDIUM;
+	led.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+
+	GPIO_Init(&led);
+}
 
 void Print_Char(void) {
 	LCD1602_SetCursor(row, col);
@@ -135,6 +149,7 @@ void Special_Char(uint8_t code) {
 int main(void) {
 	Usart_Initialization();
 	Lcd1602_Initialization();
+	Led_Initialization();
 
 	USART_ReceiveDataIT(&com, (uint8_t*) &rcv_byte, 1);
 
