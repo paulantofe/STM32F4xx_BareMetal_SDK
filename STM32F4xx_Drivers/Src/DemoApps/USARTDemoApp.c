@@ -21,6 +21,11 @@
 #include <string.h>
 
 USART_Handle_t com = { 0 };
+uint8_t rcv_byte = 0;
+__vo uint8_t first_keypress = true;
+__vo uint8_t update_display = false;
+__vo uint8_t col = 1;
+__vo uint8_t row = 1;
 
 void Usart_Initialization(void) {
 	// USART Pins initialization
@@ -71,8 +76,29 @@ int main(void) {
 	Usart_Initialization();
 	Lcd1602_Initialization();
 
-    while (true) {
+	USART_ReceiveDataIT(&com, &rcv_byte, 1);
 
+    while (true) {
+    	if (update_display) {
+    		update_display = false;
+
+    		if (first_keypress) {
+    			first_keypress = false;
+    			LCD1602_SendCommand(LCD1602_CMD_CLEAR);
+    		}
+
+    		LCD1602_SetCursor(row, col);
+    		LCD1602_SendChar(rcv_byte);
+
+    		col++;
+    		if (col > 16) {
+    			row++;
+    			col = 1;
+    		}
+    		if (row > 2) {
+    			row = 1;
+    		}
+    	}
     }
 
 	return 0;
@@ -83,5 +109,9 @@ void USART1_IRQHandler(void) {
 }
 
 void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv) {
+	if (AppEv == USART_EVENT_RX_CMPLT) {
+		update_display = true;
 
+		USART_ReceiveDataIT(&com, &rcv_byte, 1);
+	}
 }
