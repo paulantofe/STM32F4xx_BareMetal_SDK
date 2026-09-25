@@ -63,7 +63,7 @@ STM32F4xx_BareMetal_SDK/
 ```
 
 ## Media
-Here you can see how the driver works in the real world.
+Hardware drivers must be proven on actual silicon. This section demonstrates the bare-metal drivers executing in real-world scenarios, successfully driving external peripherals without relying on HAL or standard libraries.
 
 ### GPIO Demo:
 <table>
@@ -88,7 +88,14 @@ Here you can see how the driver works in the real world.
 </table>
 
 
-
+### I2C Demo:
+<table>
+  <tr>
+    <td>
+      <video src="https://github.com/user-attachments/assets/f43d94b6-9d9e-450e-9887-800af4715513" controls="controls" muted="muted"></video>
+    </td>
+  </tr>
+</table>
 
 
 
