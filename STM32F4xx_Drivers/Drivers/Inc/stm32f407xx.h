@@ -18,6 +18,8 @@
 #define __weak                 __attribute__((weak))
 #define ENABLE                 1
 #define DISABLE                0
+#define true                   ENABLE
+#define false                  DISABLE
 #define SET                    ENABLE
 #define RESET                  DISABLE
 #define GPIO_PIN_SET           SET
