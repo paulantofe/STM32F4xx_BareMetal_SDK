@@ -22,6 +22,8 @@
 
 USART_Handle_t com = { 0 };
 __vo uint8_t rcv_byte = 0;
+__vo char    cmd_buff[10];
+__vo uint8_t cmd_buff_index = 0;
 __vo uint8_t first_keypress = true;
 __vo uint8_t update_display = false;
 __vo uint8_t col = 1;
@@ -72,6 +74,64 @@ void Lcd1602_Initialization(void) {
 	LCD1602_SendString("on the TTY...");
 }
 
+
+void Print_Char(void) {
+	LCD1602_SetCursor(row, col);
+	LCD1602_SendChar(rcv_byte);
+
+	if (cmd_buff_index < 9) {
+		cmd_buff[cmd_buff_index++] = rcv_byte;
+	}
+
+	col++;
+	if (col > 16) {
+	    row++;
+	   	col = 1;
+	}
+	if (row > 2) {
+	    row = 1;
+	}
+}
+
+void Special_Char(uint8_t code) {
+	if (code == 8) {
+		// ESC
+		col--;
+		if (col < 1) {
+			if (row > 1) {
+				row--;
+				col = 16;
+			}
+			else {
+				col = 1;
+			}
+		}
+
+		LCD1602_SetCursor(row, col);
+		LCD1602_SendChar(' ');
+
+		if (cmd_buff_index > 0) {
+			cmd_buff_index--;
+		}
+	}
+	else if (code == 10){
+		// Line feed
+		// Ignore
+	}
+	else if (code == 13) {
+		// Carriage Return (interpreted as ENTER command)
+		LCD1602_SendCommand(LCD1602_CMD_CLEAR);
+		row = 1;
+		col = 1;
+		LCD1602_SetCursor(row, col);
+
+		cmd_buff[cmd_buff_index] = '\0';
+		cmd_buff_index = 0;
+
+		Parse_Command();
+	}
+}
+
 int main(void) {
 	Usart_Initialization();
 	Lcd1602_Initialization();
@@ -87,16 +147,13 @@ int main(void) {
     			LCD1602_SendCommand(LCD1602_CMD_CLEAR);
     		}
 
-    		LCD1602_SetCursor(row, col);
-    		LCD1602_SendChar(rcv_byte);
-
-    		col++;
-    		if (col > 16) {
-    			row++;
-    			col = 1;
+    		if (rcv_byte == 8 || rcv_byte == 10 || rcv_byte == 13) {
+    			// Special character (Backspace, New Line, Carriage Return)
+    			Special_Char(rcv_byte);
     		}
-    		if (row > 2) {
-    			row = 1;
+    		else {
+    			// Normal character print
+    			Print_Char();
     		}
     	}
     }
