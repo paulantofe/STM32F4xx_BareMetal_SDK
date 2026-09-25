@@ -65,7 +65,7 @@ void Usart_Initialization(void) {
     USART_IRQInterruptConfig(USART1_IRQn, ENABLE);
     USART_IRQPriorityConfig(USART1_IRQn, NVIC_IRQ_PR0);
     USART_PeripheralControl(USART1, ENABLE);
-    USART_SendDataIT(&com, (uint8_t*) "USART Ready\r\n", 13);
+    USART_SendDataIT(&com, (uint8_t*) "USART Ready. Type something...\r\n", 32);
 }
 
 void Lcd1602_Initialization(void) {
@@ -89,6 +89,25 @@ void Led_Initialization(void) {
 	GPIO_Init(&led);
 }
 
+void Parse_Command(void) {
+	if (strcasecmp((char*) cmd_buff, "LED ON") == 0) {
+		GPIO_WriteToOutputPin(GPIOD, GPIO_PIN_NO_12, GPIO_PIN_SET);
+		LCD1602_SendString("Led is now ON");
+		first_keypress = true;
+	}
+	else if (strcasecmp((char*) cmd_buff, "LED OFF") == 0) {
+		GPIO_WriteToOutputPin(GPIOD, GPIO_PIN_NO_12, GPIO_PIN_RESET);
+		LCD1602_SendString("Led is now OFF");
+	    first_keypress = true;
+	}
+	else {
+		LCD1602_SendString("Unknown command.");
+		LCD1602_SetCursor(2, 1);
+		LCD1602_SendString("Try again.");
+		first_keypress = true;
+	}
+}
+
 void Print_Char(void) {
 	LCD1602_SetCursor(row, col);
 	LCD1602_SendChar(rcv_byte);
@@ -109,7 +128,7 @@ void Print_Char(void) {
 
 void Special_Char(uint8_t code) {
 	if (code == 8) {
-		// ESC
+		// Backspace
 		col--;
 		if (col < 1) {
 			if (row > 1) {
@@ -128,10 +147,6 @@ void Special_Char(uint8_t code) {
 			cmd_buff_index--;
 		}
 	}
-	else if (code == 10){
-		// Line feed
-		// Ignore
-	}
 	else if (code == 13) {
 		// Carriage Return (interpreted as ENTER command)
 		LCD1602_SendCommand(LCD1602_CMD_CLEAR);
@@ -140,9 +155,10 @@ void Special_Char(uint8_t code) {
 		LCD1602_SetCursor(row, col);
 
 		cmd_buff[cmd_buff_index] = '\0';
-		cmd_buff_index = 0;
 
 		Parse_Command();
+
+		cmd_buff_index = 0;
 	}
 }
 
@@ -157,13 +173,20 @@ int main(void) {
     	if (update_display) {
     		update_display = false;
 
+    		// Drop Line Feed
+    		if (rcv_byte == 10) {
+    		    continue;
+    		}
+
     		if (first_keypress) {
     			first_keypress = false;
     			LCD1602_SendCommand(LCD1602_CMD_CLEAR);
+    			row = 1;
+    			col = 1;
     		}
 
-    		if (rcv_byte == 8 || rcv_byte == 10 || rcv_byte == 13) {
-    			// Special character (Backspace, New Line, Carriage Return)
+    		if (rcv_byte == 8 || rcv_byte == 13) {
+    			// Special character (Backspace, Carriage Return)
     			Special_Char(rcv_byte);
     		}
     		else {
