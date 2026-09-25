@@ -21,7 +21,7 @@
 #include <string.h>
 
 USART_Handle_t com = { 0 };
-uint8_t rcv_byte = 0;
+__vo uint8_t rcv_byte = 0;
 __vo uint8_t first_keypress = true;
 __vo uint8_t update_display = false;
 __vo uint8_t col = 1;
@@ -76,7 +76,7 @@ int main(void) {
 	Usart_Initialization();
 	Lcd1602_Initialization();
 
-	USART_ReceiveDataIT(&com, &rcv_byte, 1);
+	USART_ReceiveDataIT(&com, (uint8_t*) &rcv_byte, 1);
 
     while (true) {
     	if (update_display) {
@@ -112,6 +112,6 @@ void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t AppEv)
 	if (AppEv == USART_EVENT_RX_CMPLT) {
 		update_display = true;
 
-		USART_ReceiveDataIT(&com, &rcv_byte, 1);
+		USART_ReceiveDataIT(&com, (uint8_t*) &rcv_byte, 1);
 	}
 }
