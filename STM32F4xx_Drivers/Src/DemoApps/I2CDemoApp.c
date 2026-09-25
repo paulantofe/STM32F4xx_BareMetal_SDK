@@ -21,9 +21,6 @@
 #include "ds1307.h"
 #include "lcd1602.h"
 
-#define false      0
-#define true       1
-
 __vo uint8_t update_display = false;
 
 char* Time_to_String(RTC_Date_Time_t *time) {
