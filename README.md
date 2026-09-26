@@ -5,7 +5,7 @@
 This project is a library of drivers for the STM32F407xx microcontroller, written from scratch by accessing registers directly. This approach avoids using the standard ST HAL or LL libraries to achieve maximum performance and deep understanding of the hardware.
 
 ## Project Goal  
-I developed this bare-metal SDK to truly master the embedded systems and bridge the gap between low-level software and custom physical hardware. By writing register-level drivers from scratch and intentionally bypassing abstractions like ST's HAL or LL, this project serves as a deep dive into embedded fundamentals. My core belief is that a highly capable engineer doesn't just rely on high-level APIs, but understands the exact silicon behavior, interrupt handling, and hardware timing required to make custom PCBs function flawlessly.
+I developed this bare-metal SDK to truly master embedded systems and bridge the gap between low-level software and custom physical hardware. By writing register-level drivers from scratch and intentionally bypassing abstractions like ST's HAL or LL, this project serves as a deep dive into embedded fundamentals. My core belief is that a highly capable engineer doesn't just rely on high-level APIs, but understands the exact silicon behavior, interrupt handling, and hardware timing required to make custom PCBs function flawlessly.
 
 ## Implemented Peripherals
 * GPIO
@@ -19,7 +19,7 @@ To run a demo correctly:
 1. Ensure that the default `main.c` is **excluded from build**.
 2. Ensure the desired demo file (e.g. `GPIODemoApp.c`) is **included** in the project's source path.
 
-If you would like to test/use the SDK yourself, I have included a template `main.c` in `STM32F4xx_Drivers/Src` which, by default, is added to the project's source path.
+To test or build upon this SDK, a template `main.c` is provided in `STM32F4xx_Drivers/Src`, which is included in the build path by default. You can easily load this project into STM32CubeIDE using the standard Import function.
 
 Feel free to check the *Media* section to see some photos/videos regarding the demo apps.
 
@@ -71,7 +71,7 @@ STM32F4xx_BareMetal_SDK/
 ## Media
 Hardware drivers must be proven on actual silicon. This section demonstrates the bare-metal drivers executing in real-world scenarios, successfully driving external peripherals without relying on HAL or standard libraries.
 
-### GPIO Demo:
+### GPIO Demo
 <table>
   <tr>
     <td>
@@ -81,7 +81,7 @@ Hardware drivers must be proven on actual silicon. This section demonstrates the
 </table>
 
 
-### SPI Demo:
+### SPI Demo
 <table>
   <tr>
     <td>
@@ -94,15 +94,18 @@ Hardware drivers must be proven on actual silicon. This section demonstrates the
 </table>
 
 
-### I2C Demo:
+### I2C and USART Demo
 <table>
+  <tr>
+      <td>I2C Demo</td>
+      <td>USART Demo</td>
+  </tr>
   <tr>
     <td>
       <video src="https://github.com/user-attachments/assets/f43d94b6-9d9e-450e-9887-800af4715513" controls="controls" muted="muted"></video>
     </td>
+    <td>
+      <video src="https://github.com/user-attachments/assets/e16201b7-aa51-4ca9-bf56-501ef699b33d" controls="controls" muted="muted"></video>
+    </td>
   </tr>
 </table>
-
-
-
-
