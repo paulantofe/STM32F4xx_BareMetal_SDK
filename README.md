@@ -17,7 +17,7 @@ I developed this bare-metal SDK to truly master embedded systems and bridge the 
 
 ### Prerequisites
 * **Target Hardware:** STM32F407G-DISC1 Discovery Board
-* **Development Environment:** STM32CubeIDE
+* **Development Environment:** STM32CubeIDE (Tested on v1.19.0)
 
 ### How to Use
 1. Clone this repository to your local machine.
