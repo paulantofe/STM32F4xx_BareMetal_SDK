@@ -34,47 +34,13 @@ Feel free to check the *Media* section to see some photos/videos regarding the d
 
 ## Project Structure 
 ```text
-STM32F4xx_BareMetal_SDK/
-├── .gitignore
-├── Doxyfile
-├── LICENSE
-├── README.md
-├── docs/
-└── STM32F4xx_Drivers/
-    ├── .cproject
-    ├── .project
-    ├── STM32F407VGTX_FLASH.ld
-    ├── STM32F407VGTX_RAM.ld
-    ├── BSP/
-    │   ├── ds1307.c
-    │   ├── ds1307.h
-    │   ├── lcd1602.c
-    │   └── lcd1602.h
-    ├── Drivers/
-    │   ├── Inc/
-    │   │   ├── stm32f407xx.h
-    │   │   ├── stm32f407xx_gpio_driver.h
-    │   │   ├── stm32f407xx_i2c_driver.h
-    │   │   ├── stm32f407xx_rcc_driver.h
-    │   │   ├── stm32f407xx_spi_driver.h
-    │   │   └── stm32f407xx_usart_driver.h
-    │   └── Src/
-    │       ├── stm32f407xx_gpio_driver.c
-    │       ├── stm32f407xx_i2c_driver.c
-    │       ├── stm32f407xx_rcc_driver.c
-    │       ├── stm32f407xx_spi_driver.c
-    │       └── stm32f407xx_usart_driver.c
-    ├── Src/
-    │   ├── DemoApps/
-    │   │   ├── GPIODemoApp.c
-    │   │   ├── I2CDemoApp.c
-    │   │   ├── SPIDemoApp.c
-    │   │   └── USARTDemoApp.c
-    │   ├── main.c
-    │   ├── syscalls.c
-    │   └── sysmem.c
-    └── Startup/
-        └── startup_stm32f407vgtx.s
+STM32F4xx_Drivers/
+├── BSP/          # Board support packages (LCD1602, DS1307 RTC)
+├── Drivers/      # Register-level peripheral drivers (GPIO, I2C, SPI, USART)
+├── Src/
+│   ├── DemoApps/ # Standalone applications verifying each peripheral
+│   └── main.c    # Default template entry point
+└── Startup/      # Vector table and startup assembly
 ```
 
 ## Media
