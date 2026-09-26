@@ -13,13 +13,22 @@ I developed this bare-metal SDK to truly master embedded systems and bridge the 
 * I2C 
 * UART/USART
 
+## Getting Started
+
+### Prerequisites
+* **Target Hardware:** STM32F407G-DISC1 Discovery Board
+* **Development Environment:** STM32CubeIDE
+
+### How to Use
+1. Clone this repository to your local machine.
+2. Open STM32CubeIDE and go to **File > Import > General > Existing Projects into Workspace**.
+3. Select the `STM32F4xx_Drivers` folder as the root directory and click **Finish**.
+4. A template `main.c` is included in `STM32F4xx_Drivers/Src` and is part of the build path by default for testing and custom development.
 ## How to Run the Demos
 This project also includes a folder with demo apps for each peripheral supported by the custom driver layer.
 To run a demo correctly:
 1. Ensure that the default `main.c` is **excluded from build**.
 2. Ensure the desired demo file (e.g. `GPIODemoApp.c`) is **included** in the project's source path.
-
-To test or build upon this SDK, a template `main.c` is provided in `STM32F4xx_Drivers/Src`, which is included in the build path by default. You can easily load this project into STM32CubeIDE using the standard Import function.
 
 Feel free to check the *Media* section to see some photos/videos regarding the demo apps.
 
